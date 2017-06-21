@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+<head>
+
+    <title>test</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="engine/build/icons.css" />
+
+    <link rel="stylesheet" type="text/css" href="engine/build/af.ui.css" />
+
+	<link rel="stylesheet" type="text/css" href="engine/third-party/animate.css" />
+	<link rel="stylesheet" href="engine/third-party/font-awesome/css/font-awesome.min.css" />
+    <script type="text/javascript" charset="utf-8" src="engine/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/third-party/fastclick.js"></script>
+	<script type="text/javascript" src="engine/third-party/jquery.noty.packaged.js"></script>
+	
+	<link rel="stylesheet" href="engine/third-party/nanoScrollerJS/bin/css/nanoscroller.css">
+	<script src="engine/third-party/nanoScrollerJS/bin/javascripts/jquery.nanoscroller.js"></script>
+	<script src="engine/third-party/nanoScrollerJS/bin/javascripts/overthrow.min.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.shim.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.ui.js"></script>
+
+
+   										   <script src="engine/src/af.desktopBrowsers.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.actionsheet.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.animation.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.touchEvents.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.popup.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.drawer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.toast.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.animateheader.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.splashscreen.js"></script>
+    <script type="text/javascript" charset="utf-8" src="engine/src/af.swipereveal.js"></script>
+	
+	
+
+
+    <script>
+    $.afui.useOSThemes=false;
+    $.afui.loadDefaultHash=true;
+    $.afui.autoLaunch=false;
+
+    //check search
+    var search=document.location.search.toLowerCase().replace("?","");
+    if(search.length>0)
+    {
+
+       $.afui.useOSThemes=true;
+        if(search=="win8")
+            $.os.ie=true;
+        else if(search=="firefox")
+            $.os.fennec="true"
+        $.afui.ready(function(){
+            $(document.body).get(0).className=(search);
+        });
+    }
+
+    $(document).ready(function(){
+        $.afui.launch();
+    });
+
+    //if($.os.ios)
+        $.afui.animateHeader(true);
+		
+	
+	
+	
+/*	$(document).on('pageinit', '.ui-page', function (event, data){
+	   FastClick.attach(activePage);
+	});*/
+	
+	/*---------------my func--------------*/
+	function openUrl(url, name) {
+		//window.open(url, '_system', 'location=yes');
+		window.open(url, '_'+name, 'location=yes');
+	}
+	
+	function nlTObr(text){
+		return text.split("\n").join("<br />");
+	}
+	
+	//show notification
+	function notify(text, type, duration, pos, animateIn, animateOut){
+/*		var n = noty({
+			text: text,
+			type: type,
+			dismissQueue: true,
+			layout: pos,
+			theme: 'defaultTheme',
+			animation: {
+			open: {opacity: 'toggle'},
+			close: {opacity: 'toggle'},
+			easing: 'swing',
+			speed: 700
+			},
+			timeout: duration,
+			modal: false
+		});
+		return n;*/
+		
+		
+		
+		
+		var n = noty({
+			text         : text,
+			type         : type,
+			dismissQueue : true,
+			layout       : pos,
+			closeWith    : ['click'],
+			theme        : 'relax',
+			maxVisible   : 10,
+			timeout      : duration,
+			animation    : {
+				open       : 'animated bounceIn'+animateIn,
+				close      : 'animated bounceOut'+animateOut,
+				easing     : 'swing',
+				speed      : 500,
+			}
+		});
+		return n;
+	}
+	
+	//close notification
+/*	function close_notify(witch){
+		if(witch == "all"){
+			$.noty.closeAll();
+		}else{}
+	}*/
+    </script>
+	
+
+	<script type="text/javascript" charset="utf-8">
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// START push Notification :////////////////////////////////////////////////////////////////
+	function onNotificationGCM(e){
+		$("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
+
+		switch(e.event){
+		case 'registered':
+			if( e.regid.length > 0){
+			///Android
+				$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+				// Your GCM push server needs to know the regID before it can push to this device
+				// here is where you might want to send it the regID for later use.
+				$.ajax({
+					type: "POST",
+					url: "http://192.168.1.100/set_phone_key.php",
+					data: {regID : e.regid,user:device.uuid,OS:device.platform},
+					async: false,
+					success : function(text){
+						//last_articles_version = text;
+						$("#app-status-ul").append('<li>EVENT -> RECEIVED: Rgister to server is finished : ' + text + '</li>');
+						console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    Notification registration text : ' + text);
+					}
+				});
+			}
+		break;
+
+		case 'message':
+			// if this flag is set, this notification happened while we were in the foreground.
+			// you might want to play a sound to get the user's attention, throw up a dialog, etc.
+			if(e.foreground){
+				
+				$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+				//must have vibration
+				
+				//notify(e.payload.message, 'information', 8000, 'topCenter');
+				notify('<div class="activity-item"> <i class="fa fa-shopping-cart text-success"></i> <div class="activity"> <a href="#">Eugene</a> ' +e.payload.message +' <a href="#">OEM license</a> <span>14 minutes ago</span> </div> </div>', 'information', 8000, 'top', 'Left', 'Right');
+
+				// if the notification contains a soundname, play it.
+				//var my_media = new Media("/android_asset/www/"+e.soundname);
+				//my_media.play();
+				
+			}else{  // otherwise we were launched because the user touched a notification in the notification tray.
+				
+				if(e.coldstart){
+					$("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+					window.alert('coldstart');
+				}else{
+					$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+					window.alert('background');
+				}
+				
+			}
+			
+			//alert(e.payload.message);
+			/*navigator.notification.alert(
+				e.payload.message +' - ' +e.payload.msgcnt,  // message
+				"",                 // callback
+				'اشعار',            // title
+				'موافق'             // buttonName
+			);*/
+			//alert(e.payload.msgcnt);
+			
+			$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+			$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+			
+		break;
+
+		case 'error':
+			$("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+		break;
+
+		default:
+			$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+		break;
+	  }
+	}
+	function successHandler(result){
+		//alert('result = ' + result);
+		$("#app-status-ul").append('<li>REGISTERED -> result = ' + result + "</li>");
+
+	}
+	// result contains any error description text returned from the plugin call
+	function errorHandler(error){
+		//alert('error = ' + error);
+		$("#app-status-ul").append('<li>REGISTERED -> error = ' + error + "</li>");
+	}
+	// END push Notification ///////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	/*----------------------------------------------------------------------------------------*/
+
+
+
+	function init(){           
+		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
+		document.addEventListener("deviceready", onDeviceReady, false);
+	}
+
+	function onDeviceReady() {
+		//FastClick.attach(document.body);
+		  
+		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start onDeviceReady');
+			
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// START push Notification :////////////////////////////////////////////////////////////////
+		pushNotification = window.plugins.pushNotification;
+
+		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    register_for_notifs : no // ' + device.platform);
+		if(device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos"){
+			pushNotification.register(successHandler,errorHandler,{"senderID":"1069136326484","ecb":"onNotificationGCM"});
+		}else{
+			pushNotification.register(tokenHandler,errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationGCM"});//"onNotificationAPN"});
+		}
+		
+		
+		//iPhone
+		function tokenHandler(result){
+			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    Notification Callback Success! Result (ios) = '+result);
+			$.ajax({
+				type: "POST",
+				url: "http://192.168.1.100/set_phone_key.php", 
+				data: {regID : result,user:device.uuid,OS:device.platform},
+				async: false,
+				success : function(text){
+					console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    Notification registration text : ' + text);
+				}
+			});
+		}
+	// END push Notification ///////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	}
+	
+	
+	
+	
+	
+	
+	
+	$(window).bind("hashchange",function(){
+        if(window.location.hash == "#main"){
+			$('#sis-app-header').slideUp(150);
+		}else{
+			$('#sis-app-header').slideDown(150);
+		}
+    });
+	
+	</script>
+	<style>
+	/*الإصدارات - esdarat*/
+	.white-item{
+		background:#fcfdfe;
+		border:1px solid #eaeef1;
+		margin:8px 0 0 0;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+		text-decoration:none;
+	}
+	.white-item .panel-subject{
+		padding:10px;
+		text-align:center;
+		font-family:hacen_xxl;
+		font-size:17px;
+		color:#838282;
+	}
+	div.colored-win{
+		border:1px solid #eaeef1;
+		border-radius:3px;
+		background:#ffffff;
+		margin:8px 0 0 0;
+		overflow:hidden;
+		direction:rtl;
+	}
+	div.colored-win .c-w-title{
+		border-bottom:1px solid #eaeef1;
+		background:#1ccacc;
+		height:50px;
+		line-height:50px;
+		text-indent:20px;
+		font-size:16px;
+		font-family:"hacen_xxl";
+		color:#fff;
+		
+	}
+	span.grid-item{
+		display:inline-block;
+		width:25%;
+		vertical-align:top;
+	}
+	@media screen and (orientation : portrait){
+		span.grid-item{
+			width:33.3333333333333333%;
+		}
+	}
+	@media screen and (max-width: 14cm) and (orientation : portrait){
+		span.grid-item{
+			width:50%;
+		}
+	}
+	span.grid-item div.in{
+		position:relative;
+		border: 1px solid #eaeef1;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+		margin:3px;
+		padding:3px;
+	}
+	span.grid-item div.in h3.title{
+		border-top:1px solid #eaeef1;
+		font-size:13px;
+		font-family:"hacen_light";
+		font-weight:normal;
+		padding:3px 5px 0 5px;
+		color:#6d7077;
+		max-height:55px;
+		overflow:hidden;
+		line-height:24px;
+	}
+	.loading{
+		position:absolute;
+		top:0;
+		bottom:0;
+		left:0;
+		right:0;
+		background:url("img/loading.gif") no-repeat center center #FFF;
+	}
+	.loading2{
+		position:absolute;
+		top:0;
+		bottom:0;
+		left:0;
+		right:0;
+		background:url("img/loading2.gif") no-repeat center center #FFF;
+		background-size:35px;
+		opacity:0.4;
+	}
+	</style>
+	<style>
+	/*مشاهدة الإصدار - esdarat-inside-content*/
+	
+	#esdarat-inside-content .esdar-title, #alrasad_marakiz-inside-content .markaz-title, #alrasad_taqarir-inside-content .taqrir-title{
+		font-family:"hacen_screen";
+		font-size:20px;
+		text-align:center;
+		line-height:30px;
+		padding:8px 0;
+		color:#5d6066;
+	}
+	#esdarat-inside-content #esdar-text img{
+		width:150px;
+		padding:1px;
+		border: 1px solid #eaeef1;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	}
+	#esdarat-inside-content #esdar-text a{
+		display:block;
+		background:#d06975;
+		margin:10px 0;
+		padding:10px;
+		text-decoration:none;
+		color:#FFF;
+		border-radius:5px;
+		font-size:18px;
+	}
+	.app-text{
+		direction:rtl;
+		font-family:Droid Arabic Naskh;
+		text-align:justify;
+		color:#797979;
+		line-height:25px;
+		padding:5px 10px 0 10px;
+	}
+	.app-text p{
+		line-height:33px;
+		color:#3a3c3f;
+		font-size:13px;
+	}
+	.load_more{
+		display:block;
+		background:#ededed;
+		margin:10px 0;
+		padding:10px;
+		text-decoration:none;
+		color:#bebdbd;
+		border-radius:5px;
+		font-size:17px;
+		text-align:center;
+		font-family:"hacen_screen";
+	}
+	/*					@media screen and (min-width: 17cm) and (orientation : portrait){
+		.app-text{
+			padding:10px 10px 0 10px;
+		}
+		.app-text p{
+			font-size:18px;
+			line-height:35px;
+		}
+	}
+	@media screen and (min-width: 20cm){
+		.app-text{
+			padding:10px 10px 0 10px;
+		}
+		.app-text p{
+			font-size:18px;
+			line-height:35px;
+		}
+	}*/
+	
+	
+	
+	span.list-pic-item{
+		display:inline-block;
+		vertical-align:top;
+		background:#fbfbfb;
+		position:relative;
+		border: 1px solid #eaeef1;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+		margin:3px;
+		padding:3px;
+	}
+	span.list-pic-item div.in img{
+		float:right;
+		border-left: 1px solid #eaeef1;
+		padding:1px;
+		max-height:100%;
+		width:auto;
+	}
+	span.list-pic-item div.in h3.title{
+		font-size:13px;
+		font-family:"hacen_light";
+		font-weight:normal;
+		padding:3px 5px 0 5px;
+		color:#6d7077;
+		overflow:hidden;
+		line-height:24px;
+	}
+	
+	.list-pic_item{
+		position:relative;
+		display:block;
+		background:#fcfdfe;
+		border:1px solid #eaeef1;
+		margin:8px 0 0 0;
+		/*height:84px;*/
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+		text-decoration:none;
+		direction:rtl;
+		white-space:nowrap;
+		overflow:hidden;
+	}
+	.list-pic_item .pic-text{
+		height:84px;
+		overflow:hidden;
+	}
+	.list-pic_item .pic-text img{
+		padding:1px;
+		vertical-align:middle;
+		position:absolute;
+		top:0;
+		right:0;
+		border-left:1px solid #eaeef1;
+	}
+	.list-pic_item .pic-text table.text{
+		vertical-align:middle;
+		width:100%;
+		
+	}
+	.list-pic_item .pic-text table.text td{
+		height:78px;
+		padding:0 80px 0 8px;
+		margin:0;
+		white-space:normal;
+		font-family:"hacen_xxl";
+		font-size:14px;
+		color:#6d7077;
+		text-align:right;
+	}
+	.list-pic_item .details{
+		border-top:1px solid #eaeef1;
+		font-size:15px;
+		background:#fdfdfd;
+		padding:2px;
+		display:none;
+	}
+	.list-pic_item .details .p-item{
+		padding:5px 10px;
+	}
+	.list-pic_item .details .p-item img{
+		vertical-align:middle;
+	}
+	.list-pic_item .details .p-item span{
+		font-family:"hacen_light";
+		padding:0 10px 0 0;
+		font-size:14px;
+		color:#5a5e64;
+	}
+	.list-pic_item .details .text{
+		border-top:1px solid #F5F5F5;
+		white-space:normal;
+		padding:10px 10px 4px 10px;
+		margin:4px 0 0 0;
+		font-family:"Droid Arabic Naskh";
+		font-size:12px;
+		line-height:27px;
+		text-align:justify;
+		color:#5a5e64;
+	}
+	.list-pic_item .details .text span.read_more{
+		display:block;
+		background:#d06975;
+		margin:6px 0;
+		padding:5px;
+		color:#FFF;
+		border-radius:5px;
+		font-size:16px;
+		font-family:"hacen_screen";
+		text-align:center;
+	}
+	.list-pic_item .details .text span.read_more span{
+		display:none;
+	}
+	
+	#alrasad_taqarir-inside-content .details{
+		background:#fcfdfd;
+		margin:3px -10px 13px -10px;
+		padding:5px 0;
+		border-top:1px solid #f7f8f9;
+		border-bottom:1px solid #f7f8f9;
+	}
+	#alrasad_taqarir-inside-content .details .p-item{
+		padding:9px 10px;
+	}
+	#alrasad_taqarir-inside-content .details .p-item img{
+		vertical-align:middle;
+	}
+	#alrasad_taqarir-inside-content .details .p-item span{
+		font-family:"hacen_light";
+		padding:0 10px 0 0;
+		font-size:15px;
+		color:#5a5e64;
+	}
+	
+	.noty_message{
+		font-family:"hacen_light" !important;
+		padding:13px 15px 13px 15px !important;
+	}
+	</style>
+</head>
+
+<body onload="init()">
+<div id="afui" class="hassan">
+<!--    <div id="splashscreen" class='ui-loader heavy'>
+		App Framework
+		<br>
+		<br>
+		<span class='ui-icon ui-icon-loading spin'></span>
+		<h1>Starting app</h1>
+
+	</div>-->
+    <div class="view" id="mainview">
+		<div class="pages">
+
+			<div style="padding:0" data-left-drawer="left" class="panel" id="main" data-title="Main" data-selected="true" data-title="الصفحة الرئيسية" style="padding-bottom:0">
+			<script>
+/*				$(document).ready(function(){
+					$("#sis-app-header").hide();
+					$("#main").bind("panelbeforeload",function(){
+						$("#sis-app-header").hide();
+					});
+					$("#sira").bind("panelbeforeload",function(){
+						$("#sis-app-header").show();
+					});
+				});*/
+			</script>
+			<style>
+			@import url(engine/build/fonts/DroidArabicKufi/DroidArabicKufi.css);
+			@import url(engine/build/fonts/DroidArabicNaskh/DroidArabicNaskh.css);
+			.main_page_head{
+				height:30vh;
+				margin:0 -9px;
+				background:url(img/head.jpg) no-repeat center center #0D4E77;
+				background-size: 100% auto;
+			}
+			.istighrab_mag_list{
+				height:70vh;
+				overflow:hidden;
+			}
+			.istighrab_mag_list .mag_item{
+				text-align:right;
+				direction:rtl;
+			}
+			.istighrab_mag_list .mag_item .mag_item_in{
+				position:relative;
+				background:#ffffff;
+				height:11.7vh;
+				border-bottom:0.2vh solid #f5f6f6;
+				white-space:nowrap;
+			}
+			.istighrab_mag_list .mag_item.mag-opened .mag_item_in{
+				border-bottom:none;
+			}
+			.istighrab_mag_list .mag_item:last-child{
+				border-bottom:none;
+			}
+			.istighrab_mag_list .mag_item .mag-name{
+				position:absolute;
+				top:35%;
+				right:2.5%;
+			}
+			.istighrab_mag_list .mag_item .mag-name .mag-name-logo{
+				height:3.5vh;
+			}
+			.istighrab_mag_list .mag_item .mag-name .mag-name-num{
+				position:absolute;
+				top:-50%;
+				left:-11.5%;
+				width:37%;
+				text-align:center;
+				font-size:3.3vh;
+				color:#fb8472;
+				letter-spacing:-0.5vh;
+				font-family:"hacen_screen";
+			}
+			.istighrab_mag_list .mag_item .mag-title-middle-holder{
+				height:100%;
+				display:inline-block;
+				vertical-align:middle;
+				widows:0;
+				font-size:0;
+			}
+			.istighrab_mag_list .mag_item .mag-title{
+				display:inline-block;
+				margin:0 17.5vh 0 10.5vh;
+				padding:0.5vh 0 0 0;
+				vertical-align:middle;
+				white-space:normal;
+				font-family:"hacen_screen";
+				font-size:2.2vh;
+				color:#7e99a7;
+			}
+			.istighrab_mag_list .mag_item .mag-download{
+				position:absolute;
+				top:33%;
+				left:3%;
+				text-decoration:none;
+				font-size:5vh;
+				color:#c8d1d9;
+			}
+			.istighrab_mag_list .mag_item .mag-details{
+				display:none;
+				position:relative;
+				background:#faf9f9;
+				border-top:0.2vh solid #efefef;
+				border-bottom:0.2vh solid #efefef;
+			}
+			.istighrab_mag_list .mag_item .mag-details-up-arrow{
+				display:none;
+				border:2.3vh solid transparent;
+				border-bottom-color:#f5f5f5;
+				width:0;
+				height:0;
+				position:absolute;
+				bottom:-0.4vh;
+				right:6vh;
+				z-index:+1;
+			}
+			.istighrab_mag_list .mag_item .mag-details-up-arrow.under{
+				border-bottom-color:#efefef;
+				bottom:-0.1vh;
+			}
+			.istighrab_mag_list .mag_item.mag-opened .mag-details-up-arrow{
+				display:block;
+			}
+			.istighrab_mag_list .mag_item.mag-opened .mag-details{
+				display:block;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button{
+				background:#f5f5f5;
+				border-bottom:0.2vh solid #efefef;
+				text-align:left;
+				font-size:0;
+				padding:0 0 0 1.7vh;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a{
+				display:inline-block;
+				text-decoration:none;
+				background:#dee2e6;
+				font-family:"hacen_screen";
+				font-size: 2.1vh;
+				border-radius:0.6vh;
+				display:inline-block;
+				margin:1vh 1.2vh 1.2vh 0;
+				padding:1.2vh 1.5vh 0.7vh 1.7vh;
+				text-align:right;
+				color:#8f9fad;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a i.fa{
+				color:#8f9fad;
+				font-size:3.4vh;
+				margin:0.1vh 0 0 0.3vh;
+				display:inline-block;
+				vertical-align:middle;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a:first-child i.fa{
+				font-size:3vh;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a span{
+				line-height:0;
+				vertical-align:middle;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-info .mag-info-win{
+				font-size:1.7vh;
+				border:1px solid #eeeeee;
+				font-family:"Droid Arabic Naskh";
+				background:#fff;
+				margin:1.6vh;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-info .mag-info-win .mag-info-win-title{
+				color:#995454;
+				background:#faf9f9;
+				text-align:center;
+				font-family:"Droid Arabic Kufi";
+				font-weight:bold;
+				font-size:1.6vh;
+				border-bottom:1px solid #eeeeee;
+				padding:1.8vh 0 1.8vh 0;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-info .mag-info-win .mag-info-win-text{
+				padding:2vh;
+				height:33vh;
+				overflow:scroll;
+				color:#7b7b7b;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-info p{
+				padding:0;
+				margin:0;
+				line-height:4.2vh;
+				font-size:1.7vh;
+			}
+		
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table{
+				border-collapse:collapse;
+				border:0.2vh solid #eeeeee;
+				font-family:"Droid Arabic Kufi";
+				color:#7b7b7b;
+				margin:1.6vh;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table thead{
+				border-bottom:0.2vh solid #eeeeee;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table thead tr{
+				font-size:0;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table thead tr th{
+				width:33.333333%;
+				display:inline-block;
+				box-sizing:border-box;
+				font-size:1.6vh;
+				border:none;
+				color:#995454;
+				background:#faf9f9;
+				text-align:right;
+				padding:2vh 3vh 1.8vh 0;
+				vertical-align:top;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table thead tr th:first-child{
+				padding-right:2vh;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table thead tr th:last-child{
+				padding-left:2vh;
+				text-align:center;
+				vertical-align:middle;
+			}
+			
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tbody{
+				display:block;
+				height:33vh;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tbody tr{
+				font-size:0;
+				border-bottom:0.2vh solid #eeeeee;
+				background:#FFFFFF;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tbody tr:last-child{
+				border:none
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tbody tr td{
+				width:33.333333%;
+				box-sizing:border-box;
+				font-size:1.6vh;
+				text-align:right;
+				padding:2vh 3vh 1.8vh 0;
+				vertical-align:top;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tbody tr td:first-child{
+				padding-right:2vh;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tbody tr td:last-child{
+				padding-left:2vh;
+				text-align:center;
+				vertical-align:middle;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tbody tr td a{
+				color:#7b7b7b;
+				text-decoration:none;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tr td:last-child i{
+				font-size:3.5vh;
+				color:#6fc3cb !important;
+			}
+			
+
+			
+			
+			
+			</style>
+				<div class="main_page_head">
+					&nbsp;
+				</div>
+				<div class="istighrab_mag_list">
+				<style>
+				.nano { background: #f1f1f1 !important; width: 100vw; height: 70vh; }
+				.nano .nano-content {  }
+				.nano .nano-pane   { background: none !important; width:1.2vw; border-radius:0; }
+				.nano .nano-slider { background: #d4d2d2 !important; border-radius:0 !important; }
+				</style>
+				<script>
+				$(document).ready(function(e) {
+					$(".nano").nanoScroller({ alwaysVisible: true });
+				});
+				</script>
+				<div class="nano">
+					<div class="nano-content">
+						<div class="mag_item mag-opened">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٢٢</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#"></a>
+								<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div>
+							</div>
+							<div class="mag-details">
+								<div class="mag-details-top-button">
+									<a href="#"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a>
+									<a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a>
+								</div>
+								<div class="mag-taqarir">
+									
+									
+									
+									
+									
+									
+									
+<table class="HHH-table">
+	<thead>
+		<tr>
+			<th>عنوان البحث</th>
+			<th>الباحث</th>
+			<th>تحمیل</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a href="?id=26&sid=4915">تدني الإلحاد</a></td>
+			<td><a href="?id=26&sid=4915">محمود حيدر</a></td>
+			<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+		</tr>
+		<tr>
+			<td><a href="?id=26&sid=4915">المفكر المصري مصطفى النشار، الفكر الغربي مزيج مضطرب بين الإلحاد والإيمان</a></td>
+			<td><a href="?id=26&sid=4915">أجرى الحوار : عامر عبد زيد الوائلي</a></td>
+			<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+		</tr>
+		<tr>
+			<td><a href="?id=26&sid=4915">هل خلق الدماغ الله أمِ الله خلق الدماغ ؟ ، حوار في الإلحاد والإيمان مع جورج هلال ويانيك فيلديو</a></td>
+			<td><a href="?id=26&sid=4915">أدار الحوار : ج. آ. بيرجيرون</a></td>
+			<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+		</tr>
+		<tr>
+			<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td>
+			<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td>
+			<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+		</tr>
+		<tr>
+			<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td>
+			<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td>
+			<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+		</tr>
+	</tbody>
+</table>								
+									
+									
+									
+									
+									
+									
+								</div>
+								<div class="mag-info">
+								
+								
+								
+								
+								
+<div class="mag-info-win">
+	<div class="mag-info-win-title">معلومات العدد</div>
+	<div class="mag-info-win-text">											
+										
+		<p><span style="color:#B22222"><strong>فهرس المحتويات</strong></span></p>
+		
+		<p><span style="color:#B22222"><strong>المبتدأ</strong></span></p>
+		
+		<p><strong>تدني&nbsp;الإلحاد</strong></p>
+		
+		<p><span style="color:#B22222">محمود حيدر</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>محاورات</strong></span></p>
+		
+		<p><strong>ـ المفكر المصري مصطفى النشّار</strong></p>
+		
+		<p>الفكر الغربي مزيج مضطرب بين الإلحاد والإيمان</p>
+		
+		<p><span style="color:#B22222">أجرى الحوار: عامر عبد زيد الوائلي</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ هل خلق الدماغُ الله&nbsp; أمِ الله ُخلقَ الدماغَ؟</strong></p>
+		
+		<p><span style="color:#B22222">حوار في الإلحاد والإيمان مع جورج هلال ويانيك فيلّديو</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>الملف</strong></span></p>
+		
+		<p><strong>ـ وهم دوكينز</strong></p>
+		
+		<p>الأصولية الملحدة وإنكار الإلهيّ</p>
+		
+		<p><span style="color:#B22222">إليستر ماكغراث وجوانا كوليكات ماكغراث</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ البرهان الوجودي على وجود الله</strong></p>
+		
+		<p>تنظير في الإلهيات المقارنة</p>
+		
+		<p><span style="color:#B22222">مهدي الحائري اليزدي</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ الإنسان مختزلاً</strong></p>
+		
+		<p>الإلحاد تقديس للدنيوية واختصام مع المتعالي السماوي</p>
+		
+		<p><span style="color:#B22222">&nbsp;هادي قبيسي</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ هل قتل العلمُ الله؟ </strong>مساجلة لاهوتية فلسفية لأفكار داوكينز</p>
+		
+		<p><span style="color:#B22222">اليستر ماكغراث</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ ثغرات في جدار الإلحاد</strong></p>
+		
+		<p>الوعي بالإله من المفهوم الاسلامي إلى المفهوم الغربي</p>
+		
+		<p><span style="color:#B22222">محمد عثمان الخشت</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ الإلحاد غرباً</strong></p>
+		
+		<p>فلسفة وجود أم أمل طوباوي</p>
+		
+		<p><span style="color:#B22222">شريف الدين بن دوبة</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ إخفاق النظام الأخلاقي للإلحاد</strong></p>
+		
+		<p>العلموية لا تنتج المعنى المتسامي</p>
+		
+		<p><span style="color:#B22222">روبرت أ. دلفينو</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>حلقات الجدل</strong></span></p>
+		
+		<p><strong>ـ الله..</strong></p>
+		
+		<p>الأساس النهائي للحقيقة العلمية</p>
+		
+		<p><span style="color:#B22222">جان دومينيك روبي</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>الإلحاد الإبستمولوجي</strong></p>
+		
+		<p>ديفيد هيوم تمثيلاً</p>
+		
+		<p><span style="color:#B22222">غيضان السيد علي</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ النقد الغربي للإلحاد</strong></p>
+		
+		<p>&nbsp;عن هشاشة المفهوم وأوهام التطبيق</p>
+		
+		<p><span style="color:#B22222">عماد الدين إبراهيم عبد الرازق</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ ظاهرة الإلحاد</strong></p>
+		
+		<p>مقاربة نقديّة في المضمون الفكري</p>
+		
+		<p><span style="color:#B22222">نبيل علي صالح</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ براهين علم الكونيات</strong></p>
+		
+		<p>بحث مقارن بين الرؤيتين الغربية والإسلامية</p>
+		
+		<p><span style="color:#B22222">حميد رضا آيت اللهي</span></p>
+		
+		<p>............................................</p>
+		
+		<p><strong>ـ شبهات الملحدين</strong></p>
+		
+		<p>النقد العقلي لـ &quot;لا عقلانية&quot; الإلحاد</p>
+		
+		<p><span style="color:#B22222">محمد حسن قدردان قراملكي</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>الشاهد</strong></span></p>
+		
+		<p><strong>ـ الفيلسوف الألماني فرانز فون بادر</strong></p>
+		
+		<p>ناقد العقلانيّة الملحدة</p>
+		
+		<p><span style="color:#B22222">رولاند بيتشي</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>منتدى الاستغراب</strong></span></p>
+		
+		<p><strong>ـ مسألة وجود الله</strong></p>
+		
+		<p>مناظرة بين ويليام لاين كريغ وبيتر ميليكان</p>
+		
+		<p><span style="color:#B22222">أدار المناظرة: كارل شي</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>نحن والغرب</strong></span></p>
+		
+		<p><strong>ـ الفلسفة التطبيقية شرقاً وغرباً</strong></p>
+		
+		<p>قراءة في أطروحات العلاّمة مهدي الحائري اليزدي</p>
+		
+		<p><span style="color:#B22222">هاشم الميلاني</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>نصوص مستعادة</strong></span></p>
+		
+		<p><strong>ـ اللَّه وغَرَضِيَّة العالم، النظام الأخلاقي كغاية عليا للاجتماع البشري</strong></p>
+		
+		<p><span style="color:#B22222">والتر ستيس</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>عالم المفاهيم</strong></span></p>
+		
+		<p><strong>ـ علم اللاهوت</strong></p>
+		
+		<p>جذوره ومضامينه وتطوّراته المعرفيّة</p>
+		
+		<p><span style="color:#B22222">إيان مرخام</span></p>
+		
+		<p>..............................................................................................</p>
+		
+		<p><span style="color:#B22222"><strong>ترجمة ملخصات المحتوى (بالانكليزية والفرنسية)</strong></span></p>
+		
+		<p style="text-align:center"><span style="color:#B22222"><strong>المبتدأ</strong></span></p>
+		
+		<p dir="RTL"><strong>تدني الإلحاد</strong></p>
+		
+		<p>ما كان من عبارة أبلغ من توصيف مآلات التنوير في الغرب بأنها حداثة ضد الله..</p>
+		
+		<p>ربما لم يكن للذين ذهبوا إلى مثل هذه الخاتمة ان يقولوا هذا، لولا أن آل جموح العلمنة حدَّ صدِّ الغرب عن إيمانه بعد فصله عن لاهوته. كانت الظاهرة الإلحادية من أبرز البيِّنات على تهافت العلمنة وهي تخوض معاركها الفاصلة مع الإيمان الديني تطبيقاً لشعارها الأثير: &laquo;إزالة السحر عن العالم&raquo;... فلو كان لنا أن نؤرخ للإلحاد المستحدث لوجدنا في هذه البيِّنة مستهل الرواية. فالإلحاد ما صار ظاهرة غربية إلا مع حداثة حرصت على نزع الإيمان حتى يتسنى لها الاستحواذ على دنيا الإنسان بلا أدنى منازعة.</p>
+		
+		<p>سواء قرأنا الإلحاد كمنزع تفكيري، أو كموقف من حدثٍ قَلَبَ تاريخَ الغرب الحديث رأساً على عقب، سوف ينتهي بنا المسعى إلى منطقة رمادية مكتظة بالمقاربات والمفارقات. وأنّى كان الأمر، ففي الحالين إياهما لم نشهد في التراث الفلسفي الغربي على تنظيرٍ يُسدِّدُ مرمى الظاهرة الإلحادية أو يسوغ مدّعاها.. حتى لقد بدا لنا في حمى الجدل حول ماهية الإلحاد وهويته، أن التعريف الأكثر قرباً منه وانطباقاً عليه هو السلب والإعراض. أي أن الملحد تعريفاً هو ذاك الذي يُعرِضُ عما ليس تحت سطوة الحواس. أو ـ بحسب المصطلح الهايدغري ـ عما لا يكون طوع اليد (Zuhandheit). ففي معرض احتجاجه على نقص الميتافيزيقا بصيغتيها&nbsp; اليونانية والحديثة، سيستعيد هايدغر أصل الإشكال في فلسفة الموجود. داعياً إلى التحرُّر من كثافة الموجودات وأعراضها العارضة، لأجل التعرُّف على لطف الوجود وأصالته. وعند هذا الانعطاف، لا تعود العلاقة الأولية للكائن الإنساني مع أشياء العالم المرئية والمحسوسة علاقة استعمالية انتفاعية. وتلك علاقة أفضت إلى أن يُركن المُلحد من أول أمره إلى تلك الجملة الاعتراضية: لن أؤمن بما يؤمن به المؤمن بالله الواحد الأحد، ما دمت لا أرى الدليل على هذا الإيمان عيناً وواقعاً حسيِّاً..</p>
+		
+		<p>نمضي إلى هذا المستخلص من فرضيتين: إحداهما ترى إلى الإلحاد كحدثٍ تاريخي ألقى بآثاره على الإنسان فانفعل بها واستجاب لدواعيها، وأخرى نظرت إليه كفكرة استعصى على الناظر تفكيك لغزها فهوى في لجة اللاَّيقين.. ثم لم يكن له جرَّاء هذا إلا أن يدحض إيمان المؤمن طلباً ليقين ما. ربما لهذا السبب سينبري الفيزيائي واللاهوتي المسيحي أليستر ماكغراث (Alister Mcgrath) إلى عقد صلة سببية بين الإلحاد والإيمان؛ ليبيِّن أن الاول (الإلحاد) ما كان لصورته ان تظهر على الملأ لولا إنكاره الوجود الواقعي للإيمان.</p>
+		
+		<p>بهذه المنزلة تصير المقولة الإلحادية رؤية ذات طابع إيذائي؛ تُنكر على المؤمن إيمانه بوجود صانع ومدبِّر للكون، وتزعم إمكان الفهم التام للعالم والسيطرة عليه. ومن المفارقات التي لا تخلو من إفراط، ان الذين يلحدون(بدراية أو من دونها) كثيراً ما يخلعون على إلحادهم رداء العقلانية. وما يفعلون هذا إلا لظنٍ منهم بقدرة &laquo;العقل العلمي&raquo; على الكشف عن أعمق حقائق الكون والتعبير عنها، من آلية شروق الشمس إلى منشأ الطبيعة البشرية ومصيرها النهائي.</p>
+		
+		<p style="text-align: center;">* * * * *</p>
+		
+		<p>بين الإلحاد والإيمان ضدِّية وجودية إلا أنهما لا يتعادلان في القيمة والاعتبار. لكن التمايز بينهما جوهريٌّ. فإذا كان الإيمان موجبٌ ويكتسب أصالته من تعلقه بواجب الوجود، فالإلحاد سالبٌ&nbsp; ومنحكمٌ إلى النقص لتعلقه بعالم الإمكان والفقر وإنكار الواجب. وإذاً، فلا&nbsp; نسبة وجودية للإلحاد إلا بصفة كونه نفياً للإيمان. اللاّإيمان (Atheism) مقابل الإيمان (Theism). لا يقبل الملحد ـ وبكل بساطة ـ بالمعتقدات الأساسية للإيمان بوجود الله. وعليه لا يكون الشخص ملحداً إلا متى أعرض عن تلك المعتقدات ورَفَضها. بهذا التأصيل لا يكون للإلحاد بياناً وحضوراً إلا كنفيٍ لما هو موجود بالفعل.. وهو الإيمان بحقيقة الوجود. فالملحد هو الذي ينفي بالقوة ما يعتقد به المؤمن بالفعل. فلئن كان المؤمن محصَّناً بقوة انجذاب نحو الوجود المتعالي من أجل ان يُحصِّل القربى إليه ما اسطاع&nbsp; إلى ذلك سبيلاً، فمنكر الإيمان مصدودٌ بقوة انجذابية معاكسة. قوة الجذب لديه سالبة، خاوية، وممتنعة عن الامتلاء بما آمن به المؤمن وأَمِنَ إليه.</p>
+		
+		<p>على هذا يصير الخواء سَمْتَ المُلحدِ ومبعث قلقهِ وتوتره وتشاؤمه الوجودي. قد يقال ان الملحد مطمئن لإلحاده، وأن هذه الطمأنينة هي عنده يقين، إلا أنه يقين أبترُ لا يلبث صاحبُه حتى يسائل نفسه عن قيمة وجوده ما دام هذا الوجود آيل إلى اللاَّشيء.. إلى سديم..</p>
+		
+		<p>يتمدد التساؤل عند المؤمن طلباً لمضاعفة يقينه، أما الملحد فكل سؤال لا يقع موضوعه في مرمى العين يتبدَّد ويصير حطاماً. وفي حين يتغيّأ المؤمنُ التعرُّفَ إلى الحقيقة المتعالية الراعية للمخلوقات طلباً للخلاص الأبدي، لا يجد الملحد في إلحاده ما يمكنه من بلوغ غاية تتجاوز آفاق الطبيعة المرئية المنتهية إلى الموت والفناء. وبالتبع المنطقي يتعذر أن يكون ثمة من معنى وقيمة لدى الملحد ما دام نفيُه للألوهية منتهياً إلى عدم. من الأقدمين والمحدثين من آنَسَ إلى سؤال الشك على أمل مَلئِه بجواب ما مثلما فعل اللاّأدريون؛ إلا أن الذين ألحدوا وانصرفوا إلى التبشير بإلحادهم لم يفلحوا إلا ضمن الحيِّز الذي خلا من المؤمنين. وهو الحيِّز الذي توفر لهم مع تمدد العلمنة في أزمنة الغرب الحديث وسريانها العميق في عقله وروحه.</p>
+		
+		<p style="text-align: center;">* * * * *</p>
+		
+		<p>كل ما جاء به الإلحاد الغربي من محاجَّات، فإنما من تضخم الذات التي أسلمت نفسها لعَلْمنةٍ دارت جلُّ أسئلتها مدار &quot;الطبيعانية&quot; الصمّاء. ولسوف يجد مثل هذا التضخم حقله الخصيب عند منعطفات الإنزياح التام إلى العقل الخالص والعلم المكتفي بذاته. ها هنا سنشهد على الإلحاد كحادث تاريخي تمثّل بـ: العِلموية والهيمنة.. وهما الفرضيتان اللتان لاَزَمتا حركة الحداثة الغربية سحابة سبعة قرون متصلة، ولا تزالان تستحكمان بمقالتها الفلسفية ومسلكها الحضاري إلى يومنا هذا:</p>
+		
+		<p>- فَرضَية العِلْموية، ترى أن العلم والتفكير العلمي قادران لوحدهما أن يحدِّدا كل ما علينا أن نتقبله على أنه حقيقي. فرضيةٌ تقرر أن كل شيء يجب أن يخضع لقوانين الفيزياء والكيمياء والبيولوجيا، او أي فرع آخر من فروع العلم، أما الروحانيات وحتى الشعور بالجمال والحدس والعاطفة والأخلاقيات، فقد اختزلتها النظرة العقلانية إلى مجرد متغيرات في كيمياء الدماغ تتفاعل مع مجموعة من القوانين الميكرو ـ بيولوجية المرتبطة بتطوّر الإنسان.</p>
+		
+		<p>- فرضية الهيمنة والاستحواذ، تقرر ان الهدف من العلم &ndash; حسب فرانسيس بيكون - هو التحكم بالعالم الخارجي واستغلال الطبيعة، والسعي الحثيث إلى جلب المنافع أنَّى وُجِدَت...</p>
+		
+		<p>كان التأثير الباهر للثورة الكوبرنيكية جلياً على مجالي العلم والفلسفة، إلا أن هذا التأثير سينتهي&nbsp; إلى حدٍّ وجد فيه الغرب&nbsp; نفسه كما لو يقطن في كون بارد لا هدف له ولا غاية، وأن الوجود الانساني فيه ليس إلا ظاهرة عارضة للمادة نتجت عن مصادفة كونية، لا عن وجودٍ ينتظمه تقديرٌ إلهي. من أجل ذلك سيكشف مسار الحداثة الفائضة عن خراب مبين في اليقين الجمعي سيُعرِّفُهُ عالم الاجتماع الألماني دوركهايم بـ &laquo;هيكل الشرك الحديث&raquo;. وهذا هو في الواقع، ما تستجليه عقيدة الفرد وشخصانيته المطلقة. فالشكل العبادي للشرك الحديث ـ كما ألمحَ دوركهايم ـ ليس الوثنية بل النرجسية البشرية، لمّا بلغ تضخم الذات لديها منزلة الذروة في زمن العلمنة المطلقة.. حتى لقد أمست عبادة الفرد إذّاك، دينُ الحداثة الفائضة وديدنُها.</p>
+		
+		<p style="text-align: center;">* * * * *</p>
+		
+		<p>أفضت عقيدة الفرد أو ما سمي بـ فلسفة &laquo;تأليه الإنسان&raquo; إلى انتاج ضربٍ من الإلحاد المركب: إلحاد بالإيمان كإيمان تتوق إليه الجماعات البشرية على نشأة الفطرة.. وإلحاد بالمؤسسة اللاهوتية وبدورها في رعاية الجماعة المؤمنة.</p>
+		
+		<p>التأسيس الفلسفي لحضارة الفرد جرى مجرى الحداثة بأطوارها المتعاقبة. ولنا ـ على سبيل التمثيل لا الحصر ـ أن نتأمل في شهادات بعض النظّار: &laquo;ان دين الإنسان لا يعرف الهياكل&nbsp; والمذابح والطقوس&raquo;(روسو)..، &laquo;أنا بحد ذاتي فرقة دينية&raquo;(توماس جيفرسون) &laquo;فكري هو كنيستي&raquo;(توماس باين).. هذي شهادات ليست على الجملة سوى تعبيرات مقتضبة عمّا اصطلح على تسميته بـ &laquo;التديُّن الفردي&raquo;. من هذا النحو وغيره من أنحاء، تشكلت معالم الأطروحة الإلحادية في تفكير الغرب الحديث. غاية الأطروحة ظلّت على النشأة الأولى نفسها: التغطية على كل ما يتوارى خلف فيزياء الحواس الخمس. حتى علم النفس الذي أنتجته &laquo;الحداثة العِلْمَوية&raquo;، وبلغ مع الفرويدية ذروته، لم يفعل سوى ان ضاعف من تشيوُّء الكائن الإنساني، وحَكَم ببطلان بعده الروحاني وأُفقِهِ الغيبي.</p>
+		
+		<p style="text-align: center;">* * * * *</p>
+		
+		<p>لقد ظهر في اختبارات الحداثة وامتداداتها المعاصرة أن ليس للمقدس لدى &laquo;العِلْموية&raquo; بصيغتها الإلحادية من محل. وهنا على وجه الضبط تكمن إحدى أهم خاصِّيات التهافت في الفكرة الإلحادية. نعني بذلك نظرها إلى الانسان كشيء زائل ككل الموجودات الزائلة، حيث لا يعود المتعالي الإلهي بالنسبة إليها غير وهم محض.</p>
+		
+		<p>تلقاء هذه النظرة سوف لن يقبل الملحدُ الأمرَ القدسيَّ، لأنه بالنسبة إليه أمرٌ واقعٌ فوق قدرته على الإحاطة والاستقبال. وما ذاك إلا لاستغراقه بعالم الموجودات الحسِّية وامتناعه من استشعار الجود الإلهي الموجِدِ لهذا العالم. وحدُه الإيمان بالأمر القدسي ما يحقق الجمع بين ما هو &quot;عقلاني&quot; ينتسب إلى عالم الطبيعة، وما هو &quot;غير عقلاني&quot; مصدره عالم الغيب. أما الداعي إلى ذلك، فلأن هذا الإيمان يختزن في نفس الآن بعدين متلازمين: بعدٌ يجري إدراكه بوساطة المفاهيم الذهنية، وموضوعية العالم الطبيعي، وبعدٌ يتجاوز نطاق المفاهيم والأفكار من دون أن يخرج بالضرورة على هيئة مفهومية. ذلك ما نعنيه بالأمر القدسي الذي يتأبَّاه الملحد فلا يفلح بإدراكه، فضلاً عن استحالة عيشه. تهافت الملحد وتدانيه أوقفه عند عالم الحس، فلا يسعه أن يرى إلى القدسي كحقيقة واقعية، وإنما كتوهُّمٍ خالص. من أجل ذلك وبسببه لا يقدر الملحد على تقصِّي ما يبثُّه القدسيُ في وجدان المتصلِ به، مع ما يترتب على هذا من إقرار بميثاقه والإيمان به.</p>
+		
+		<p>كل كلام على ماهية الإيمان بالمقدس يحيل إلى المفارقة. فالمقدس بما هو مقدس مستقلٌ بذاته، مغايرٌ لكل ما ليس من طبيعته. ولأن ماهية الإلحاد نقيض ماهية الإيمان فقد وقع الفراق والمغايرة وانعدام التلاقي. ذلك أن الإيمان متعلقٌ باليقين القلبي لا بالمفاهيم العلمية التجريبية المرفوعة عند الملحد إلى مقام التمامية المطلقة. فلكي يُفهم القدسيُّ على ما هو عليه في حقيقته، لا بد أن يعاش من جانب المؤمن به، ومقتضى عيشه ان يكونه ويتمثل قيمه؛ كأنْ ينظر إلى قداسته بالرضا والتسليم، ثم أن يتعقُّل ما هو فيه ليكون فهمه له حاصل نية ونظر وعمل.</p>
+		
+		<p>كان عالم الانتروبولوجيا ومؤرخ الأديان ميرسيا إلياد، ينفي ان يكون المقدس مجرد مرحلة من مراحل الوعي البشري، بل يعتبره عنصراً مكوِّناً لبنية هذا الوعي. واكثر من هذا فإنه يعتبر وجود العالم كله حصيلة جدلية لتجليِّ المقدس وظهوره. وكان يلاحظ أن اقدم صورة لعلاقة الانسان بعالمه هي تلك العلاقة المشبعة بالمقدس الذي يفيض بمعانيه على كينونة الإنسان، وتكون ممارسته له في حد ذاته عملاً دينياً.</p>
+		
+		<p style="text-align: left;">]Eliade La Nostalgie des origins: M&eacute;thodologie et histoire des religions, ed Gallimard 1971. P 7[</p>
+		
+		<p style="text-align: center;">* * * * *</p>
+		
+		<p>&nbsp;إن هذا التأصيل الجوهري لمكانة المقدس&nbsp; في الحياة البشرية، يفضي إلى حقيقة ان الانسان ـ بوصفه انساناً ـ هو كائن ديني. والتنظير الفلسفي منذ بداياته الاولى كان ممتلئاً بسيلٍ وافر من الدلالات والرموز والمعاني ذات المغزى الديني. وإذا كان الإنسان لا يستطيع العيش الا في عالم ذي معنى، فالإنسان المتدِّين على وجه الخصوص، هو الأكثر توقاً إلى العيش في محاريب القدسي، أو إلى الهجرة نحوها بلا كلل. وما ذاك إلا لأن هذا العالم المتسامي، الذي يستمد جاذبيته من الغيب، هو بالنسبة إلى المتديِّن عالمه الواقعي والحقيقي. وهو الذي يمنحه الأمل بالآتي، وبالسعادة التي ينتظرها وإن لم تأتِه بعد. ولأن المتديِّن لا يجد نفسه إلاّ في محل ممتلئ بجلال المقدس وجماله،&nbsp; فمن أجل ان يفتتح بهذه الإقامة &laquo;البرزخية&raquo; سبيلاً إلى السكن في عالم الألوهية الفائض باللطف والأمن ولذة القرب. أي انه يرجو الخاتمة في المكان الأعلى طهراً وتقدسُّاً، مثلما كان من قبل كائناً طهرانياً في علم الله وحضرته المقدسة.</p>
+		
+		<p>في السياق الرؤيوي نفسه، كُثًرٌ ممن نقدوا تهافت الفكرة الإلحادية، لاحظوا أن تجربة الإحساس بالقداسة لدى الناس تأسست على عدم انفصال الرموز لديهم (أي الممارسات العبادية) عن الحقيقة التي تدل عليها تلك الرموز. من أجل ذلك توفرت للرمز الديني القدرة على إدخال العابدين في عالم القداسة.. فالمؤمن، وإن لم يدرك كُنْهَ السرِّ الذي تنطوي عليه قدسية ما يؤديه تجاه ما يؤمن به ويتوجه إليه، إلا أنه محمول على اليقين بالأثر المترتب على الإقبال عليه. بل إنه يمضي في التسليم للغاية المقدسة إلى الحد الذي يتبدد فيه السؤال عن السر الكامن في مقام الغيب.</p>
+		
+		<p style="text-align: center;">* * * * *</p>
+		
+		<p>قد يكون الادعاء الأكثر رواجاً في الاحتجاج الإلحادي، كامناً في شُبهة التناقض بين الإيمان والعقل. وهذا عين ما صوَّبت عليه العلمنة على مدار أزمنة الحداثة بغية إقصاء الدين، وإحلال التصوُّر العِلْمويِّ المحض كمعيار نهائي لفهم الكون، إنساناً وطبيعة.</p>
+		
+		<p>&nbsp;تلقاء هذه الشبهة يُطرح السؤال حول المعنى الذي تُستعمل فيه كلمة &laquo;عقل&raquo; حين تُواجَه بالإيمان؟ هل المقصود بها - كما هو الحال في الغالب اليوم - أن تُقال بمعنى المنهج العلمي والصرامة المنطقية والحساب التقني.. أم أنها تُستعَمل، كما كان الحال في كثير من الحضارات البشرية ولا سيما الحضارة الغربية، بمعنى منبع المعنى والبنية والمعايير والمبادئ؟</p>
+		
+		<p>جاءت أطروحة التناقض بين العقل والإيمان الديني كتمثيل بيِّن على مشروع التنوير الذي افتتحته الحداثة في مقتبل عمرها. وسيأتي من فضاء الغرب نفسه من يُساجل أهل الأطروحة ليُبيِّن أن الإيمان لو كان نقيضاً للعقل لكان يميل إلى نزع الصفة الإنسانية عن الإنسان. فالإيمان الذي يدمِّر العقل يدمر في المقابل نفسه ويدمر إنسانية الإنسان. إذ لا يقدر سوى كائن يمتلك بنية العقل على ان يكون لديه هماً أقصى. أي أن يكون شغوفاً بالله والإنسان في آن، وذلك إلى الدرجة التي يؤول به هذا الشغف إلى تخطي الثنائية السلبية التي تصنع القطيعة بين طرفيها. وحدُه من يمتلك ملكة &laquo;العقل الخلاَّق&raquo; ـ أي العقل الجامع بين الإيمان بالله والإيمان بالإنسانية ـ هو الذي يفلح بفتح منفذٍ فسيح يصل بين الواقع الفيزيائي للإنسان وحضـور المقـدس في حياته. وما نعنيــه بالعقل الخلاَّق هـو العقــل الذي يشكل البنية المعنويــة للذهن والواقع، لا العقل بوصفه أداة تقنية بحتة. وبهذا المعنى يصير العقل شرطاً تأسيسياً للإيمان: ذلك لأن الإيمان هو الفعل الذي يصل به العقل في نشوته الإنجذابية إلى ما وراء ذاته. أي إلى ما بعد أنانيته التي يتجاوزها بالإيثار والعطاء والجود والغيرية. بتوضيح آخر، أن عقل الإنسان متناهٍ ومحدود، ويتحرك داخل علاقات متناهية ومحددة حين يهتم بالعالم وبالإنسان نفسه. ولجميع الفعاليات الثقافية التي يتلقى فيها الإنسان عالمه هذه الخاصية في التناهي والمحدودية. لكن العقل ليس مقيداً بتناهيه، بل هو يعيه، وبهذا الوعي يرتفع فوقه وعندها يجرب الإنسان انتماءً إلى اللاَّمتناهي الذي هو مع ذلك ليس جزءاً منه ولا يقع في متناوله، ولكن لا بد له من الاستحواذ عليه. وحين يستحوذ على الإنسان يصير بالنسبة إليه هماً لا متناهياً أي مقدساً ونبيلاً. وحين يكون العقل ـ بهذه الصيرورة ـ مسلّمة للإيمان، يكون بهذا المعنى تحققاً للعقل. ومقام الإيمان بوصفه حالة هم أقصى هو نفسه مقام العقل في طور نشوته الإنجذابية. والنتيجة أن لا تناقض بين طبيعة الإيمان وطبيعة العقل بل يقع كل منهما في داخل الآخر.. (بول تيليتش ـ بواعث الإيمان).</p>
+		
+		<p style="text-align: center;">* * * * *</p>
+		
+		<p>في منتصف القرن العشرين المنصرم كان اللاَّهوتي الإنجيلي الألماني ديتريش بونهوفر يتوقع المشهد الذي ستؤول إليه مآلات الحداثة ويقول: &quot;لقد صار سيد الآلة عبداً لها، وثارت الخليقة ضد بارئها، وانتهى التحرر المطلق للإنسان إلى الدمار الذاتي&quot;...</p>
+		
+		<p>الآن، لا يبدو أن حداثة الغرب قد استفاقت بعد من سحر &laquo;العلموية&raquo;. ولأنها استهلت رحلتها كحداثة ضد الله، ولم تتنَّبه بعد إلى عاقبة أمرها، انتهت إلى حداثة فائضة أغرقت الانسان المعاصر في لجة اللاَّيقين. كل هذا راجع ـ كما تلاحظ عالمة الاجتماع الأميركية كارين آرمسترونغ ـ إلى أن ثمة خواء ثاوياً في قلب الثقافة الحديثة. فلقد امتلأ ديكارت رعباً من فراغ الكون لمّا لاحظ كيف سيتحول الكائن البشري إلى كونه المتبلِّد الحي الوحيد المُلقى في كون هامد. كذلك فعل توماس هوبس إذ توهَّم الله منسحباً من العالم. أما نيتشه الذي امتلأ بالعدم حتى الرمق الأخير فقد انبرى يعلن موت الإله ليمضي في قلقه الوجودي حدّ الجنون. وما كان مرد ذلك كله إلا إلى السَّخَط المتأتِّي من أعماق الفكر، على حداثة راحت تهوي في عتمة العدمية وتحول الإنسان إلى كائن بلا روح.</p>
+		
+		<p style="text-align: center;">* * * * *</p>
+		
+		<p>هذا العدد من &laquo;الاستغراب&raquo; خصَّصناه للبحث في ظاهرة الإلحاد نشأة وفكراً واعتقاداً. وسنقرأ مجموعة من المساهمات النقدية لعدد من المفكرين وعلماء الإجتماع وأساتذة الفلسفة من أوروبا وأميركا والعالمين العربي والإسلامي. إلا أن مثل هذه المساهمات تبقى عند حدود الإقتراب الإجمالي من ظاهرة قديمة ومتجددة نشأت وتمددت في سياق الحملات المتعاقبة على الإيمان والمعتقدات الدينية.</p>
+		
+		<p style="text-align:left"><strong>محمود حيدر</strong></p>
+										
+	</div>
+</div>								
+								
+								
+								
+								
+								
+								</div>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">١٠</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : ما بعد العلمانية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٩</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : الالحاد في تهافته
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٨</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٧</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٦</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٥</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٤</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٣</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">٢</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+						<div class="mag_item">
+							<div class="mag_item_in">
+								<div class="mag-name">
+									<img class="mag-name-logo" src="img/mag-list-logo.png" />
+									<div class="mag-name-num">١</div>
+								</div>
+								<div class="mag-title-middle-holder">&nbsp;</div>
+								<div class="mag-title">
+									ملف العدد : كانط رؤية نقدية
+								</div>
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href=""></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				
+
+			
+			
+			
+			
+			
+			
+			
+			
+				<style>
+					.pic-item{
+						display:block;
+						background:#fcfdfe;
+						border:1px solid #eaeef1;
+						margin:8px 0 0 0;
+						height:84px;
+						box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+						text-decoration:none;
+					}
+				</style>
+				<script>
+	function notifyaa(text, type, duration, pos, animateIn, animateOut){
+/*		var n = noty({
+			text: text,
+			type: type,
+			dismissQueue: true,
+			layout: pos,
+			theme: 'defaultTheme',
+			animation: {
+			open: {opacity: 'toggle'},
+			close: {opacity: 'toggle'},
+			easing: 'swing',
+			speed: 700
+			},
+			timeout: duration,
+			modal: false
+		});
+		return n;*/
+		
+		
+		
+		
+		var n = noty({
+			text         : text,
+			type         : type,
+			dismissQueue : true,
+			layout       : pos,
+			closeWith    : ['click'],
+			theme        : 'relax',
+			maxVisible   : 10,
+			timeout      : duration,
+			animation    : {
+				open       : 'animated bounceIn'+animateIn,
+				close      : 'animated bounceOut'+animateOut,
+				easing     : 'swing',
+				speed      : 500,
+			}
+		});
+		return n;
+	}
+				
+				
+				
+	var text_a = "<div class='noty-icon icon message message'>&nbsp;</div><div class='noty-close icon close message'>&nbsp;</div><div class='noty-text'>في الثالث من شهر شباط عام 2015، صدم العالم بمشاهدة فيلم من انتاج تنظيم (داعش) نشره على شبكة الانترنت، يحتوي على مشاهد وحشية لم يعتد الناس مشاهدتها من قبل، اذ اقدم التنظيم على تصوير فيلم تسجيلي يتضمن احراق انسان وهو حي، وهو طيار أردني يدعى (معاذ صافي الكساسبة- 26 عاما) وقع أسيراً بأيدي التنظيم اثر سقوط طائرته</div>";
+				</script>
+				<style>
+					.noty_message .noty-text{
+						margin:0 0 0 0;
+						direction:rtl;
+						text-align:justify;
+						line-height:23px;
+						margin:0 50px 0 5px;
+					}
+					.noty_message .noty-icon{
+						float:right;
+						width:42px;
+						text-align:left;
+						font-size:25px;
+						padding:15px 0 0 0;
+					}
+					.noty_message .noty-close{
+						position:absolute;
+						bottom:10px;
+						right:12px;
+						width:42px;
+						text-align:left;
+						font-size:18px;
+						padding:13px 0 13px 0;
+						color:#333;
+					}
+				</style>
+<!--				<a href="#" onClick="notifyaa(text_a, 'information', 8000000000, 'top', 'Left', 'Right')" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>
+				<a href="#" class="pic-item" style=" background-image:url(pic2.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>
+				<a href="#" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>
+				<a href="#" class="pic-item" style=" background-image:url(pic2.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>
+				<a href="#" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>
+				<a href="#" class="pic-item" style=" background-image:url(pic2.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>
+				<a href="#" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>
+				<a href="#" class="pic-item" style=" background-image:url(pic2.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>
+				<a href="#" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
+					&nbsp;
+				</a>-->
+				
+				
+				
+				
+				
+				<!--<ul id="app-status-ul">
+					<li>Start</li>	 
+				</ul>-->
+				
+				
+				
+				
+			</div>
+			
+			
+			
+			
+			
+			
+			<div class="panel" id="sira" data-include="include/sira.html" data-title="السيرة الذاتية" >
+			
+            </div>
+			
+			<div class="panel" id="makatib" data-include="include/makatib.html" data-title="مكاتب المرجعية" >
+			
+            </div>
+			
+			<div class="panel" id="moalafat_taqarir" data-include="include/moalafat_taqarir.html" data-title="مكاتب المرجعية" >
+			
+            </div>
+			
+			<div class="panel" id="contact_us" data-include="include/contact_us.html" data-title="إتصل بنا" >
+			
+            </div>
+			
+			<div class="panel" id="our_sites" data-include="include/our_sites.html" data-title="المواقع التابعة" >
+				
+            </div>
+			
+			<div class="panel" id="marakiz_moasisat" data-include="include/marakiz_moasisat.html" data-title="المواقع التابعة" >
+				
+            </div>
+			
+			<div class="panel" id="kotob_fatwaiya" data-include="include/kotob_fatwaiya.html" data-title="كتب فتوائية" >
+				
+            </div>
+			
+			<div class="panel" id="istiftaat" data-include="include/istiftaat.html" data-title="إستفتاءات" >
+				
+            </div>
+			
+			
+			
+			
+
+		</div>
+		<script>
+			$(document).ready(function(){
+				$("nav#right").bind("swipeRight",function(){
+					$.afui.drawer.hide('#right','right');
+				});
+				$("nav#left").bind("swipeLeft",function(){
+					$.afui.drawer.hide('#left','left');
+				});
+			});
+		</script>
+		 <nav id="right">
+<!--		 	<div style="background:#09090b;height:59px;text-align:center;opacity:0.7;">
+				<img src="engine/build/img/logo.png" style="margin:8px 0 0 2px;" onload="this.width/=1.9;this.onload=null;" />
+			</div>
+			<ul class="list">
+				<li><a href="#main" class="icon home" onClick="$.afui.drawer.hide('#right','right')">الرئيسية</a></li>
+			</ul>-->
+			<div class="view active" style="background:none">
+                <div style="background:#e6e4e4;height:59px;text-align:center;opacity:0.7;">
+					<img src="engine/build/img/logo.png" style="margin:14px 3px 0 0;width:93%;" />
+				</div>
+                <div class="pages" style="background:none">
+                    <div class="panel active" style="background:none;padding:0;">
+                       
+					   <ul class="list">
+							<li><a href="#main" class="icon home" onClick="$.afui.drawer.hide('#right','right')">الرئيسية</a></li>
+							<li><a href="#sira" class="icon stack" onClick="$.afui.drawer.hide('#right','right')">السيرة الذاتية</a></li>
+							<li><a href="#moalafat_taqarir" class="icon camera" onClick="$.afui.drawer.hide('#right','right')">المؤلفات والتقريرات</a></li>
+							<li><a href="#kotob_fatwaiya" class="icon camera" onClick="$.afui.drawer.hide('#right','right')">الكتب الفتوائية</a></li>
+							<li><a href="#istiftaat" class="icon question" onClick="$.afui.drawer.hide('#right','right')">الإستفتاءات</a></li>
+							<li><a href="#" class="icon mail" onClick="$.afui.drawer.hide('#right','right')">إرسال إستفتاء</a></li>
+							<li><a href="#" class="icon message" onClick="$.afui.drawer.hide('#right','right')">البيانات الصادرة</a></li>
+							<li><a href="#marakiz_moasisat" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">المراكز والمؤسسات</a></li>
+							<li><a href="#" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">الخدمات</a></li>
+							<li><a href="#our_sites" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">المواقع التابعة</a></li>
+							<li><a href="#" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">أرشيف الموقع</a></li>
+							<li><a href="#makatib" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">مكاتب المرجعية</a></li>
+							<li><a href="#contact_us" class="icon phone" onClick="$.afui.drawer.hide('#right','right')">إتصل بنا</a></li>
+						</ul>
+					   
+                    </div>
+                </div>
+            </div>
+		 </nav>
+		 <nav id="left">
+		 	menu left
+		 </nav>
+		
+	</div>
+
+	
+	
+</div>
+</body>
+
+</html>
