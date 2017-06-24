@@ -124,22 +124,22 @@
 	
 
 	
-    <!-- Define app icon      -->
-    <icon src="images/splash/icon.png" platform="android" />
-    <icon src="images/splash/ios.png" platform="ios" />
+      <!-- Define app icon      -->
+    <icon src="img/splash/icon.png" platform="android" />
+    <icon src="img/splash/ios.png" platform="ios" />
 	
 
-    <gap:splash src="images/splash/screen-ldpi-landscape.png"		gap:platform="android" gap:density="ldpi" />
-    <gap:splash src="images/splash/screen-mdpi-landscape.png"		gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="images/splash/screen-hdpi-landscape.png"		gap:platform="android" gap:density="hdpi" />
-    <gap:splash src="images/splash/screen-xhdpi-landscape.png"		gap:platform="android" gap:density="xhdpi" />
+    <gap:splash src="img/splash/screen-ldpi-landscape.png"		gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="img/splash/screen-mdpi-landscape.png"		gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="img/splash/screen-hdpi-landscape.png"		gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="img/splash/screen-xhdpi-landscape.png"		gap:platform="android" gap:density="xhdpi" />
 
 	
-    <gap:splash src="images/splash/screen-iphone-landscape.png"			gap:platform="ios"		width="320"		height="480" />
-    <gap:splash src="images/splash/screen-iphone-landscape-2x.png"		gap:platform="ios"		width="640"		height="960" />
-    <gap:splash src="images/splash/screen-iphone-landscape-568h-2x.png"	gap:platform="ios"		width="640"		height="1136" />
-    <gap:splash src="images/splash/screen-ipad-landscape.png"			gap:platform="ios"		width="768"		height="1024" />
-    <gap:splash src="images/splash/screen-ipad-landscape-2x.png"		gap:platform="ios"		width="1536"	height="2048" />
+    <gap:splash src="img/splash/screen-iphone-landscape.png"			gap:platform="ios"		width="320"		height="480" />
+    <gap:splash src="img/splash/screen-iphone-landscape-2x.png"		gap:platform="ios"		width="640"		height="960" />
+    <gap:splash src="img/splash/screen-iphone-landscape-568h-2x.png"	gap:platform="ios"		width="640"		height="1136" />
+    <gap:splash src="img/splash/screen-ipad-landscape.png"			gap:platform="ios"		width="768"		height="1024" />
+    <gap:splash src="img/splash/screen-ipad-landscape-2x.png"		gap:platform="ios"		width="1536"	height="2048" />
 
 	
 
