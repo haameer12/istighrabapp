@@ -244,8 +244,10 @@
 	function onDeviceReady() {
 		
 		
-		//statusbarTransparent.enable();
-		StatusBar.show();
+		setTimeout(function(){
+			StatusBar.show();
+			statusbarTransparent.enable();
+		}, 1000);
 		
 		
 		
