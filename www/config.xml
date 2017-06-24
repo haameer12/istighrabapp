@@ -9,22 +9,18 @@
     <name>مجلة الاستغراب</name>
     <description>دورية فكرية تعنى بدراسة الغرب وفهمه معرفياً ونقدياً تصدر عن المركز الاسلامي للدراسات الاستراتيجية (بيروت)</description>
     <author href="http://magicwd.co" email="info@magicwd.co">MWD Hassan Haddad</author>
-		
     <!--
 		ir.smgroup.saveimage
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
         permission on your app, which PhoneGap requires. 
     -->
-
 	<access origin="*" /> <!--allow local pages -->
-	
 	
     <preference name="permissions"                value="none"/>
 	
-
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="cli-6.3.0" />      <!-- all: current version of PhoneGap cli-5.4.1-->
+    <preference name="phonegap-version"           value="cli-6.5.0" />      <!-- all: current version of PhoneGap cli-5.4.1-->
 	<preference name="orientation"                value="portrait" />        <!-- portrait all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
@@ -34,14 +30,16 @@
     <preference name="exit-on-suspend"            value="false" />          <!-- ios: if set to true, app will terminate when home button is pressed -->
     <preference name="auto-hide-splash-screen"    value="true" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
     <preference name="disable-cursor"             value="false" />          <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
-    <preference name="android-minSdkVersion"      value="14"/>              <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
+    <preference name="android-minSdkVersion"      value="14" />              <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 	<preference name="SplashScreenDelay"		  value="4000"/>
-	<preference name="ShowSplashScreenSpinner" value="false"/>
+	<preference name="FadeSplashScreen"			  value="true" />
+	<preference name="ShowSplashScreenSpinner"	  value="false"/>
+	<!--<preference name="AllowInlineMediaPlayback"	  value="true" />-->
 	
-	<!--<preference name="StatusBarOverlaysWebView" value="true" />
-	<preference name="StatusBarBackgroundColor" value="transparent" />
-	<preference name="StatusBarStyle" value="lightcontent" />-->
+	<preference name="StatusBarOverlaysWebView" value="true" />
+	<preference name="StatusBarBackgroundColor" value="" />
+	<preference name="StatusBarStyle" value="lightcontent" />
 	<!-- ???????????????????????????????????????????????????????????????????????????????????? -->
 	<!-- ???????????????????????????????????????????????????????????????????????????????????? -->
 	<!-- ???????????????????????????????????????????????????????????????????????????????????? -->
@@ -87,8 +85,20 @@
 		<gap:plugin name="com.kumbe.phonegap.zoom.zoomcontrol" version="0.1.5" />
     -->
 	<!--<plugin spec="https://github.com/phonegap/phonegap-plugin-push.git" source="git" />-->
-	<plugin spec="https://github.com/phonegap-build/PushPlugin.git" source="git" />
+	<!--<plugin spec="https://github.com/phonegap-build/PushPlugin.git" source="git" />-->
     <!--<gap:plugin name="phonegap-plugin-push-deprecated" source="npm" />-->
+	
+	<!-- <gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />-->
+	
+	
+	
+	<preference name="android-build-tool" value="gradle" />
+	<plugin name="phonegap-plugin-push" source="npm">
+		<param name="SENDER_ID" value="1069136326484" />
+	</plugin>
+	
+	
+	
 	<plugin spec="https://github.com/Paldom/UniqueDeviceID.git" source="git" />
 	<!--<gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" source="npm" />-->
 	
