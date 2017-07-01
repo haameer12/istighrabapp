@@ -919,18 +919,18 @@
 						contentType : "application/json",
 						dataType : 'jsonp',
 						success : function(json){
-							
 							//$("#esdarat-item-list_contaner #esdarat-item-list_contaner_in").html("");
+							var magNumArray = ["۰", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩", "١۰", "١١", "١٢", "١٣", "١٤", "١٥", "١٦", "١٧", "١٨", "١٩", "٢۰", "٢١", "٢٢", "٢٣", "٢٤", "٢٥", "٢٦", "٢٧", "٢٨", "٢٩", "٣۰", "٣١", "٣٢", "٣٣", "٣٤", "٣٥", "٣٦", "٣٧", "٣٨", "٣٩", "٣", "٤۰", "٤١", "٤٢", "٤٣", "٤٤", "٤٥", "٤٦", "٤٧", "٤٨", "٤٩", "٥۰", "٥١", "٥٢", "٥٣", "٥٤", "٥٥", "٥٦", "٥٧", "٥٨", "٥٩", "٦۰", "٦١", "٦٢", "٦٣", "٦٤", "٦٥", "٦٦", "٦٧", "٦٨", "٦٩", "٧۰", "٧١", "٧٢", "٧٣", "٧٤", "٧٥", "٧٦", "٧٧", "٧٨", "٧٩", "٨۰", "٨١", "٨٢", "٨٣", "٨٤", "٨٥", "٨٦", "٨٧", "٨٨", "٨٩", "٩۰", "٩١", "٩٢", "٩٣", "٩٤", "٩٥", "٩٦", "٩٧", "٩٨", "٩٩", "١۰۰"];
 							$.each(json, function(key, val){
-								$("#magListCon").append('<div class="mag_item mag-opened"> \
+								$("#magListCon").append('<div class="mag_item"> \
 	<div class="mag_item_in"> \
 		<div class="mag-name"> \
 			<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
-			<div class="mag-name-num">٢٢</div> \
+			<div class="mag-name-num">' +magNumArray[val['name']] +'</div> \
 		</div> \
 		<div class="mag-title-middle-holder">&nbsp;</div> \
 		<div class="mag-title"> \
-			ملف العدد : كانط رؤية نقدية \
+		' +((val['mag_num_title'] != null)? "ملف العدد : "+val['mag_num_title'] :  "&nbsp;") +' \
 		</div> \
 		<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#"></a> \
 		<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
