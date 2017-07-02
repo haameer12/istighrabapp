@@ -78,7 +78,7 @@
     <!--<gap:plugin name="cordova.splashscreen" source="npm" />-->
 	<plugin spec="https://github.com/apache/cordova-plugin-vibration.git" source="git" />
     <!--<gap:plugin name="cordova.vibration" source="npm" />-->
-	<plugin spec="https://github.com/brodysoft/Cordova-SQLitePlugin.git" source="git" />
+	<plugin spec="cordova-sqlite-plugin" source="npm" />
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
