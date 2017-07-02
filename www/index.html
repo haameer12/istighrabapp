@@ -911,6 +911,68 @@
 				</div>
 				<script>
 				$(document).ready(function() {
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+function downloadFile(){
+
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, 
+		function onFileSystemSuccess(fileSystem) {
+			fileSystem.root.getFile(
+			"dummy.html", {create: true, exclusive: false}, 
+			function gotFileEntry(fileEntry) {
+				var sPath = fileEntry.fullPath.replace("dummy.html","");
+				var fileTransfer = new FileTransfer();
+				fileEntry.remove();
+	
+				fileTransfer.download(
+					"http://www.w3.org/2011/web-apps-ws/papers/Nitobi.pdf",
+					sPath + "theFile.pdf",
+					function(theFile) {
+						window.alert("download complete: " + theFile.toURI());
+						showLink(theFile.toURI());
+					},
+					function(error) {
+						window.alert("download error source " + error.source);
+						window.alert("download error target " + error.target);
+						window.alert("upload error code: " + error.code);
+					}
+				);
+			}, fail);
+		}, fail);
+	}
+	
+}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					getMagRequestObj = $.ajax({
 						type : 'get',
 						url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php",
