@@ -361,7 +361,7 @@ myDB.transaction(function(transaction) {
 			window.alert(val.title);
 			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
 		});*/
-		$.each( result, function( key, value ) {
+		$.each(result.rows.item(0), function( key, value ) {
 		  alert( key + ": " + value );
 		});
 
