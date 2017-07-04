@@ -78,7 +78,7 @@
     <!--<gap:plugin name="cordova.splashscreen" source="npm" />-->
 	<plugin spec="https://github.com/apache/cordova-plugin-vibration.git" source="git" />
     <!--<gap:plugin name="cordova.vibration" source="npm" />-->
-	<plugin spec="https://github.com/litehelpers/Cordova-sqlite-storage.git" source="git" />
+	<plugin spec="https://github.com/litehelpers/Cordova-sqlite-storage.git#7e62177" source="git" />
 	
 
     <!-- Third party plugins -->
