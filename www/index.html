@@ -355,11 +355,12 @@ myDB.transaction(function(transaction) {
 	
 	transaction.executeSql("select title from phonegap_pro;", [], 
 	function(tx, result) {
-		window.alert(result.rows.item(1).title);
-		/*$.each(result.rows, function( key, val ) {
+		
+		window.alert(result.rows.item(5).title);
+		$.each(result.rows, function( key, val ) {
 			window.alert(val.title);
 			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
-		});*/
+		});
 
 	},
 	function(error){
