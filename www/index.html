@@ -284,6 +284,132 @@
 	// END push Notification ///////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+window.alert("on device ready worked");
+var myDB = window.sqlitePlugin.openDatabase({name: "main.db", createFromLocation: 1});
+
+
+
+
+
+
+
+myDB.transaction(function(transaction) {
+	
+	
+	
+	
+	
+	window.alert("db worked");
+	transaction.executeSql('CREATE TABLE IF NOT EXISTS phonegap_pro (id integer primary key, title text, desc text)', [],
+	function(tx, result) {
+		window.alert("Table created successfully");
+	},
+	function(error) {
+		window.alert("Error occurred while creating the table.");
+	});
+	
+	
+	
+	
+	transaction.executeSql("INSERT INTO phonegap_pro (title, desc) VALUES (?,?)", ["hassan", "programer"], 
+	function(tx, result) {
+		window.alert("Inserted");
+	},
+	function(error){
+		window.alert("Error occurred");
+	});
+	
+	
+	
+	transaction.executeSql("select count(id) as cnt from phonegap_pro;", [], 
+	function(tx, result) {
+		window.alert("Rows num is : " + result.rows.length +" --- " +result.rows.item(0).cnt);
+	},
+	function(error){
+		window.alert("Error occurred");
+	});
+	
+	
+	
+	
+	transaction.executeSql("select * from phonegap_pro;", [],
+	function(tx, result) {
+
+		$.each(results.rows, function( key, val ) {
+			window.alert(val.title);
+			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
+		});
+
+	},
+	function(error){
+		window.alert("Error occurred");
+	});
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 	
 	
