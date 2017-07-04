@@ -359,16 +359,16 @@ myDB.transaction(function(transaction) {
 		window.alert(result.rows.length);
 		var i = 0;
 		while(result.rows.item(i)){
-			window.alert("oooooo");
+			window.alert(result.rows.item(i).id);
 			i++;
 		}
 		/*$.each(result.rows, function( key, val ) {
 			window.alert(val.title);
 			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
 		});*/
-		$.each(result.rows.item(0), function( key, value ) {
+		/*$.each(result.rows.item(0), function( key, value ) {
 		  alert( key + ": " + value );
-		});
+		});*/
 
 	},
 	function(error){
