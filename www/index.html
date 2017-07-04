@@ -356,18 +356,18 @@ myDB.transaction(function(transaction) {
 	transaction.executeSql("select * from phonegap_pro;", [],
 	function(tx, result) {
 		
-		window.alert(result.rows.length);
-		while(result.rows){
-			window.alert("oooooo");
+		var i = 1;
+		while(result.rows.length <= i){
+			$.each(result.rows.item(result.rows.length--), function( key, value ) {
+			  alert( key + ": " + value );
+			});
 		}
 		
 		/*$.each(result.rows, function( key, val ) {
 			window.alert(val.title);
 			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
 		});*/
-		$.each(result.rows.item(0), function( key, value ) {
-		  alert( key + ": " + value );
-		});
+		
 
 	},
 	function(error){
