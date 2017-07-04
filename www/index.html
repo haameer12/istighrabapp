@@ -357,10 +357,11 @@ myDB.transaction(function(transaction) {
 	function(tx, result) {
 		
 		var i = 1;
-		while(result.rows.length <= i){
+		while(result.rows.length >= i){
 			$.each(result.rows.item(result.rows.length--), function( key, value ) {
 			  alert( key + ": " + value );
 			});
+			i++;
 		}
 		
 		/*$.each(result.rows, function( key, val ) {
