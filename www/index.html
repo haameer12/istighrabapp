@@ -353,7 +353,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	transaction.executeSql("select title from phonegap_pro;", [],
+	transaction.executeSql("select * from phonegap_pro;", [],
 	function(tx, result) {
 		
 		window.alert(result.rows.item(5).title);
