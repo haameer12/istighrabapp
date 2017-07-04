@@ -321,7 +321,13 @@ myDB.transaction(function(transaction) {
 	
 	
 	window.alert("db worked");
-	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag (id integer primary key, title text, desc text)', [],
+	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag ( \
+		"id"  INTEGER, \
+		"name"  TEXT, \
+		"protected"  INTEGER, \
+		"pdf_path"  TEXT, \
+		"mag_num_title"  TEXT \\
+	)', [],
 	function(tx, result) {
 		window.alert("Table created successfully");
 	},
@@ -332,7 +338,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	transaction.executeSql("INSERT INTO istighrab_mag (title, desc) VALUES (?,?)", ["hassanaaa", "programer"],
+	transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", ["1", "1", "0", "files/files/5a3f38r.pdf", "كانط رؤية نقدية"],
 	function(tx, result) {
 		window.alert("Inserted");
 	},
