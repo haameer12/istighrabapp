@@ -332,7 +332,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	transaction.executeSql("INSERT INTO phonegap_pro (title, desc) VALUES (?,?)", ["hassan", "programer"], 
+	transaction.executeSql("INSERT INTO phonegap_pro (title, desc) VALUES (?,?)", ["hassan", "programer"],
 	function(tx, result) {
 		window.alert("Inserted");
 	},
@@ -342,7 +342,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	transaction.executeSql("select count(id) as cnt from phonegap_pro;", [], 
+	transaction.executeSql("select count(id) as cnt from phonegap_pro;", [],
 	function(tx, result) {
 		window.alert("Rows num is : " + result.rows.length +" --- " +result.rows.item(0).cnt);
 	},
@@ -353,13 +353,16 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	transaction.executeSql("select title from phonegap_pro;", [], 
+	transaction.executeSql("select title from phonegap_pro;", [],
 	function(tx, result) {
 		
 		window.alert(result.rows.item(5).title);
-		$.each(result.rows, function( key, val ) {
+		/*$.each(result.rows, function( key, val ) {
 			window.alert(val.title);
 			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
+		});*/
+		$.each( result, function( key, value ) {
+		  alert( key + ": " + value );
 		});
 
 	},
