@@ -306,7 +306,7 @@
 	
 	
 window.alert("on device ready worked");
-var myDB = window.sqlitePlugin.openDatabase({name: "main.db", createFromLocation: 1});
+var myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});
 
 
 
@@ -321,7 +321,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	window.alert("db worked");
-	transaction.executeSql('CREATE TABLE IF NOT EXISTS phonegap_pro (id integer primary key, title text, desc text)', [],
+	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag (id integer primary key, title text, desc text)', [],
 	function(tx, result) {
 		window.alert("Table created successfully");
 	},
@@ -332,7 +332,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	transaction.executeSql("INSERT INTO phonegap_pro (title, desc) VALUES (?,?)", ["hassan", "programer"],
+	transaction.executeSql("INSERT INTO istighrab_mag (title, desc) VALUES (?,?)", ["hassanaaa", "programer"],
 	function(tx, result) {
 		window.alert("Inserted");
 	},
@@ -342,7 +342,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	transaction.executeSql("select count(id) as cnt from phonegap_pro;", [],
+	transaction.executeSql("select count(id) as cnt from istighrab_mag;", [],
 	function(tx, result) {
 		window.alert("Rows num is : " + result.rows.length +" --- " +result.rows.item(0).cnt);
 	},
@@ -353,7 +353,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	transaction.executeSql("select * from phonegap_pro;", [],
+	transaction.executeSql("select * from istighrab_mag;", [],
 	function(tx, result) {
 		
 		window.alert(result.rows.length);
