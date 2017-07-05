@@ -1159,7 +1159,7 @@ myDB.transaction(function(transaction) {
 									
 									
 									
-									s
+									
 									transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
 									function(tx, result) {
 										window.alert("Inserted");
