@@ -311,13 +311,13 @@ var myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", create
 
 
 
-
+	/*
 
 
 myDB.transaction(function(transaction) {
 	
 	
-	/*
+
 	
 	
 	//window.alert("db worked");
@@ -384,7 +384,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	*/
+
 	
 
 	
@@ -395,7 +395,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-	
+		*/
 	
 	
 	
@@ -1058,6 +1058,9 @@ myDB.transaction(function(transaction) {
 							//$("#esdarat-item-list_contaner #esdarat-item-list_contaner_in").html("");
 							var magNumArray = ["۰", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩", "١۰", "١١", "١٢", "١٣", "١٤", "١٥", "١٦", "١٧", "١٨", "١٩", "٢۰", "٢١", "٢٢", "٢٣", "٢٤", "٢٥", "٢٦", "٢٧", "٢٨", "٢٩", "٣۰", "٣١", "٣٢", "٣٣", "٣٤", "٣٥", "٣٦", "٣٧", "٣٨", "٣٩", "٣", "٤۰", "٤١", "٤٢", "٤٣", "٤٤", "٤٥", "٤٦", "٤٧", "٤٨", "٤٩", "٥۰", "٥١", "٥٢", "٥٣", "٥٤", "٥٥", "٥٦", "٥٧", "٥٨", "٥٩", "٦۰", "٦١", "٦٢", "٦٣", "٦٤", "٦٥", "٦٦", "٦٧", "٦٨", "٦٩", "٧۰", "٧١", "٧٢", "٧٣", "٧٤", "٧٥", "٧٦", "٧٧", "٧٨", "٧٩", "٨۰", "٨١", "٨٢", "٨٣", "٨٤", "٨٥", "٨٦", "٨٧", "٨٨", "٨٩", "٩۰", "٩١", "٩٢", "٩٣", "٩٤", "٩٥", "٩٦", "٩٧", "٩٨", "٩٩", "١۰۰"];
 							$.each(json, function(key, val){
+								
+								
+								
 								myDB.transaction(function(transaction){
 									
 									
@@ -1074,6 +1077,10 @@ myDB.transaction(function(transaction) {
 									
 									
 								});
+								
+								
+								
+								
 								$("#magListCon").append('<div class="mag_item"> \
 	<div class="mag_item_in"> \
 		<div class="mag-name"> \
@@ -1149,57 +1156,6 @@ myDB.transaction(function(transaction) {
 						}
 					});
 					
-
-
-
-
-
-
-								myDB.transaction(function(transaction){
-									
-									
-									
-									
-									transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
-									function(tx, result) {
-										window.alert("Inserted");
-									},
-									function(error){
-										window.alert("Error occurred in insert");
-									});
-									
-									
-									
-									
-									transaction.executeSql("select * from istighrab_mag;", [],
-									function(tx, result) {
-										
-										window.alert(result.rows.length);
-										var i = 0;
-										while(result.rows.item(i)){
-											window.alert(result.rows.item(i).mag_num_title);
-											i++;
-										}
-										//$.each(result.rows, function( key, val ) {
-											//window.alert(val.title);
-											//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
-										//});
-										//$.each(result.rows.item(2), function( key, value ) {
-										  //alert( key + ": " + value );
-										//});
-								
-									},
-									function(error){
-										window.alert("Error occurred in select");
-									});
-									
-									
-									
-									
-									
-								});
-
-
 
 
 
