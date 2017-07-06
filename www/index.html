@@ -305,8 +305,8 @@
 	
 	
 	
-window.alert("on device ready worked");
-var myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});
+//window.alert("on device ready worked");
+
 
 
 
@@ -1047,6 +1047,7 @@ myDB.transaction(function(transaction) {
 				</div>
 				<script>
 				$(document).ready(function(){
+					var myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});
 					getMagRequestObj = $.ajax({
 						type : 'get',
 						url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php",
@@ -1077,9 +1078,6 @@ myDB.transaction(function(transaction) {
 									
 									
 								});
-								
-								
-								
 								
 								$("#magListCon").append('<div class="mag_item"> \
 	<div class="mag_item_in"> \
