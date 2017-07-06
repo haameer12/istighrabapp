@@ -305,8 +305,8 @@
 	
 	
 	
-//window.alert("on device ready worked");
-
+window.alert("on device ready worked");
+var myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});
 
 
 
@@ -1047,7 +1047,42 @@ myDB.transaction(function(transaction) {
 				</div>
 				<script>
 				$(document).ready(function(){
-					var myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});
+					
+					
+					
+					
+					
+					
+					
+					
+					myDB.transaction(function(transaction) {
+
+						//window.alert("db worked");
+						transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag ( \
+							"id"  INTEGER, \
+							"name"  TEXT, \
+							"protected"  INTEGER, \
+							"pdf_path"  TEXT, \
+							"mag_num_title"  TEXT \
+						)', [],
+						function(tx, result) {
+							window.alert("Table created successfully");
+						},
+						function(error) {
+							window.alert("Error occurred while creating the table.");
+						});
+					
+					});
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					getMagRequestObj = $.ajax({
 						type : 'get',
 						url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php",
@@ -1062,10 +1097,12 @@ myDB.transaction(function(transaction) {
 								
 								
 								
+								
+								
+								
+								
 								myDB.transaction(function(transaction){
-									
-									
-									
+
 									transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
 									function(tx, result) {
 										window.alert("Inserted");
@@ -1073,11 +1110,14 @@ myDB.transaction(function(transaction) {
 									function(error){
 										window.alert("Error occurred in insert");
 									});
-									
-			
-									
-									
+
 								});
+								
+								
+								
+								
+								
+								
 								
 								$("#magListCon").append('<div class="mag_item"> \
 	<div class="mag_item_in"> \
