@@ -1055,28 +1055,28 @@ myDB.transaction(function(transaction) {
 					
 					
 					
+					setTimeout(function(){
 					
-					
-					myDB.transaction(function(transaction) {
-
-						//window.alert("db worked");
-						transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag ( \
-							"id"  INTEGER, \
-							"name"  TEXT, \
-							"protected"  INTEGER, \
-							"pdf_path"  TEXT, \
-							"mag_num_title"  TEXT \
-						)', [],
-						function(tx, result) {
-							window.alert("Table created successfully");
-						},
-						function(error) {
-							window.alert("Error occurred while creating the table.");
+						myDB.transaction(function(transaction) {
+	
+							//window.alert("db worked");
+							transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag ( \
+								"id"  INTEGER, \
+								"name"  TEXT, \
+								"protected"  INTEGER, \
+								"pdf_path"  TEXT, \
+								"mag_num_title"  TEXT \
+							)', [],
+							function(tx, result) {
+								window.alert("Table created successfully");
+							},
+							function(error) {
+								window.alert("Error occurred while creating the table.");
+							});
+						
 						});
 					
-					});
-					
-					
+					}, 500);
 					
 					
 					
@@ -1103,17 +1103,23 @@ myDB.transaction(function(transaction) {
 								
 								
 								
-								myDB.transaction(function(transaction){
-
-									transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
-									function(tx, result) {
-										window.alert("Inserted");
-									},
-									function(error){
-										window.alert("Error occurred in insert");
+								setTimeout(function(){
+									
+									
+									myDB.transaction(function(transaction){
+	
+										transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
+										function(tx, result) {
+											window.alert("Inserted");
+										},
+										function(error){
+											window.alert("Error occurred in insert");
+										});
+	
 									});
-
-								});
+									
+									
+								}, 500);
 								
 								
 								
