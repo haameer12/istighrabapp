@@ -433,23 +433,18 @@ getMagRequestObj = $.ajax({
 		$.each(json, function(key, val){
 
 			myDB.transaction(function(transaction){
-				
+				var isRowExisted = 0;
 				transaction.executeSql("select * from istighrab_mag WHERE id = ?", [val['id']],
 				function(tx, result) {
-					
-					window.alert(result.rows.length);
-					$.each(result,function(key, val){
-						window.alert(key +" - " +val);
-					})
-			
+					isRowExisted = result.rows.length;
 				},
 				function(error){
-					window.alert("Error occurred in select");
+					//window.alert("Error occurred in select");
 				});
 				
 				
 				
-				if(true){
+				if(!isRowExisted){
 					transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
 					function(tx, result) {
 						window.alert("Inserted");
