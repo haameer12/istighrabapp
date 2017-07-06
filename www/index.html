@@ -433,15 +433,39 @@ getMagRequestObj = $.ajax({
 		$.each(json, function(key, val){
 
 			myDB.transaction(function(transaction){
-
-				transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
+				
+				transaction.executeSql("select * from istighrab_mag WHERE id = ?", [val['id']],
 				function(tx, result) {
-					window.alert("Inserted");
+					
+					window.alert(result.rows.length);
+					$.each(result,function(key, val){
+						window.alert(key +" - " +val);
+					})
+			
 				},
 				function(error){
-					window.alert("Error occurred in insert");
+					window.alert("Error occurred in select");
 				});
-
+				
+				
+				
+				if(){
+					transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
+					function(tx, result) {
+						window.alert("Inserted");
+					},
+					function(error){
+						window.alert("Error occurred in insert");
+					});
+				}else{
+					transaction.executeSql("UPDATE istighrab_mag SET name = ?, protected = ?, pdf_path = ?, mag_num_title = ? WHERE id = ?", [val['name'], val['protected'], val['pdf_path'], vals['masg_num_title'], val['id']],
+					function(tx, result) {
+						window.alert("updated");
+					},
+					function(error){
+						window.alert("Error occurred in update");
+					});
+				}
 			});
 
 			$("#magListCon").append('<div class="mag_item"> \
