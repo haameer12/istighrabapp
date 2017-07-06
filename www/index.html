@@ -240,7 +240,8 @@
 		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
 		document.addEventListener("deviceready", onDeviceReady, false);
 	}
-
+	
+	var myDB = null;
 	function onDeviceReady() {
 		
 		
@@ -306,7 +307,7 @@
 	
 	
 window.alert("on device ready worked");
-var myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});
+myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});
 
 
 
