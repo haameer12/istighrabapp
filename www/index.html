@@ -437,6 +437,7 @@ getMagRequestObj = $.ajax({
 				transaction.executeSql("select * from istighrab_mag WHERE id = ?", [val['id']],
 				function(tx, result) {
 					isRowExisted = result.rows.length;
+					window.alert("selected num in is : "+result.rows.length)
 				},
 				function(error){
 					//window.alert("Error occurred in select");
