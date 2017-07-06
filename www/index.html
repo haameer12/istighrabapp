@@ -306,7 +306,7 @@
 	
 	
 	
-window.alert("on device ready worked");
+//window.alert("on device ready worked");
 /*myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});*/
 myDB = window.sqlitePlugin.openDatabase({name: 'offline-database.db', location: 'default'});
 
@@ -526,14 +526,33 @@ getMagRequestObj = $.ajax({
 
 
 
+myDB.transaction(function(transaction){
 
+	
+	transaction.executeSql("select * from istighrab_mag;", [],
+	function(tx, result) {
+		
+		window.alert(result.rows.length);
+		var i = 0;
+		while(result.rows.item(i)){
+			window.alert(result.rows.item(i).mag_num_title);
+			i++;
+		}
+		//$.each(result.rows, function( key, val ) {
+			//window.alert(val.title);
+			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
+		//});
+		//$.each(result.rows.item(2), function( key, value ) {
+		  //alert( key + ": " + value );
+		//});
 
+	},
+	function(error){
+		window.alert("Error occurred in select");
+	});
 	
 	
-	
-	
-	
-	
+});
 	
 	
 	
