@@ -307,7 +307,8 @@
 	
 	
 window.alert("on device ready worked");
-myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});
+/*myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});*/
+myDB = window.sqlitePlugin.openDatabase({name: 'offline-database.db', location: 'default'});
 
 
 
