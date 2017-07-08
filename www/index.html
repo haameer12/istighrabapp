@@ -242,6 +242,7 @@
 	}
 	
 	var myDB = null;
+	var isRowExisted = 0;
 	function onDeviceReady() {
 		
 		
@@ -433,16 +434,16 @@ getMagRequestObj = $.ajax({
 		$.each(json, function(key, val){
 
 			myDB.transaction(function(transaction){
-				window.isRowExisted = 0;
+				
 				transaction.executeSql("select * from istighrab_mag WHERE id = ?", [val['id']],
 				function(tx, result) {
-					window.isRowExisted = result.rows.length;
+					isRowExisted = result.rows.length;
 					window.alert("selected num in is : "+result.rows.length)
 				},
 				function(error){
 					//window.alert("Error occurred in select");
 				});
-				window.alert("selected num is : "+window.isRowExisted);
+				window.alert("selected num is : "+isRowExisted);
 				
 				
 				if(!isRowExisted){
