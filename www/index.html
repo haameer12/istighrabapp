@@ -406,7 +406,7 @@ myDB.transaction(function(transaction) {
 myDB.transaction(function(transaction){
 	
 	var lastItem = 0;
-	var limit = 5;
+	var limit = 4;
 	transaction.executeSql(
 		"SELECT id, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE id > ? ORDER BY sort, id LIMIT ?",
 		[lastItem, limit],
@@ -415,7 +415,7 @@ myDB.transaction(function(transaction){
 			window.alert(result.rows.length);
 			var i = 0;
 			while(result.rows.item(i)){
-				window.alert(result.rows.item(i).mag_num_title);
+				 window.alert("sort :" +result.rows.item(i).sort +" - id:" +result.rows.item(i).id +" - title:" +result.rows.item(i).mag_num_title);
 				i++;
 			}
 			//$.each(result.rows, function( key, val ) {
