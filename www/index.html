@@ -407,8 +407,8 @@ myDB.transaction(function(transaction){
 	
 	var limit = 6;
 	transaction.executeSql(
-		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort > ? ORDER BY sort DESC, id DESC LIMIT ?",
-		[$("#magListCon").attr("lastMagInListSortNum"), limit],
+		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag ORDER BY sort DESC, id DESC LIMIT ?",
+		[limit],
 		function(tx, result) {
 			
 			window.alert(result.rows.length);
@@ -527,7 +527,7 @@ myDB.transaction(function(transaction){
 				
 				var limit = 6;
 				transaction.executeSql(
-					"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort > ? ORDER BY sort DESC, id DESC LIMIT ?",
+					"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort < ? ORDER BY sort DESC, id DESC LIMIT ?",
 					[$("#magListCon").attr("lastMagInListSortNum"), limit],
 					function(tx, result) {
 						
