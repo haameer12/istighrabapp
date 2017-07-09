@@ -415,7 +415,7 @@ myDB.transaction(function(transaction){
 			var magNumArray = ["۰", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩", "١۰", "١١", "١٢", "١٣", "١٤", "١٥", "١٦", "١٧", "١٨", "١٩", "٢۰", "٢١", "٢٢", "٢٣", "٢٤", "٢٥", "٢٦", "٢٧", "٢٨", "٢٩", "٣۰", "٣١", "٣٢", "٣٣", "٣٤", "٣٥", "٣٦", "٣٧", "٣٨", "٣٩", "٣", "٤۰", "٤١", "٤٢", "٤٣", "٤٤", "٤٥", "٤٦", "٤٧", "٤٨", "٤٩", "٥۰", "٥١", "٥٢", "٥٣", "٥٤", "٥٥", "٥٦", "٥٧", "٥٨", "٥٩", "٦۰", "٦١", "٦٢", "٦٣", "٦٤", "٦٥", "٦٦", "٦٧", "٦٨", "٦٩", "٧۰", "٧١", "٧٢", "٧٣", "٧٤", "٧٥", "٧٦", "٧٧", "٧٨", "٧٩", "٨۰", "٨١", "٨٢", "٨٣", "٨٤", "٨٥", "٨٦", "٨٧", "٨٨", "٨٩", "٩۰", "٩١", "٩٢", "٩٣", "٩٤", "٩٥", "٩٦", "٩٧", "٩٨", "٩٩", "١۰۰"];
 			var i = 0;
 			while(result.rows.item(i)){
-				$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
+				$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);window.alert(result.rows.item(i).sort);
 				$("#magListCon").append('<div class="mag_item"> \
 					<div class="mag_item_in"> \
 						<div class="mag-name"> \
