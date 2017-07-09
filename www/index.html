@@ -406,25 +406,98 @@ myDB.transaction(function(transaction) {
 myDB.transaction(function(transaction){
 	
 	var lastItem = 0;
-	var limit = 4;
+	var limit = 50;
 	transaction.executeSql(
 		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE id > ? ORDER BY sort, id LIMIT ?",
 		[lastItem, limit],
 		function(tx, result) {
 			
 			window.alert(result.rows.length);
+			var magNumArray = ["۰", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩", "١۰", "١١", "١٢", "١٣", "١٤", "١٥", "١٦", "١٧", "١٨", "١٩", "٢۰", "٢١", "٢٢", "٢٣", "٢٤", "٢٥", "٢٦", "٢٧", "٢٨", "٢٩", "٣۰", "٣١", "٣٢", "٣٣", "٣٤", "٣٥", "٣٦", "٣٧", "٣٨", "٣٩", "٣", "٤۰", "٤١", "٤٢", "٤٣", "٤٤", "٤٥", "٤٦", "٤٧", "٤٨", "٤٩", "٥۰", "٥١", "٥٢", "٥٣", "٥٤", "٥٥", "٥٦", "٥٧", "٥٨", "٥٩", "٦۰", "٦١", "٦٢", "٦٣", "٦٤", "٦٥", "٦٦", "٦٧", "٦٨", "٦٩", "٧۰", "٧١", "٧٢", "٧٣", "٧٤", "٧٥", "٧٦", "٧٧", "٧٨", "٧٩", "٨۰", "٨١", "٨٢", "٨٣", "٨٤", "٨٥", "٨٦", "٨٧", "٨٨", "٨٩", "٩۰", "٩١", "٩٢", "٩٣", "٩٤", "٩٥", "٩٦", "٩٧", "٩٨", "٩٩", "١۰۰"];
 			var i = 0;
 			while(result.rows.item(i)){
 				 window.alert("sort :" +result.rows.item(i).sort +" - id:" +result.rows.item(i).id +" - title:" +result.rows.item(i).mag_num_title);
 				i++;
+				
+				
+				
+			
+			
+			
+			
+			
+			
+			
+				$("#magListCon").append('<div class="mag_item"> \
+					<div class="mag_item_in"> \
+						<div class="mag-name"> \
+							<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
+							<div class="mag-name-num">' +magNumArray[result.rows.item(i).name] +'</div> \
+						</div> \
+						<div class="mag-title-middle-holder">&nbsp;</div> \
+						<div class="mag-title"> \
+						' +((result.rows.item(i).mag_num_title != null)? "ملف العدد : " +result.rows.item(i).mag_num_title :  "&nbsp;") +' \
+						</div> \
+						<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +result.rows.item(i).pdf_path +'\', \'system\');return false;"></a> \
+						<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
+					</div> \
+					<div class="mag-details"> \
+						<div class="mag-details-top-button"> \
+							<a href="#"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+							<a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
+						</div> \
+						<div class="mag-taqarir"> \
+ \
+							<table class="HHH-table"> \
+								<thead> \
+									<tr> \
+										<th>عنوان البحث</th> \
+										<th>الباحث</th> \
+										<th>تحمیل</th> \
+									</tr> \
+								</thead> \
+								<tbody> \
+									<tr> \
+										<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
+										<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
+										<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+									</tr> \
+									<tr> \
+										<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
+										<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
+										<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+									</tr> \
+								</tbody> \
+							</table> \
+ \
+						</div> \
+						<div class="mag-info"> \
+ \
+							<div class="mag-info-win"> \
+								<div class="mag-info-win-title">معلومات العدد</div> \
+								<div class="mag-info-win-text"> \
+ \
+									<p>نمضي إلى هذا المستخلص من فرضيتين: إحداهما ترى إلى الإلحاد كحدثٍ تاريخي ألقى بآثاره على الإنسان فانفعل بها واستجاب لدواعيها، وأخرى نظرت إليه كفكرة استعصى على الناظر تفكيك لغزها فهوى في لجة اللاَّيقين.. ثم لم يكن له جرَّاء هذا إلا أن يدحض إيمان المؤمن طلباً ليقين ما. ربما لهذا السبب سينبري الفيزيائي واللاهوتي المسيحي أليستر ماكغراث (Alister Mcgrath) إلى عقد صلة سببية بين الإلحاد والإيمان؛ ليبيِّن أن الاول (الإلحاد) ما كان لصورته ان تظهر على الملأ لولا إنكاره الوجود الواقعي للإيمان.</p> \
+ \
+								</div> \
+							</div> \
+ \
+						</div> \
+					</div> \
+				</div>');
+							
+							
+							
+			
+				
+				
+				
+				
+				
+				
+				
 			}
-			//$.each(result.rows, function( key, val ) {
-				//window.alert(val.title);
-				//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
-			//});
-			//$.each(result.rows.item(2), function( key, value ) {
-			  //alert( key + ": " + value );
-			//});
+			
 	
 		},
 		function(error){
@@ -459,7 +532,7 @@ getMagRequestObj = $.ajax({
 	dataType : 'jsonp',
 	success : function(json){
 		//$("#esdarat-item-list_contaner #esdarat-item-list_contaner_in").html("");
-		var magNumArray = ["۰", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩", "١۰", "١١", "١٢", "١٣", "١٤", "١٥", "١٦", "١٧", "١٨", "١٩", "٢۰", "٢١", "٢٢", "٢٣", "٢٤", "٢٥", "٢٦", "٢٧", "٢٨", "٢٩", "٣۰", "٣١", "٣٢", "٣٣", "٣٤", "٣٥", "٣٦", "٣٧", "٣٨", "٣٩", "٣", "٤۰", "٤١", "٤٢", "٤٣", "٤٤", "٤٥", "٤٦", "٤٧", "٤٨", "٤٩", "٥۰", "٥١", "٥٢", "٥٣", "٥٤", "٥٥", "٥٦", "٥٧", "٥٨", "٥٩", "٦۰", "٦١", "٦٢", "٦٣", "٦٤", "٦٥", "٦٦", "٦٧", "٦٨", "٦٩", "٧۰", "٧١", "٧٢", "٧٣", "٧٤", "٧٥", "٧٦", "٧٧", "٧٨", "٧٩", "٨۰", "٨١", "٨٢", "٨٣", "٨٤", "٨٥", "٨٦", "٨٧", "٨٨", "٨٩", "٩۰", "٩١", "٩٢", "٩٣", "٩٤", "٩٥", "٩٦", "٩٧", "٩٨", "٩٩", "١۰۰"];
+	
 		$.each(json, function(key, val){
 
 			myDB.transaction(function(transaction){
@@ -494,63 +567,7 @@ getMagRequestObj = $.ajax({
 				}
 			});
 
-			$("#magListCon").append('<div class="mag_item"> \
-	<div class="mag_item_in"> \
-		<div class="mag-name"> \
-			<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
-			<div class="mag-name-num">' +magNumArray[val['name']] +'</div> \
-		</div> \
-		<div class="mag-title-middle-holder">&nbsp;</div> \
-		<div class="mag-title"> \
-		' +((val['mag_num_title'] != null)? "ملف العدد : "+val['mag_num_title'] :  "&nbsp;") +' \
-		</div> \
-		<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +val['pdf_path'] +'\', \'system\');return false;"></a> \
-		<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
-	</div> \
-	<div class="mag-details"> \
-		<div class="mag-details-top-button"> \
-			<a href="#"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
-			<a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
-		</div> \
-		<div class="mag-taqarir"> \
- \
-			<table class="HHH-table"> \
-				<thead> \
-					<tr> \
-						<th>عنوان البحث</th> \
-						<th>الباحث</th> \
-						<th>تحمیل</th> \
-					</tr> \
-				</thead> \
-				<tbody> \
-					<tr> \
-						<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
-						<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-						<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-					</tr> \
-					<tr> \
-						<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-						<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
-						<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-					</tr> \
-				</tbody> \
-			</table> \
- \
-		</div> \
-		<div class="mag-info"> \
- \
-			<div class="mag-info-win"> \
-				<div class="mag-info-win-title">معلومات العدد</div> \
-				<div class="mag-info-win-text"> \
- \
-					<p>نمضي إلى هذا المستخلص من فرضيتين: إحداهما ترى إلى الإلحاد كحدثٍ تاريخي ألقى بآثاره على الإنسان فانفعل بها واستجاب لدواعيها، وأخرى نظرت إليه كفكرة استعصى على الناظر تفكيك لغزها فهوى في لجة اللاَّيقين.. ثم لم يكن له جرَّاء هذا إلا أن يدحض إيمان المؤمن طلباً ليقين ما. ربما لهذا السبب سينبري الفيزيائي واللاهوتي المسيحي أليستر ماكغراث (Alister Mcgrath) إلى عقد صلة سببية بين الإلحاد والإيمان؛ ليبيِّن أن الاول (الإلحاد) ما كان لصورته ان تظهر على الملأ لولا إنكاره الوجود الواقعي للإيمان.</p> \
- \
-				</div> \
-			</div> \
- \
-		</div> \
-	</div> \
-</div>');
+			
 		});
 		
 		
@@ -574,41 +591,6 @@ getMagRequestObj = $.ajax({
 
 	
 
-
-
-myDB.transaction(function(transaction){
-
-	
-	transaction.executeSql("select * from istighrab_mag;", [],
-	function(tx, result) {
-		
-		window.alert(result.rows.length);
-		var i = 0;
-		while(result.rows.item(i)){
-			window.alert(result.rows.item(i).pdf_path);
-			i++;
-		}
-		//$.each(result.rows, function( key, val ) {
-			//window.alert(val.title);
-			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
-		//});
-		//$.each(result.rows.item(2), function( key, value ) {
-		  //alert( key + ": " + value );
-		//});
-
-	},
-	function(error){
-		window.alert("Error occurred in select");
-	});
-	
-	
-});
-	
-	
-	
-
-	
-	
 	
 	
 	
@@ -1222,7 +1204,7 @@ myDB.transaction(function(transaction){
 				.nano .nano-slider { background: #d4d2d2 !important; border-radius:0 !important; }
 				</style>
 				<div class="nano">
-					<div class="nano-content" id="magListCon">
+					<div class="nano-content" id="magListCon" lastMagInListId="">
 					
 						
 						
