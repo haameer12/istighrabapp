@@ -325,11 +325,12 @@ myDB.transaction(function(transaction) {
 	
 	//window.alert("db worked");
 	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag ( \
-		"id"  INTEGER, \
-		"name"  TEXT, \
-		"protected"  INTEGER, \
-		"pdf_path"  TEXT, \
-		"mag_num_title"  TEXT \
+		"id"             INTEGER, \
+		"sort"           INTEGER, \
+		"name"           TEXT, \
+		"protected"      INTEGER, \
+		"pdf_path"       TEXT, \
+		"mag_num_title"	 TEXT \
 	)', [],
 	function(tx, result) {
 		//window.alert("Table created successfully");
@@ -340,10 +341,10 @@ myDB.transaction(function(transaction) {
 	
 	
 	
+/*	
 	
-	/*
 	
-	transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", ["1", "1", "0", "files/files/5a3f38r.pdf", "كانط رؤية نقدية"],
+	transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", ["1", "", "1", "0", "files/files/5a3f38r.pdf", "كانط رؤية نقدية"],
 	function(tx, result) {
 		window.alert("Inserted");
 	},
@@ -389,7 +390,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	
-*/
+
 	
 
 	
@@ -439,14 +440,14 @@ myDB.transaction(function(transaction){
 	
 	
 	
+	*/
 	
 	
 	
 	
 	
 	
-	
-/*	
+
 	
 
 getMagRequestObj = $.ajax({
@@ -475,7 +476,7 @@ getMagRequestObj = $.ajax({
 				
 				
 				if(!isRowExisted){
-					transaction.executeSql("INSERT INTO istighrab_mag (id, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?)", [val['id'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
+					transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
 					function(tx, result) {
 						window.alert("Inserted");
 					},
@@ -483,7 +484,7 @@ getMagRequestObj = $.ajax({
 						window.alert("Error occurred in insert");
 					});
 				}else{
-					transaction.executeSql("UPDATE istighrab_mag SET name = ?, protected = ?, pdf_path = ?, mag_num_title = ? WHERE id = ?", [val['name'], val['protected'], val['pdf_path'], vals['masg_num_title'], val['id']],
+					transaction.executeSql("UPDATE istighrab_mag SET sort = ?, name = ?, protected = ?, pdf_path = ?, mag_num_title = ? WHERE id = ?", [val['sort'], val['name'], val['protected'], val['pdf_path'], vals['masg_num_title'], val['id']],
 					function(tx, result) {
 						window.alert("updated");
 					},
@@ -605,7 +606,7 @@ myDB.transaction(function(transaction){
 	
 	
 	
-*/	
+
 	
 	
 	
