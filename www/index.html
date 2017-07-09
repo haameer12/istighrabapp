@@ -408,7 +408,7 @@ myDB.transaction(function(transaction){
 	var lastItem = 0;
 	var limit = 5;
 	transaction.executeSql(
-		"select id, name, protected, pdf_path, mag_num_title from istighrab_mag WHERE id > ? LIMIT ?",
+		"SELECT id, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE id > ? ORDER BY sort, id LIMIT ?",
 		[lastItem, limit],
 		function(tx, result) {
 			
