@@ -405,28 +405,17 @@ myDB.transaction(function(transaction) {
 	
 myDB.transaction(function(transaction){
 	
-	var lastItem = 0;
-	var limit = 50;
+	var limit = 3;
 	transaction.executeSql(
 		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort > ? ORDER BY sort DESC, id DESC LIMIT ?",
-		[lastItem, limit],
+		[$("#magListCon").attr("lastMagInListSortNum"), limit],
 		function(tx, result) {
 			
 			window.alert(result.rows.length);
 			var magNumArray = ["۰", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩", "١۰", "١١", "١٢", "١٣", "١٤", "١٥", "١٦", "١٧", "١٨", "١٩", "٢۰", "٢١", "٢٢", "٢٣", "٢٤", "٢٥", "٢٦", "٢٧", "٢٨", "٢٩", "٣۰", "٣١", "٣٢", "٣٣", "٣٤", "٣٥", "٣٦", "٣٧", "٣٨", "٣٩", "٣", "٤۰", "٤١", "٤٢", "٤٣", "٤٤", "٤٥", "٤٦", "٤٧", "٤٨", "٤٩", "٥۰", "٥١", "٥٢", "٥٣", "٥٤", "٥٥", "٥٦", "٥٧", "٥٨", "٥٩", "٦۰", "٦١", "٦٢", "٦٣", "٦٤", "٦٥", "٦٦", "٦٧", "٦٨", "٦٩", "٧۰", "٧١", "٧٢", "٧٣", "٧٤", "٧٥", "٧٦", "٧٧", "٧٨", "٧٩", "٨۰", "٨١", "٨٢", "٨٣", "٨٤", "٨٥", "٨٦", "٨٧", "٨٨", "٨٩", "٩۰", "٩١", "٩٢", "٩٣", "٩٤", "٩٥", "٩٦", "٩٧", "٩٨", "٩٩", "١۰۰"];
 			var i = 0;
 			while(result.rows.item(i)){
-			
-				
-				
-				
-			
-			
-			
-			
-			
-			
-			
+				$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
 				$("#magListCon").append('<div class="mag_item"> \
 					<div class="mag_item_in"> \
 						<div class="mag-name"> \
@@ -484,18 +473,27 @@ myDB.transaction(function(transaction){
 						</div> \
 					</div> \
 				</div>');
-							
-							
-							
-			
-				
-				
-				
-				
-				
-				
 				i++;
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			$(".istighrab_mag_list .nano").bind("scrollend", function(e){
+				window.alert("ok");
+			})
+			
+			
+			
+			
+			
+			
+			
+			
 			
 	
 		},
@@ -570,7 +568,7 @@ getMagRequestObj = $.ajax({
 		});
 		
 		
-		$(".nano").nanoScroller({ alwaysVisible: true });
+		$(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 
 			
 	},
@@ -1196,23 +1194,23 @@ getMagRequestObj = $.ajax({
 					&nbsp;
 				</div>
 				<div class="istighrab_mag_list">
-				<style>
-				.nano { background: #f1f1f1 !important; width: 100vw; height: 70vh; }
-				.nano .nano-content {  }
-				.nano .nano-pane   { background: none !important; width:1.2vw; border-radius:0; }
-				.nano .nano-slider { background: #d4d2d2 !important; border-radius:0 !important; }
-				</style>
-				<div class="nano">
-					<div class="nano-content" id="magListCon" lastMagInListId="">
-					
+					<style>
+					.istighrab_mag_list .nano { background: #f1f1f1 !important; width: 100vw; height: 70vh; }
+					.istighrab_mag_list .nano .nano-content {  }
+					.istighrab_mag_list .nano .nano-pane   { background: none !important; width:1.2vw; border-radius:0; }
+					.istighrab_mag_list .nano .nano-slider { background: #d4d2d2 !important; border-radius:0 !important; }
+					</style>
+					<div class="nano">
+						<div class="nano-content" id="magListCon" lastMagInListSortNum="0">
 						
-						
-						
-						
-						
-						
+							
+							
+							
+							
+							
+							
+						</div>
 					</div>
-				</div>
 				</div>
 
 			
