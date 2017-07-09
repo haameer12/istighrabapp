@@ -405,7 +405,7 @@ myDB.transaction(function(transaction) {
 	
 myDB.transaction(function(transaction){
 	
-	var limit = 3;
+	var limit = 6;
 	transaction.executeSql(
 		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort > ? ORDER BY sort DESC, id DESC LIMIT ?",
 		[$("#magListCon").attr("lastMagInListSortNum"), limit],
