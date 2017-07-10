@@ -247,6 +247,19 @@
 	function onDeviceReady() {
 		
 		
+		
+		
+		if(navigator.connection.type==0){
+			window.alert('This application requires internet. Please connect to the internet.');
+		}else if(navigator.connection.type=='none'){
+			window.alert('This application requires internet. Please connect to the internet.');
+		}else{
+			window.alert("Hurray I'm online");
+		}
+		
+		
+		
+		
 		setInterval(function(){
 			statusbarTransparent.enable();
 			StatusBar.show();
@@ -415,7 +428,7 @@ myDB.transaction(function(transaction){
 			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
 				
 				
-				getMagRequestObj = $.ajax({
+/*				getMagRequestObj = $.ajax({
 					type : 'get',
 					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?item_num=6",
 					async : false,
@@ -518,7 +531,7 @@ myDB.transaction(function(transaction){
 						});
 						
 						
-						/*$(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });*/
+						//$(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 				
 							
 					},
@@ -531,7 +544,7 @@ myDB.transaction(function(transaction){
 						
 						getMagRequestObj = "";
 					}
-				});
+				});*/
 				
 				
 			}else{//توجد في قاعدة بيانات البرنامج المعلومات ---- لكن يجب تحليلها
