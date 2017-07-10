@@ -512,7 +512,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 	
 	
 	
-	window.alert("scrollend");
+	//window.alert("scrollend");
 	
 	
 	
@@ -592,7 +592,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 					i++;
 				}
 				
-
+				$(".istighrab_mag_list .nano").nanoScroller();
 
 				
 
@@ -612,7 +612,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 	
 	
 	
-	window.alert("lastMagInListSortNum : " +$("#magListCon").attr("lastMagInListSortNum") );
+	//window.alert("lastMagInListSortNum : " +$("#magListCon").attr("lastMagInListSortNum") );
 	
 	
 	
@@ -1319,7 +1319,7 @@ getMagRequestObj = $.ajax({
 					.istighrab_mag_list .nano .nano-slider { background: #d4d2d2 !important; border-radius:0 !important; }
 					</style>
 					<div class="nano">
-						<div class="nano-content" id="magListCon" lastMagInListSortNum="0">
+						<div class="nano-content" id="magListCon" firstMagInListSortNum="0" lastMagInListSortNum="0">
 						
 							
 							
