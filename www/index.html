@@ -416,19 +416,19 @@ myDB.transaction(function(transaction) {
 	
 	
 
-	
+
 myDB.transaction(function(transaction){
 	
 	var limit = 6;
 	transaction.executeSql(
-		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM isstighrab_mag ORDER BY sort DESC, id DESC LIMIT ?",
+		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag ORDER BY sort DESC, id DESC LIMIT ?",
 		[limit],
-		function(tx, result) {
+		function(tx, result){
 			
 			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
 				
 				
-/*				getMagRequestObj = $.ajax({
+				getMagRequestObj = $.ajax({
 					type : 'get',
 					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?item_num=6",
 					async : false,
@@ -544,7 +544,7 @@ myDB.transaction(function(transaction){
 						
 						getMagRequestObj = "";
 					}
-				});*/
+				});
 				
 				
 			}else{//توجد في قاعدة بيانات البرنامج المعلومات ---- لكن يجب تحليلها
