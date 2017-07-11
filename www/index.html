@@ -672,7 +672,7 @@ myDB.transaction(function(transaction){
 		[$("#magListCon").attr("lastMagInListSortNum"), limit],
 		function(tx, result){
 			
-			if(result.rowss.length < 1){//لا توجد في قاعدة بيانات البرنامج المعلومات المراده
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج المعلومات المراده
 				
 				
 				getMagRequestObj = $.ajax({
