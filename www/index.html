@@ -325,18 +325,8 @@
 /*myDB = window.sqlitePlugin.openDatabase({name: "offline-database.db", createFromLocation: 1});*/
 myDB = window.sqlitePlugin.openDatabase({name: 'offline-database.db', location: 'default'});
 
-
-
-
-	
-
-
 myDB.transaction(function(transaction) {
-	
-	
 
-	
-	
 	//window.alert("db worked");
 	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag ( \
 		"id"             INTEGER, \
@@ -400,23 +390,17 @@ myDB.transaction(function(transaction) {
 	function(error){
 		window.alert("Error occurred in select");
 	});
-	
-	
-	
+
 	
 */
 	
 
-	
-	
-	
-	
 });
 	
 	
 	
 
-
+//الكود الخاص بتحميل اول وجبه عند فتح البرنامج
 myDB.transaction(function(transaction){
 	
 	var limit = 6;
@@ -426,8 +410,7 @@ myDB.transaction(function(transaction){
 		function(tx, result){
 			
 			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
-				
-				
+
 				getMagRequestObj = $.ajax({
 					type : 'get',
 					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?item_num=6",
@@ -436,7 +419,8 @@ myDB.transaction(function(transaction){
 					contentType : "application/json",
 					dataType : 'jsonp',
 					success : function(json){
-					
+						
+						var i = 0;
 						$.each(json, function(key, val){
 				
 							myDB.transaction(function(transaction){
@@ -444,16 +428,9 @@ myDB.transaction(function(transaction){
 								transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
 								function(tx, result) {
 									//window.alert("Inserted");
-									
-									
-									
-									
-									
-									
-									
-									
-									
+
 									$("#magListCon").attr("lastMagInListSortNum", val['sort']);
+									if(i < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
 									$("#magListCon").append('<div class="mag_item"> \
 										<div class="mag_item_in"> \
 											<div class="mag-name"> \
@@ -511,16 +488,7 @@ myDB.transaction(function(transaction){
 											</div> \
 										</div> \
 									</div>');
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
+
 								},
 								function(error){
 									window.alert("Error occurred in insert");
@@ -528,12 +496,11 @@ myDB.transaction(function(transaction){
 								
 							});
 				
+							i++;
 						});
 						
 						$(".istighrab_mag_list .nano").nanoScroller();
-						
-				
-							
+
 					},
 					error: function(e, errorReason){
 						//console.log(e.message);
@@ -541,18 +508,16 @@ myDB.transaction(function(transaction){
 							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
 						}
 						
-						
 						getMagRequestObj = "";
 					}
 				});
 				
-				
-			}else{//توجد في قاعدة بيانات البرنامج المعلومات
-			
-			
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل هل المعلومات هي اخر المعلومات المدرجه في السيرفر ام لا
+
 				var i = 0;
 				while(result.rows.item(i)){
 					$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
+					if(i < 1){$("#magListCon").attr("firstMagInListSortNum", result.rows.item(i).sort)}
 					$("#magListCon").append('<div class="mag_item"> \
 						<div class="mag_item_in"> \
 							<div class="mag-name"> \
@@ -613,77 +578,56 @@ myDB.transaction(function(transaction){
 					i++;
 				}
 				
-				$(".istighrab_mag_list .nano").nanoScroller();
 				
 				
-			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-	
-		},
-		function(error){
-			window.alert("Error occurred in select");
-		}
-	);
-	
-	
-
-	
-	
-	
-});
-	
-	
-	
-	
-	
-	
-
-
-$(".istighrab_mag_list .nano").bind("scrollend", function(e){
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	window.alert("scrollend");
-	
-	
-myDB.transaction(function(transaction){
-	
-	var limit = 6;
-	transaction.executeSql(
-		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort < ? ORDER BY sort DESC, id DESC LIMIT ?",
-		[$("#magListCon").attr("lastMagInListSortNum"), limit],
-		function(tx, result){
-			
-			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج المعلومات المراده
+				
+				
+				
+				
+				
+				
+				//تسلك من السيرفر آخر 14 عنصر الاكبر من اخر عنصر محمل في القائمة
+				//واذا كان اخر عنصر في القائمة  لم يكن يوافق التسلسل مع العناصر المسلكه من السيرفر تفرغ قاعدة بيانات البرنامج وتضاف المعلومات المسلكه من السيرفر 
+				
+				//اما تحدف القديمات من قاعدة البرنامج او لا تحذف لكن يجب التعديل على كود العرض في القائمة ومنعها من العرض حتى تكتمل السلسلة
+				
+				
+				
+				//وانا افضل ان لا تحذف لانه من الممكن 
+				
+				
+				
+				
+				
+				
 				
 				
 				getMagRequestObj = $.ajax({
 					type : 'get',
-					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?last_item=" +$("#magListCon").attr("lastMagInListSortNum") +"&item_num=6",
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?first_item=" +$("#magListCon").attr("firstMagInListSortNum") +"&item_num=15",
 					async : false,
 					jsonpCallback : "istighrabMagCallBack",
 					contentType : "application/json",
 					dataType : 'jsonp',
 					success : function(json){
-					
+						
+						
+						window.alert("length is : " +json.length);
+						
+						
+						
+						/*if(){
+							
+						}else{
+							
+						}
+						
+						
+						
+						
+						
+						
+						var i = 0;
 						$.each(json, function(key, val){
 				
 							myDB.transaction(function(transaction){
@@ -691,16 +635,9 @@ myDB.transaction(function(transaction){
 								transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
 								function(tx, result) {
 									//window.alert("Inserted");
-									
-									
-									
-									
-									
-									
-									
-									
-									
+
 									$("#magListCon").attr("lastMagInListSortNum", val['sort']);
+									if(i < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
 									$("#magListCon").append('<div class="mag_item"> \
 										<div class="mag_item_in"> \
 											<div class="mag-name"> \
@@ -758,16 +695,7 @@ myDB.transaction(function(transaction){
 											</div> \
 										</div> \
 									</div>');
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
+
 								},
 								function(error){
 									window.alert("Error occurred in insert");
@@ -775,12 +703,11 @@ myDB.transaction(function(transaction){
 								
 							});
 				
-						});
-						
+							i++;
+						});*/
 						
 						$(".istighrab_mag_list .nano").nanoScroller();
-				
-							
+
 					},
 					error: function(e, errorReason){
 						//console.log(e.message);
@@ -793,111 +720,264 @@ myDB.transaction(function(transaction){
 				});
 				
 				
-			}else{//توجد في قاعدة بيانات البرنامج المعلومات
-			
-			
-				var i = 0;
-				while(result.rows.item(i)){
-					$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
-					$("#magListCon").append('<div class="mag_item"> \
-						<div class="mag_item_in"> \
-							<div class="mag-name"> \
-								<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
-								<div class="mag-name-num">' +magNumArray[result.rows.item(i).name] +'</div> \
-							</div> \
-							<div class="mag-title-middle-holder">&nbsp;</div> \
-							<div class="mag-title"> \
-							' +((result.rows.item(i).mag_num_title != null)? "--ملف العدد : " +result.rows.item(i).mag_num_title :  "&nbsp;") +' \
-							</div> \
-							<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +result.rows.item(i).pdf_path +'\', \'system\');return false;"></a> \
-							<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
-						</div> \
-						<div class="mag-details"> \
-							<div class="mag-details-top-button"> \
-								<a href="#"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
-								<a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
-							</div> \
-							<div class="mag-taqarir"> \
- \
-								<table class="HHH-table"> \
-									<thead> \
-										<tr> \
-											<th>عنوان البحث</th> \
-											<th>الباحث</th> \
-											<th>تحمیل</th> \
-										</tr> \
-									</thead> \
-									<tbody> \
-										<tr> \
-											<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
-											<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-											<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-										</tr> \
-										<tr> \
-											<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-											<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
-											<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-										</tr> \
-									</tbody> \
-								</table> \
- \
-							</div> \
-							<div class="mag-info"> \
- \
-								<div class="mag-info-win"> \
-									<div class="mag-info-win-title">معلومات العدد</div> \
-									<div class="mag-info-win-text"> \
- \
-										<p>نمضي إلى هذا المستخلص من فرضيتين: إحداهما ترى إلى الإلحاد كحدثٍ تاريخي ألقى بآثاره على الإنسان فانفعل بها واستجاب لدواعيها، وأخرى نظرت إليه كفكرة استعصى على الناظر تفكيك لغزها فهوى في لجة اللاَّيقين.. ثم لم يكن له جرَّاء هذا إلا أن يدحض إيمان المؤمن طلباً ليقين ما. ربما لهذا السبب سينبري الفيزيائي واللاهوتي المسيحي أليستر ماكغراث (Alister Mcgrath) إلى عقد صلة سببية بين الإلحاد والإيمان؛ ليبيِّن أن الاول (الإلحاد) ما كان لصورته ان تظهر على الملأ لولا إنكاره الوجود الواقعي للإيمان.</p> \
-	 \
-									</div> \
-								</div> \
- \
-							</div> \
-						</div> \
-					</div>');
-					i++;
-				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				$(".istighrab_mag_list .nano").nanoScroller();
 				
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-	
+
 		},
 		function(error){
 			window.alert("Error occurred in select");
 		}
 	);
-	
-	
 
-	
-	
-	
 });
-	
-	
 
+
+
+//الكود الخاص بتحميل المجلات الاقدم
+$(".istighrab_mag_list .nano").bind("scrollend", function(e){
+
+	//window.alert("scrollend");
 	
+	myDB.transaction(function(transaction){
+		
+		var limit = 6;
+		transaction.executeSql(
+			"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort < ? ORDER BY sort DESC, id DESC LIMIT ?",
+			[$("#magListCon").attr("lastMagInListSortNum"), limit],
+			function(tx, result){
+				
+				if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج المعلومات المراده
+					
+					getMagRequestObj = $.ajax({
+						type : 'get',
+						url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?last_item=" +$("#magListCon").attr("lastMagInListSortNum") +"&item_num=6",
+						async : false,
+						jsonpCallback : "istighrabMagCallBack",
+						contentType : "application/json",
+						dataType : 'jsonp',
+						success : function(json){
+						
+							$.each(json, function(key, val){
+					
+								myDB.transaction(function(transaction){
 	
-	
+									transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
+									function(tx, result) {
+										//window.alert("Inserted");
+
+										$("#magListCon").attr("lastMagInListSortNum", val['sort']);
+										$("#magListCon").append('<div class="mag_item"> \
+											<div class="mag_item_in"> \
+												<div class="mag-name"> \
+													<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
+													<div class="mag-name-num">' +magNumArray[val['name']] +'</div> \
+												</div> \
+												<div class="mag-title-middle-holder">&nbsp;</div> \
+												<div class="mag-title"> \
+												' +((val['mag_num_title'] != null)? "ملف العدد : " +val['mag_num_title'] :  "&nbsp;") +' \
+												</div> \
+												<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +val['pdf_path'] +'\', \'system\');return false;"></a> \
+												<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
+											</div> \
+											<div class="mag-details"> \
+												<div class="mag-details-top-button"> \
+													<a href="#"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+													<a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
+												</div> \
+												<div class="mag-taqarir"> \
+ \
+													<table class="HHH-table"> \
+														<thead> \
+															<tr> \
+																<th>عنوان البحث</th> \
+																<th>الباحث</th> \
+																<th>تحمیل</th> \
+															</tr> \
+														</thead> \
+														<tbody> \
+															<tr> \
+																<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
+																<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
+																<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+															</tr> \
+															<tr> \
+																<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
+																<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
+																<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+															</tr> \
+														</tbody> \
+													</table> \
+ \
+												</div> \
+												<div class="mag-info"> \
+ \
+													<div class="mag-info-win"> \
+														<div class="mag-info-win-title">معلومات العدد</div> \
+														<div class="mag-info-win-text"> \
+ \
+															<p>نمضي إلى هذا المستخلص من فرضيتين: إحداهما ترى إلى الإلحاد كحدثٍ تاريخي ألقى بآثاره على الإنسان فانفعل بها واستجاب لدواعيها، وأخرى نظرت إليه كفكرة استعصى على الناظر تفكيك لغزها فهوى في لجة اللاَّيقين.. ثم لم يكن له جرَّاء هذا إلا أن يدحض إيمان المؤمن طلباً ليقين ما. ربما لهذا السبب سينبري الفيزيائي واللاهوتي المسيحي أليستر ماكغراث (Alister Mcgrath) إلى عقد صلة سببية بين الإلحاد والإيمان؛ ليبيِّن أن الاول (الإلحاد) ما كان لصورته ان تظهر على الملأ لولا إنكاره الوجود الواقعي للإيمان.</p> \
+ \
+														</div> \
+													</div> \
+ \
+												</div> \
+											</div> \
+										</div>');
+
+									},
+									function(error){
+										window.alert("Error occurred in insert");
+									});
+									
+								});
+					
+							});
+							
+							$(".istighrab_mag_list .nano").nanoScroller();
+					
+								
+						},
+						error: function(e, errorReason){
+							//console.log(e.message);
+							if(errorReason != "abort"){
+								notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+							}
+							
+							getMagRequestObj = "";
+						}
+					});
+					
+				}else{//توجد في قاعدة بيانات البرنامج المعلومات
+				
+					var i = 0;
+					while(result.rows.item(i)){
+						$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
+						$("#magListCon").append('<div class="mag_item"> \
+							<div class="mag_item_in"> \
+								<div class="mag-name"> \
+									<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
+									<div class="mag-name-num">' +magNumArray[result.rows.item(i).name] +'</div> \
+								</div> \
+								<div class="mag-title-middle-holder">&nbsp;</div> \
+								<div class="mag-title"> \
+								' +((result.rows.item(i).mag_num_title != null)? "--ملف العدد : " +result.rows.item(i).mag_num_title :  "&nbsp;") +' \
+								</div> \
+								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +result.rows.item(i).pdf_path +'\', \'system\');return false;"></a> \
+								<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
+							</div> \
+							<div class="mag-details"> \
+								<div class="mag-details-top-button"> \
+									<a href="#"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+									<a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
+								</div> \
+								<div class="mag-taqarir"> \
+ \
+									<table class="HHH-table"> \
+										<thead> \
+											<tr> \
+												<th>عنوان البحث</th> \
+												<th>الباحث</th> \
+												<th>تحمیل</th> \
+											</tr> \
+										</thead> \
+										<tbody> \
+											<tr> \
+												<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
+												<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
+												<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+											</tr> \
+											<tr> \
+												<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
+												<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
+												<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+											</tr> \
+										</tbody> \
+									</table> \
+ \
+								</div> \
+								<div class="mag-info"> \
+ \
+									<div class="mag-info-win"> \
+										<div class="mag-info-win-title">معلومات العدد</div> \
+										<div class="mag-info-win-text"> \
+ \
+											<p>نمضي إلى هذا المستخلص من فرضيتين: إحداهما ترى إلى الإلحاد كحدثٍ تاريخي ألقى بآثاره على الإنسان فانفعل بها واستجاب لدواعيها، وأخرى نظرت إليه كفكرة استعصى على الناظر تفكيك لغزها فهوى في لجة اللاَّيقين.. ثم لم يكن له جرَّاء هذا إلا أن يدحض إيمان المؤمن طلباً ليقين ما. ربما لهذا السبب سينبري الفيزيائي واللاهوتي المسيحي أليستر ماكغراث (Alister Mcgrath) إلى عقد صلة سببية بين الإلحاد والإيمان؛ ليبيِّن أن الاول (الإلحاد) ما كان لصورته ان تظهر على الملأ لولا إنكاره الوجود الواقعي للإيمان.</p> \
+ \
+										</div> \
+									</div> \
+ \
+								</div> \
+							</div> \
+						</div>');
+						i++;
+					}
+					
+					$(".istighrab_mag_list .nano").nanoScroller();
+					
+				}
+
+			},
+			function(error){
+				window.alert("Error occurred in select");
+			}
+		);
+
+	});
+
 	//window.alert("lastMagInListSortNum : " +$("#magListCon").attr("lastMagInListSortNum") );
-	
-	
-	
-	
-	
-	
+
 });
+
 
 
 $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
