@@ -629,7 +629,7 @@ myDB.transaction(function(transaction){
 							
 							
 							
-						$.each(json, function(key, val){
+						$.each(json.reverse(), function(key, val){
 				
 							myDB.transaction(function(transaction){
 
