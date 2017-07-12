@@ -637,8 +637,7 @@ myDB.transaction(function(transaction){
 								function(tx, result) {
 									//window.alert("Inserted");
 
-									//$("#magListCon").attr("lastMagInListSortNum", val['sort']);
-									//if(i < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
+									$("#magListCon").attr("firstMagInListSortNum", val['sort']);
 									$("#magListCon").prepend('<div class="mag_item"> \
 										<div class="mag_item_in"> \
 											<div class="mag-name"> \
@@ -704,7 +703,6 @@ myDB.transaction(function(transaction){
 								
 							});
 				
-							//i++;
 						});
 						
 						$(".istighrab_mag_list .nano").nanoScroller();
