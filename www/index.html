@@ -422,6 +422,8 @@ myDB.transaction(function(transaction){
 						
 						var i = 0;
 						$.each(json, function(key, val){
+							
+							window.alert("i is :" +i +" -|-  key is:" +key);
 				
 							myDB.transaction(function(transaction){
 
