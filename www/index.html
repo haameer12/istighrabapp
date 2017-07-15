@@ -419,8 +419,7 @@ myDB.transaction(function(transaction){
 					contentType : "application/json",
 					dataType : 'jsonp',
 					success : function(json){
-						
-						var i = 0;
+
 						$.each(json, function(key, val){
 				
 							myDB.transaction(function(transaction){
@@ -430,8 +429,7 @@ myDB.transaction(function(transaction){
 									//window.alert("Inserted");
 
 									$("#magListCon").attr("lastMagInListSortNum", val['sort']);
-									if(i < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
-									window.alert("i is :" +i +" -|-  key is:" +key);
+									if(key < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
 									$("#magListCon").append('<div class="mag_item"> \
 										<div class="mag_item_in"> \
 											<div class="mag-name"> \
@@ -688,7 +686,6 @@ myDB.transaction(function(transaction){
 									$("#magListCon").attr("lastMagInListSortNum", "0");
 									$("#magListCon").html("");
 
-									var i = 0;
 									$.each(json, function(key, val){
 							
 										myDB.transaction(function(transaction){
@@ -698,7 +695,7 @@ myDB.transaction(function(transaction){
 												//window.alert("Inserted");
 			
 												$("#magListCon").attr("lastMagInListSortNum", val['sort']);
-												if(i < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
+												if(key < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
 												$("#magListCon").append('<div class="mag_item"> \
 													<div class="mag_item_in"> \
 														<div class="mag-name"> \
