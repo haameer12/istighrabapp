@@ -422,8 +422,6 @@ myDB.transaction(function(transaction){
 						
 						var i = 0;
 						$.each(json, function(key, val){
-							
-							window.alert("i is :" +i +" -|-  key is:" +key);
 				
 							myDB.transaction(function(transaction){
 
@@ -433,6 +431,7 @@ myDB.transaction(function(transaction){
 
 									$("#magListCon").attr("lastMagInListSortNum", val['sort']);
 									if(i < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
+									window.alert("i is :" +i +" -|-  key is:" +key);
 									$("#magListCon").append('<div class="mag_item"> \
 										<div class="mag_item_in"> \
 											<div class="mag-name"> \
