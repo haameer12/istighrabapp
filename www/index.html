@@ -430,7 +430,7 @@ myDB.transaction(function(transaction){
 
 									$("#magListCon").attr("lastMagInListSortNum", val['sort']);
 									if(key < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
-									$("#magListCon").append('<div class="mag_item mag-opened"> \
+									$("#magListCon").append('<div class="mag_item"> \
 										<div class="mag_item_in"> \
 											<div class="mag-name"> \
 												<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
@@ -499,7 +499,28 @@ myDB.transaction(function(transaction){
 						});
 						
 						$(".istighrab_mag_list .nano").nanoScroller();
+						$(".istighrab_mag_list .mag_item").bind("tap",function(){
+							//mag-opened
+							
+							
+							
 
+
+							$(".istighrab_mag_list .mag_item").removeClass("mag-opened");
+							$(this).addClass("mag-opened");
+							
+							
+							
+							
+							
+						});
+						
+						
+						
+						
+						
+						
+						
 					},
 					error: function(e, errorReason){
 						//console.log(e.message);
