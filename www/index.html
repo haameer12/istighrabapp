@@ -1012,17 +1012,17 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 
 
 
-
-			$.each(json, function(key, val){
-					
+	
+			$.each(json.reverse(), function(key, val){
+	
 				myDB.transaction(function(transaction){
-
+	
 					transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
 					function(tx, result) {
 						//window.alert("Inserted");
-
-						$("#magListCon").attr("lastMagInListSortNum", val['sort']);
-						$("#magListCon").append('<div class="mag_item"> \
+	
+						$("#magListCon").attr("firstMagInListSortNum", val['sort']);
+						$("#magListCon").prepend('<div class="mag_item"> \
 							<div class="mag_item_in"> \
 								<div class="mag-name"> \
 									<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
@@ -1079,7 +1079,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 								</div> \
 							</div> \
 						</div>');
-
+	
 					},
 					function(error){
 						window.alert("Error occurred in insert");
@@ -1090,8 +1090,9 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 			});
 			
 			$(".istighrab_mag_list .nano").nanoScroller();
-
-
+	
+	
+	
 
 
 
