@@ -499,15 +499,16 @@ myDB.transaction(function(transaction){
 						});
 						
 						$(".istighrab_mag_list .nano").nanoScroller();
-						$(".istighrab_mag_list .mag_item").bind("tap",function(){
+						window.alert("ok");
+						$(".istighrab_mag_list .mag_item .mag_item_in").bind("tap",function(){
 							//mag-opened
 							
 							
-							window.alert("ok");
+							window.alert("ok2");
 
 
 							//$(".istighrab_mag_list .mag_item").removeClass("mag-opened");
-							$(this).addClass("mag-opened");
+							$(this).parent().addClass("mag-opened");
 							
 							
 							
