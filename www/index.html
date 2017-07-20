@@ -501,9 +501,11 @@ myDB.transaction(function(transaction){
 											
 											window.alert("ok2");
 				
-				
+											var hhhhhh = $(this).parent().hasClass("mag-opened");
 											$(".mag_item_in").parent().removeClass("mag-opened");
-											$(this).parent().addClass("mag-opened");
+											if(hhhhhh){
+												$(this).parent().addClass("mag-opened");
+											}
 											
 											
 											
