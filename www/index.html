@@ -495,7 +495,6 @@ myDB.transaction(function(transaction){
 									if((key+1) == json.length){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
-										window.alert("ok");
 										$(".mag_item_in").bind("tap",function(){
 											//mag-opened
 											
@@ -503,7 +502,7 @@ myDB.transaction(function(transaction){
 											window.alert("ok2");
 				
 				
-											//$(".istighrab_mag_list .mag_item").removeClass("mag-opened");
+											$(".mag_item_in").parent().removeClass("mag-opened");
 											$(this).parent().addClass("mag-opened");
 											
 											
