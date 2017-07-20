@@ -501,9 +501,9 @@ myDB.transaction(function(transaction){
 											
 											window.alert("ok2");
 				
-											var hhhhhh = $(this).parent().hasClass("mag-opened");
+											var isMagOpened = $(this).parent().hasClass("mag-opened");
 											$(".mag_item_in").parent().removeClass("mag-opened");
-											if(hhhhhh){
+											if(!isMagOpened){
 												$(this).parent().addClass("mag-opened");
 											}
 											
