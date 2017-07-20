@@ -531,6 +531,107 @@ myDB.transaction(function(transaction){
 											
 											
 											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+myDB.transaction(function(transaction){
+	
+	transaction.executeSql(
+		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag ORDER BY sort DESC, id DESC",
+		[],
+		function(tx, result){
+			
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+				getMagRequestObj = $.ajax({
+					type : 'get',
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?item_num=6",
+					async : false,
+					jsonpCallback : "istighrabMagCallBack",
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(json){
+
+						$.each(json, function(key, val){
+				
+							myDB.transaction(function(transaction){
+
+								transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
+								function(tx, result) {
+									//window.alert("Inserted");
+
+									$("#magListCon").append('---------------------');
+						
+									if((key+1) == json.length){
+									
+										$(".istighrab_mag_list .nano").nanoScroller();
+										$(".mag_item_in").bind("tap",function(){
+											//mag-opened
+										});
+										
+									}
+									
+								},
+								function(error){
+									window.alert("Error occurred in insert");
+								});
+								
+							});
+				
+						});
+
+					},
+					error: function(e, errorReason){
+						//console.log(e.message);
+						if(errorReason != "abort"){
+							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+						}
+						
+						getMagRequestObj = "";
+					}
+				});
+				
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+				var i = 0;
+				while(result.rows.item(i)){
+					$("#magListCon").append('---------------------');
+					i++;
+				}
+				
+			}
+
+		},
+		function(error){
+			window.alert("Error occurred in select");
+		}
+	);
+
+});
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
 										});
 										
 									}
