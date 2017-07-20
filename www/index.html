@@ -347,14 +347,31 @@ myDB.transaction(function(transaction) {
 	
 	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag_text ( \
 		"id"             INTEGER, \
-		"mag_id"         TEXT \
+		"mag_id"         TEXT, \
 		"text"	         TEXT \
 	)', [],
 	function(tx, result) {
-		window.alert("text table created successfully");
+		//window.alert("text table created successfully");
 	},
 	function(error) {
-		window.alert("Error occurred while creating the text table.");
+		//window.alert("Error occurred while creating the text table.");
+	});
+	
+	
+	
+	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag_investigations ( \
+		"id"                INTEGER, \
+		"mag_id"            TEXT, \
+		"inve_title"        TEXT, \
+		"inve_author"       TEXT, \
+		"inve_file_path"    TEXT, \
+		"inve_text"	        TEXT \
+	)', [],
+	function(tx, result) {
+		//window.alert("inve table created successfully");
+	},
+	function(error) {
+		//window.alert("Error occurred while creating the inve table.");
 	});
 	
 	
@@ -538,12 +555,14 @@ myDB.transaction(function(transaction){
 											
 											
 											
+						
+						
 											
-											
+/////////////////////////////////////we are here
 myDB.transaction(function(transaction){
 	
 	transaction.executeSql(
-		"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag ORDER BY sort DESC, id DESC",
+		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations ORDER BY id DESC",
 		[],
 		function(tx, result){
 			
@@ -551,7 +570,7 @@ myDB.transaction(function(transaction){
 
 				getMagRequestObj = $.ajax({
 					type : 'get',
-					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?item_num=6",
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php",
 					async : false,
 					jsonpCallback : "istighrabMagCallBack",
 					contentType : "application/json",
@@ -562,7 +581,7 @@ myDB.transaction(function(transaction){
 				
 							myDB.transaction(function(transaction){
 
-								transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
+								transaction.executeSql("INSERT INTO istighrab_mag_text (id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?)", [],
 								function(tx, result) {
 									//window.alert("Inserted");
 
