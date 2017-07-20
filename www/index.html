@@ -345,6 +345,25 @@ myDB.transaction(function(transaction) {
 	
 	
 	
+	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag_text ( \
+		"id"             INTEGER, \
+		"mag_id"         TEXT \
+		"text"	         TEXT \
+	)', [],
+	function(tx, result) {
+		window.alert("text table created successfully");
+	},
+	function(error) {
+		window.alert("Error occurred while creating the text table.");
+	});
+	
+	
+	
+	
+	
+	
+	
+	
 /*	
 	
 	
@@ -497,6 +516,7 @@ myDB.transaction(function(transaction){
 										$(".istighrab_mag_list .nano").nanoScroller();
 										$(".mag_item_in").bind("tap",function(){
 											//mag-opened
+											
 											
 											
 											window.alert("ok2");
