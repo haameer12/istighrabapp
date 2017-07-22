@@ -568,11 +568,11 @@ myDB.transaction(function(transaction){
 			
 			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
 
-				getMagRequestObj = $.ajax({
+				getMagInveRequestObj = $.ajax({
 					type : 'get',
-					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php",
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=51",
 					async : false,
-					jsonpCallback : "istighrabMagCallBack",
+					jsonpCallback : "istighrabMagInveCallBack",
 					contentType : "application/json",
 					dataType : 'jsonp',
 					success : function(json){
@@ -581,7 +581,7 @@ myDB.transaction(function(transaction){
 				
 							myDB.transaction(function(transaction){
 
-								transaction.executeSql("INSERT INTO istighrab_mag_text (id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?)", [],
+								transaction.executeSql("INSERT INTO istighrab_mag_text (id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?)", [val['id'], val['inve_title'], val['inve_author'], val['inve_file_path']],
 								function(tx, result) {
 									//window.alert("Inserted");
 
@@ -612,7 +612,7 @@ myDB.transaction(function(transaction){
 							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
 						}
 						
-						getMagRequestObj = "";
+						getMagInveRequestObj = "";
 					}
 				});
 				
