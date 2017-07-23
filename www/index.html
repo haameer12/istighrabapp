@@ -361,7 +361,7 @@ myDB.transaction(function(transaction) {
 	
 	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag_investigations ( \
 		"id"                INTEGER, \
-		"mag_id"            TEXT, \
+		"mag_id"            INTEGER, \
 		"inve_title"        TEXT, \
 		"inve_author"       TEXT, \
 		"inve_file_path"    TEXT, \
@@ -539,6 +539,7 @@ myDB.transaction(function(transaction){
 											window.alert("ok2");
 											
 											var tapedMag = $(this).parent();
+											var tapedMagID = tapedMag.attr("magID");
 				
 											var isMagOpened = tapedMag.hasClass("mag-opened");
 											$(".mag_item_in").parent().removeClass("mag-opened");
@@ -564,15 +565,15 @@ myDB.transaction(function(transaction){
 myDB.transaction(function(transaction){
 	
 	transaction.executeSql(
-		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations ORDER BY id DESC",
-		[],
+		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id DESC",
+		[tapedMagID],
 		function(tx, result){
 			
 			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
 
 				getMagInveRequestObj = $.ajax({
 					type : 'get',
-					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMag.attr("magID"),
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
 					async : false,
 					jsonpCallback : "istighrabMagInveCallBack",
 					contentType : "application/json",
@@ -691,7 +692,7 @@ myDB.transaction(function(transaction){
 				while(result.rows.item(i)){
 					$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
 					if(i < 1){$("#magListCon").attr("firstMagInListSortNum", result.rows.item(i).sort)}
-					$("#magListCon").append('<div class="mag_item"> \
+					$("#magListCon").append('<div class="mag_item" magID="' +result.rows.item(i).id +'"> \
 						<div class="mag_item_in"> \
 							<div class="mag-name"> \
 								<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
@@ -777,7 +778,7 @@ myDB.transaction(function(transaction){
 										//window.alert("Inserted");
 	
 										$("#magListCon").attr("firstMagInListSortNum", val['sort']);
-										$("#magListCon").prepend('<div class="mag_item"> \
+										$("#magListCon").prepend('<div class="mag_item" magID="' +val['id'] +'"> \
 											<div class="mag_item_in"> \
 												<div class="mag-name"> \
 													<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
@@ -870,7 +871,7 @@ myDB.transaction(function(transaction){
 			
 												$("#magListCon").attr("lastMagInListSortNum", val['sort']);
 												if(key < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
-												$("#magListCon").append('<div class="mag_item"> \
+												$("#magListCon").append('<div class="mag_item" magID="' +val['id'] +'"> \
 													<div class="mag_item_in"> \
 														<div class="mag-name"> \
 															<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
@@ -1005,7 +1006,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 										//window.alert("Inserted");
 
 										$("#magListCon").attr("lastMagInListSortNum", val['sort']);
-										$("#magListCon").append('<div class="mag_item"> \
+										$("#magListCon").append('<div class="mag_item" magID="' +val['id'] +'"> \
 											<div class="mag_item_in"> \
 												<div class="mag-name"> \
 													<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
@@ -1091,7 +1092,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 					var i = 0;
 					while(result.rows.item(i)){
 						$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
-						$("#magListCon").append('<div class="mag_item"> \
+						$("#magListCon").append('<div class="mag_item" magID="' +result.rows.item(i).id +'"> \
 							<div class="mag_item_in"> \
 								<div class="mag-name"> \
 									<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
@@ -1196,7 +1197,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 						//window.alert("Inserted");
 	
 						$("#magListCon").attr("firstMagInListSortNum", val['sort']);
-						$("#magListCon").prepend('<div class="mag_item"> \
+						$("#magListCon").prepend('<div class="mag_item" magID="' +val['id'] +'"> \
 							<div class="mag_item_in"> \
 								<div class="mag-name"> \
 									<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
