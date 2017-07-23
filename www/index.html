@@ -466,7 +466,7 @@ myDB.transaction(function(transaction){
 
 									$("#magListCon").attr("lastMagInListSortNum", val['sort']);
 									if(key < 1){$("#magListCon").attr("firstMagInListSortNum", val['sort'])}
-									$("#magListCon").append('<div class="mag_item"> \
+									$("#magListCon").append('<div class="mag_item" magID="' +val['id'] +'"> \
 										<div class="mag_item_in"> \
 											<div class="mag-name"> \
 												<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
@@ -537,11 +537,13 @@ myDB.transaction(function(transaction){
 											
 											
 											window.alert("ok2");
+											
+											var tapedMag = $(this).parent();
 				
-											var isMagOpened = $(this).parent().hasClass("mag-opened");
+											var isMagOpened = tapedMag.hasClass("mag-opened");
 											$(".mag_item_in").parent().removeClass("mag-opened");
 											if(!isMagOpened){
-												$(this).parent().addClass("mag-opened");
+												tapedMag.addClass("mag-opened");
 											}
 											
 											
@@ -570,7 +572,7 @@ myDB.transaction(function(transaction){
 
 				getMagInveRequestObj = $.ajax({
 					type : 'get',
-					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=51",
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMag.attr("magID"),
 					async : false,
 					jsonpCallback : "istighrabMagInveCallBack",
 					contentType : "application/json",
