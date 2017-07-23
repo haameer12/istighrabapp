@@ -586,7 +586,7 @@ myDB.transaction(function(transaction){
 				
 							myDB.transaction(function(transaction){
 
-								transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?)", [val['id'], val['inve_title'], val['inve_author'], val['inve_file_path']],
+								transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
 								function(tx, result) {
 									window.alert("Inserted");
 
