@@ -545,6 +545,8 @@ myDB.transaction(function(transaction){
 											$(".mag_item_in").parent().removeClass("mag-opened");
 											if(!isMagOpened){
 												tapedMag.addClass("mag-opened");
+											}else{
+												return false;
 											}
 											
 											
