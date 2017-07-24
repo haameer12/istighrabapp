@@ -590,7 +590,7 @@ myDB.transaction(function(transaction){
 								function(tx, result) {
 									window.alert("Inserted");
 
-									$("#magInveCon" +tapedMagID).append('-|||||');
+									$("#magInveCon" +tapedMagID).append('-||S||');
 						
 									if((key+1) == json.length){
 									
@@ -625,7 +625,7 @@ myDB.transaction(function(transaction){
 
 				var i = 0;
 				while(result.rows.item(i)){
-					$("#magInveCon" +tapedMagID).append('-|||||');
+					$("#magInveCon" +tapedMagID).append('-||D||');
 					i++;
 				}
 				
