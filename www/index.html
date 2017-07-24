@@ -556,7 +556,7 @@ myDB.transaction(function(transaction){
 myDB.transaction(function(transaction){
 	
 	transaction.executeSql(
-		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id DESC",
+		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
 		[tapedMagID],
 		function(tx, result){
 			
@@ -719,18 +719,7 @@ myDB.transaction(function(transaction){
 											<th>تحمیل</th> \
 										</tr> \
 									</thead> \
-									<tbody id="magInveCon' +result.rows.item(i).id +'"> \
-										<tr> \
-											<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
-											<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-											<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-										</tr> \
-										<tr> \
-											<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-											<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
-											<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-										</tr> \
-									</tbody> \
+									<tbody id="magInveCon' +result.rows.item(i).id +'"></tbody> \
 								</table> \
  \
 							</div> \
@@ -805,18 +794,7 @@ myDB.transaction(function(transaction){
 																<th>تحمیل</th> \
 															</tr> \
 														</thead> \
-														<tbody id="magInveCon' +val['id'] +'"> \
-															<tr> \
-																<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
-																<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-																<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-															</tr> \
-															<tr> \
-																<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-																<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
-																<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-															</tr> \
-														</tbody> \
+														<tbody id="magInveCon' +val['id'] +'"></tbody> \
 													</table> \
  \
 												</div> \
@@ -898,18 +876,7 @@ myDB.transaction(function(transaction){
 																		<th>تحمیل</th> \
 																	</tr> \
 																</thead> \
-																<tbody id="magInveCon' +val['id'] +'"> \
-																	<tr> \
-																		<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
-																		<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-																		<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-																	</tr> \
-																	<tr> \
-																		<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-																		<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
-																		<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-																	</tr> \
-																</tbody> \
+																<tbody id="magInveCon' +val['id'] +'"></tbody> \
 															</table> \
  \
 														</div> \
@@ -1033,18 +1000,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 																<th>تحمیل</th> \
 															</tr> \
 														</thead> \
-														<tbody id="magInveCon' +val['id'] +'"> \
-															<tr> \
-																<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
-																<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-																<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-															</tr> \
-															<tr> \
-																<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-																<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
-																<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-															</tr> \
-														</tbody> \
+														<tbody id="magInveCon' +val['id'] +'"></tbody> \
 													</table> \
  \
 												</div> \
@@ -1119,18 +1075,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 												<th>تحمیل</th> \
 											</tr> \
 										</thead> \
-										<tbody id="magInveCon' +result.rows.item(i).id +'"> \
-											<tr> \
-												<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
-												<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-												<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-											</tr> \
-											<tr> \
-												<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-												<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
-												<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-											</tr> \
-										</tbody> \
+										<tbody id="magInveCon' +result.rows.item(i).id +'"></tbody> \
 									</table> \
  \
 								</div> \
@@ -1224,18 +1169,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 												<th>تحمیل</th> \
 											</tr> \
 										</thead> \
-										<tbody id="magInveCon' +val['id'] +'"> \
-											<tr> \
-												<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
-												<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-												<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-											</tr> \
-											<tr> \
-												<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
-												<td><a href="?id=26&sid=4915">مهدي الحائري اليزدي</a></td> \
-												<td><a href="?id=26&sid=4915"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-											</tr> \
-										</tbody> \
+										<tbody id="magInveCon' +val['id'] +'"></tbody> \
 									</table> \
  \
 								</div> \
