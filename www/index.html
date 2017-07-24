@@ -582,7 +582,7 @@ myDB.transaction(function(transaction){
 									$("#magInveCon" +tapedMagID).append('<tr> \
 										<td><a href="#">' +val['inve_title'] +'</a></td> \
 										<td><a href="#">' +val['inve_author'] +'</a></td> \
-										<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+										<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
 									</tr>');
 						
 									if((key+1) == json.length){
@@ -622,7 +622,7 @@ myDB.transaction(function(transaction){
 					$("#magInveCon" +tapedMagID).append('<tr> \
 						<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
 						<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
-						<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+						<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
 					</tr>');
 					i++;
 				}
