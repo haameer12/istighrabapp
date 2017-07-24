@@ -494,7 +494,7 @@ myDB.transaction(function(transaction){
 															<th>تحمیل</th> \
 														</tr> \
 													</thead> \
-													<tbody> \
+													<tbody id="magInveCon' +val['id'] +'"> \
 														<tr> \
 															<td><a href="?id=26&sid=4915">وهم دوكينز ، الأصولية الملحدة وإنكار الإلهي</a></td> \
 															<td><a href="?id=26&sid=4915">إليستر ماكغراث وجوانا كوليكات ماكغراث</a></td> \
@@ -590,7 +590,7 @@ myDB.transaction(function(transaction){
 								function(tx, result) {
 									window.alert("Inserted");
 
-									$("#magListCon").append('---------------------');
+									$("#magInveCon" +tapedMagID).append('-|||||');
 						
 									if((key+1) == json.length){
 									
@@ -625,7 +625,7 @@ myDB.transaction(function(transaction){
 
 				var i = 0;
 				while(result.rows.item(i)){
-					$("#magListCon").append('---------------------');
+					$("#magInveCon" +tapedMagID).append('-|||||');
 					i++;
 				}
 				
