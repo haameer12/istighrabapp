@@ -993,6 +993,173 @@ myDB.transaction(function(transaction){
 												</div> \
 											</div> \
 										</div>');
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										if((key+1) == json.length){
+									
+											$(".istighrab_mag_list .nano").nanoScroller();
+											$(".mag_item_in").unbind("tap");
+											$(".mag_item_in").bind("tap",function(){
+												//mag-opened
+												
+												
+												
+												//window.alert("ok2");
+												
+												var tapedMag = $(this).parent();
+												var tapedMagID = tapedMag.attr("magID");
+					
+												var isMagOpened = tapedMag.hasClass("mag-opened");
+												$(".mag_item_in").parent().removeClass("mag-opened");
+												if(!isMagOpened){
+													tapedMag.addClass("mag-opened");
+												}else{
+													return false;
+												}
+												
+												
+												
+												
+												
+											
+											
+											
+											
+											
+											
+											
+						
+						
+											
+/////////////////////////////////////we are here
+myDB.transaction(function(transaction){
+	
+	transaction.executeSql(
+		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
+		[tapedMagID],
+		function(tx, result){
+			
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+				getMagInveRequestObj = $.ajax({
+					type : 'get',
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
+					async : false,
+					jsonpCallback : "istighrabMagInveCallBack",
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(json){
+
+						$.each(json, function(key, val){
+				
+							myDB.transaction(function(transaction){
+
+								transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+								function(tx, result) {
+									//window.alert("Inserted");
+
+									$("#magInveCon" +tapedMagID).append('<tr> \
+										<td><a href="#">' +val['inve_title'] +'</a></td> \
+										<td><a href="#">' +val['inve_author'] +'</a></td> \
+										<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+									</tr>');
+						
+									if((key+1) == json.length){
+									
+										$(".istighrab_mag_list .nano").nanoScroller();
+										$(".mag_item_in").bind("tap",function(){
+											//mag-opened
+										});
+										
+									}
+									
+								},
+								function(error){
+									window.alert("Error occurred in insert");
+								});
+								
+							});
+				
+						});
+
+					},
+					error: function(e, errorReason){
+						//console.log(e.message);
+						if(errorReason != "abort"){
+							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+						}
+						
+						getMagInveRequestObj = "";
+					}
+				});
+				
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+				$("#magInveCon" +tapedMagID).html("");
+				var i = 0;
+				while(result.rows.item(i)){
+					$("#magInveCon" +tapedMagID).append('<tr> \
+						<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
+						<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
+						<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+					</tr>');
+					i++;
+				}
+				
+			}
+
+		},
+		function(error){
+			window.alert("Error occurred in select");
+		}
+	);
+
+});
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+												
+												
+												
+												
+											});
+											
+										}
+											
+											
+											
+											
+											
+											
+											
+											
+										
+										
+										
+										
+										
+										
 	
 									},
 									function(error){
@@ -1003,7 +1170,6 @@ myDB.transaction(function(transaction){
 					
 							});
 							
-							$(".istighrab_mag_list .nano").nanoScroller();
 
 						}else{
 							//امسح القاعدة القديمة والقائمة ايضا
@@ -1075,6 +1241,177 @@ myDB.transaction(function(transaction){
 														</div> \
 													</div> \
 												</div>');
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+														
+														
+														
+												if((key+1) == json.length){
+											
+													$(".istighrab_mag_list .nano").nanoScroller();
+													$(".mag_item_in").unbind("tap");
+													$(".mag_item_in").bind("tap",function(){
+														//mag-opened
+														
+														
+														
+														//window.alert("ok2");
+														
+														var tapedMag = $(this).parent();
+														var tapedMagID = tapedMag.attr("magID");
+							
+														var isMagOpened = tapedMag.hasClass("mag-opened");
+														$(".mag_item_in").parent().removeClass("mag-opened");
+														if(!isMagOpened){
+															tapedMag.addClass("mag-opened");
+														}else{
+															return false;
+														}
+														
+														
+														
+														
+														
+											
+											
+											
+											
+											
+											
+											
+						
+						
+											
+/////////////////////////////////////we are here
+myDB.transaction(function(transaction){
+	
+	transaction.executeSql(
+		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
+		[tapedMagID],
+		function(tx, result){
+			
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+				getMagInveRequestObj = $.ajax({
+					type : 'get',
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
+					async : false,
+					jsonpCallback : "istighrabMagInveCallBack",
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(json){
+
+						$.each(json, function(key, val){
+				
+							myDB.transaction(function(transaction){
+
+								transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+								function(tx, result) {
+									//window.alert("Inserted");
+
+									$("#magInveCon" +tapedMagID).append('<tr> \
+										<td><a href="#">' +val['inve_title'] +'</a></td> \
+										<td><a href="#">' +val['inve_author'] +'</a></td> \
+										<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+									</tr>');
+						
+									if((key+1) == json.length){
+									
+										$(".istighrab_mag_list .nano").nanoScroller();
+										$(".mag_item_in").bind("tap",function(){
+											//mag-opened
+										});
+										
+									}
+									
+								},
+								function(error){
+									window.alert("Error occurred in insert");
+								});
+								
+							});
+				
+						});
+
+					},
+					error: function(e, errorReason){
+						//console.log(e.message);
+						if(errorReason != "abort"){
+							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+						}
+						
+						getMagInveRequestObj = "";
+					}
+				});
+				
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+				$("#magInveCon" +tapedMagID).html("");
+				var i = 0;
+				while(result.rows.item(i)){
+					$("#magInveCon" +tapedMagID).append('<tr> \
+						<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
+						<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
+						<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+					</tr>');
+					i++;
+				}
+				
+			}
+
+		},
+		function(error){
+			window.alert("Error occurred in select");
+		}
+	);
+
+});
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+												
+												
+														
+														
+													});
+													
+		
+												}
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
 			
 											},
 											function(error){
@@ -1199,6 +1536,174 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 												</div> \
 											</div> \
 										</div>');
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										if((key+1) == json.length){
+									
+											$(".istighrab_mag_list .nano").nanoScroller();
+											$(".mag_item_in").unbind("tap");
+											$(".mag_item_in").bind("tap",function(){
+												//mag-opened
+												
+												
+												
+												//window.alert("ok2");
+												
+												var tapedMag = $(this).parent();
+												var tapedMagID = tapedMag.attr("magID");
+					
+												var isMagOpened = tapedMag.hasClass("mag-opened");
+												$(".mag_item_in").parent().removeClass("mag-opened");
+												if(!isMagOpened){
+													tapedMag.addClass("mag-opened");
+												}else{
+													return false;
+												}
+												
+												
+												
+											
+											
+											
+											
+											
+											
+											
+											
+											
+						
+						
+											
+/////////////////////////////////////we are here
+myDB.transaction(function(transaction){
+	
+	transaction.executeSql(
+		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
+		[tapedMagID],
+		function(tx, result){
+			
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+				getMagInveRequestObj = $.ajax({
+					type : 'get',
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
+					async : false,
+					jsonpCallback : "istighrabMagInveCallBack",
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(json){
+
+						$.each(json, function(key, val){
+				
+							myDB.transaction(function(transaction){
+
+								transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+								function(tx, result) {
+									//window.alert("Inserted");
+
+									$("#magInveCon" +tapedMagID).append('<tr> \
+										<td><a href="#">' +val['inve_title'] +'</a></td> \
+										<td><a href="#">' +val['inve_author'] +'</a></td> \
+										<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+									</tr>');
+						
+									if((key+1) == json.length){
+									
+										$(".istighrab_mag_list .nano").nanoScroller();
+										$(".mag_item_in").bind("tap",function(){
+											//mag-opened
+										});
+										
+									}
+									
+								},
+								function(error){
+									window.alert("Error occurred in insert");
+								});
+								
+							});
+				
+						});
+
+					},
+					error: function(e, errorReason){
+						//console.log(e.message);
+						if(errorReason != "abort"){
+							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+						}
+						
+						getMagInveRequestObj = "";
+					}
+				});
+				
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+				$("#magInveCon" +tapedMagID).html("");
+				var i = 0;
+				while(result.rows.item(i)){
+					$("#magInveCon" +tapedMagID).append('<tr> \
+						<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
+						<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
+						<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+					</tr>');
+					i++;
+				}
+				
+			}
+
+		},
+		function(error){
+			window.alert("Error occurred in select");
+		}
+	);
+
+});
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+												
+												
+												
+											});
+											
+										}
+											
+											
+											
+											
+											
+											
+											
+										
+										
+										
+										
+										
+										
+										
 
 									},
 									function(error){
@@ -1209,7 +1714,6 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 					
 							});
 							
-							$(".istighrab_mag_list .nano").nanoScroller();
 					
 								
 						},
@@ -1275,9 +1779,179 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 							</div> \
 						</div>');
 						i++;
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+
+
+						if(i == result.rows.length){
+					
+							$(".istighrab_mag_list .nano").nanoScroller();
+							$(".mag_item_in").unbind("tap");
+							$(".mag_item_in").bind("tap",function(){
+								//mag-opened
+								
+								
+								
+								//window.alert("ok2");
+								
+								var tapedMag = $(this).parent();
+								var tapedMagID = tapedMag.attr("magID");
+	
+								var isMagOpened = tapedMag.hasClass("mag-opened");
+								$(".mag_item_in").parent().removeClass("mag-opened");
+								if(!isMagOpened){
+									tapedMag.addClass("mag-opened");
+								}else{
+									return false;
+								}
+								
+								
+								
+									
+									
+									
+								
+								
+											
+											
+											
+											
+						
+						
+											
+/////////////////////////////////////we are here
+myDB.transaction(function(transaction){
+	
+	transaction.executeSql(
+		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
+		[tapedMagID],
+		function(tx, result){
+			
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+				getMagInveRequestObj = $.ajax({
+					type : 'get',
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
+					async : false,
+					jsonpCallback : "istighrabMagInveCallBack",
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(json){
+
+						$.each(json, function(key, val){
+				
+							myDB.transaction(function(transaction){
+
+								transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+								function(tx, result) {
+									//window.alert("Inserted");
+
+									$("#magInveCon" +tapedMagID).append('<tr> \
+										<td><a href="#">' +val['inve_title'] +'</a></td> \
+										<td><a href="#">' +val['inve_author'] +'</a></td> \
+										<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+									</tr>');
+						
+									if((key+1) == json.length){
+									
+										$(".istighrab_mag_list .nano").nanoScroller();
+										$(".mag_item_in").bind("tap",function(){
+											//mag-opened
+										});
+										
+									}
+									
+								},
+								function(error){
+									window.alert("Error occurred in insert");
+								});
+								
+							});
+				
+						});
+
+					},
+					error: function(e, errorReason){
+						//console.log(e.message);
+						if(errorReason != "abort"){
+							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+						}
+						
+						getMagInveRequestObj = "";
+					}
+				});
+				
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+				$("#magInveCon" +tapedMagID).html("");
+				var i = 0;
+				while(result.rows.item(i)){
+					$("#magInveCon" +tapedMagID).append('<tr> \
+						<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
+						<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
+						<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+					</tr>');
+					i++;
+				}
+				
+			}
+
+		},
+		function(error){
+			window.alert("Error occurred in select");
+		}
+	);
+
+});
+											
+											
+											
+											
+											
+											
+											
+							
+							
+							
+											
+											
+											
+											
+											
+											
+							
+							
+							
+								
+								
+							});
+							
+						}
+
+
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 					}
 					
-					$(".istighrab_mag_list .nano").nanoScroller();
 					
 				}
 
@@ -1368,6 +2042,175 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 								</div> \
 							</div> \
 						</div>');
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						if((key+1) == json.length){
+					
+							$(".istighrab_mag_list .nano").nanoScroller();
+							$(".mag_item_in").unbind("tap");
+							$(".mag_item_in").bind("tap",function(){
+								//mag-opened
+								
+								
+								
+								//window.alert("ok2");
+								
+								var tapedMag = $(this).parent();
+								var tapedMagID = tapedMag.attr("magID");
+	
+								var isMagOpened = tapedMag.hasClass("mag-opened");
+								$(".mag_item_in").parent().removeClass("mag-opened");
+								if(!isMagOpened){
+									tapedMag.addClass("mag-opened");
+								}else{
+									return false;
+								}
+								
+								
+								
+							
+											
+											
+											
+											
+											
+											
+											
+											
+						
+						
+											
+/////////////////////////////////////we are here
+myDB.transaction(function(transaction){
+	
+	transaction.executeSql(
+		"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
+		[tapedMagID],
+		function(tx, result){
+			
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+				getMagInveRequestObj = $.ajax({
+					type : 'get',
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
+					async : false,
+					jsonpCallback : "istighrabMagInveCallBack",
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(json){
+
+						$.each(json, function(key, val){
+				
+							myDB.transaction(function(transaction){
+
+								transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+								function(tx, result) {
+									//window.alert("Inserted");
+
+									$("#magInveCon" +tapedMagID).append('<tr> \
+										<td><a href="#">' +val['inve_title'] +'</a></td> \
+										<td><a href="#">' +val['inve_author'] +'</a></td> \
+										<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+									</tr>');
+						
+									if((key+1) == json.length){
+									
+										$(".istighrab_mag_list .nano").nanoScroller();
+										$(".mag_item_in").bind("tap",function(){
+											//mag-opened
+										});
+										
+									}
+									
+								},
+								function(error){
+									window.alert("Error occurred in insert");
+								});
+								
+							});
+				
+						});
+
+					},
+					error: function(e, errorReason){
+						//console.log(e.message);
+						if(errorReason != "abort"){
+							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+						}
+						
+						getMagInveRequestObj = "";
+					}
+				});
+				
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+				$("#magInveCon" +tapedMagID).html("");
+				var i = 0;
+				while(result.rows.item(i)){
+					$("#magInveCon" +tapedMagID).append('<tr> \
+						<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
+						<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
+						<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+					</tr>');
+					i++;
+				}
+				
+			}
+
+		},
+		function(error){
+			window.alert("Error occurred in select");
+		}
+	);
+
+});
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+											
+							
+								
+								
+								
+							});
+							
+						}
+		
+		
+		
+		
+		
+		
+						
+						
+						
+						
+						
+						
+						
 	
 					},
 					function(error){
@@ -1378,7 +2221,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 	
 			});
 			
-			$(".istighrab_mag_list .nano").nanoScroller();
+			
 	
 	
 	
