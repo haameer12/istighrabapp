@@ -657,9 +657,10 @@ myDB.transaction(function(transaction){
 					dataType : 'jsonp',
 					success : function(json){
 
+						$("#magTextCon" +tapedMagID).html(json['text']);
 						myDB.transaction(function(transaction){
 
-							transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, json['text']],
+							transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, $("#magTextCon" +tapedMagID).html()],
 							function(tx, result) {
 								//window.alert("Inserted");
 
