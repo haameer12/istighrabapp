@@ -5,8 +5,8 @@
 <head>
 
     <title>test</title>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -346,8 +346,7 @@ myDB.transaction(function(transaction) {
 	
 	
 	transaction.executeSql('CREATE TABLE IF NOT EXISTS istighrab_mag_text ( \
-		"id"             INTEGER, \
-		"mag_id"         TEXT, \
+		"mag_id"         INTEGER, \
 		"text"	         TEXT \
 	)', [],
 	function(tx, result) {
@@ -502,11 +501,7 @@ myDB.transaction(function(transaction){
  \
 												<div class="mag-info-win"> \
 													<div class="mag-info-win-title">معلومات العدد</div> \
-													<div class="mag-info-win-text"> \
- \
-														<p>نمضي إلى هذا المستخلص من فرضيتين: إحداهما ترى إلى الإلحاد كحدثٍ تاريخي ألقى بآثاره على الإنسان فانفعل بها واستجاب لدواعيها، وأخرى نظرت إليه كفكرة استعصى على الناظر تفكيك لغزها فهوى في لجة اللاَّيقين.. ثم لم يكن له جرَّاء هذا إلا أن يدحض إيمان المؤمن طلباً ليقين ما. ربما لهذا السبب سينبري الفيزيائي واللاهوتي المسيحي أليستر ماكغراث (Alister Mcgrath) إلى عقد صلة سببية بين الإلحاد والإيمان؛ ليبيِّن أن الاول (الإلحاد) ما كان لصورته ان تظهر على الملأ لولا إنكاره الوجود الواقعي للإيمان.</p> \
- \
-													</div> \
+													<div class="mag-info-win-text" id="magtextCon' +val['id'] +'"></div> \
 												</div> \
  \
 											</div> \
@@ -589,9 +584,9 @@ myDB.transaction(function(transaction){
 									if((key+1) == json.length){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
-										$(".mag_item_in").bind("tap",function(){
-											//mag-opened
-										});
+										/*$(".mag_item_in").bind("tap",function(){
+											//--------------------
+										});*/
 										
 									}
 									
@@ -635,6 +630,93 @@ myDB.transaction(function(transaction){
 			window.alert("Error occurred in select");
 		}
 	);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	transaction.executeSql(
+		"SELECT text FROM istighrab_mag_text WHERE mag_id = ?",
+		[tapedMagID],
+		function(tx, result){
+			
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+				getMagTextRequestObj = $.ajax({
+					type : 'get',
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_text.php?mag_id=" +tapedMagID,
+					async : false,
+					jsonpCallback : "istighrabMagTextCallBack",
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(json){
+
+						$.each(json, function(key, val){
+				
+							myDB.transaction(function(transaction){
+
+								transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [],
+								function(tx, result) {
+									//window.alert("Inserted");
+
+									$("#magtextCon" +tapedMagID).append(result['text']);
+									
+									$(".istighrab_mag_list .nano").nanoScroller();
+
+									
+								},
+								function(error){
+									window.alert("Error occurred in insert");
+								});
+								
+							});
+				
+						});
+
+					},
+					error: function(e, errorReason){
+						//console.log(e.message);
+						if(errorReason != "abort"){
+							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+						}
+						
+						getMagTextRequestObj = "";
+					}
+				});
+				
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+				$("#magInveCon" +tapedMagID).html("");
+				var i = 0;
+				while(result.rows.item(i)){
+					$("#magInveCon" +tapedMagID).append('----------------');
+					i++;
+				}
+				
+			}
+
+		},
+		function(error){
+			window.alert("Error occurred in select");
+		}
+	);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 });
 											
@@ -831,9 +913,9 @@ myDB.transaction(function(transaction){
 									if((key+1) == json.length){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
-										$(".mag_item_in").bind("tap",function(){
-											//mag-opened
-										});
+										/*$(".mag_item_in").bind("tap",function(){
+											//----------------------
+										});*/
 										
 									}
 									
@@ -1077,9 +1159,9 @@ myDB.transaction(function(transaction){
 									if((key+1) == json.length){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
-										$(".mag_item_in").bind("tap",function(){
-											//mag-opened
-										});
+										/*$(".mag_item_in").bind("tap",function(){
+											//--------------------
+										});*/
 										
 									}
 									
@@ -1327,9 +1409,9 @@ myDB.transaction(function(transaction){
 									if((key+1) == json.length){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
-										$(".mag_item_in").bind("tap",function(){
-											//mag-opened
-										});
+										/*$(".mag_item_in").bind("tap",function(){
+											//---------------------------
+										});*/
 										
 									}
 									
@@ -1621,9 +1703,9 @@ myDB.transaction(function(transaction){
 									if((key+1) == json.length){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
-										$(".mag_item_in").bind("tap",function(){
-											//mag-opened
-										});
+										/*$(".mag_item_in").bind("tap",function(){
+											//--------------------
+										});*/
 										
 									}
 									
@@ -1864,9 +1946,9 @@ myDB.transaction(function(transaction){
 									if((key+1) == json.length){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
-										$(".mag_item_in").bind("tap",function(){
-											//mag-opened
-										});
+										/*$(".mag_item_in").bind("tap",function(){
+											//----------------------
+										});*/
 										
 									}
 									
@@ -2129,9 +2211,9 @@ myDB.transaction(function(transaction){
 									if((key+1) == json.length){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
-										$(".mag_item_in").bind("tap",function(){
-											//mag-opened
-										});
+										/*$(".mag_item_in").bind("tap",function(){
+											//-----------------------
+										});*/
 										
 									}
 									
