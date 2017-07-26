@@ -657,28 +657,24 @@ myDB.transaction(function(transaction){
 					dataType : 'jsonp',
 					success : function(json){
 
-						$.each(json, function(key, val){
-				
-							myDB.transaction(function(transaction){
+						myDB.transaction(function(transaction){
 
-								transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [],
-								function(tx, result) {
-									//window.alert("Inserted");
+							transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, json['text']],
+							function(tx, result) {
+								//window.alert("Inserted");
 
-									$("#magtextCon" +tapedMagID).append(result['text']);
-									
-									$(".istighrab_mag_list .nano").nanoScroller();
-
-									
-								},
-								function(error){
-									window.alert("Error occurred in insert");
-								});
+								$("#magtextCon" +tapedMagID).append(json['text']);
 								
-							});
-				
-						});
+								$(".istighrab_mag_list .nano").nanoScroller();
 
+								
+							},
+							function(error){
+								window.alert("Error occurred in insert");
+							});
+							
+						});
+				
 					},
 					error: function(e, errorReason){
 						//console.log(e.message);
