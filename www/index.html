@@ -583,8 +583,8 @@ myDB.transaction(function(transaction){
 						
 									if((key+1) == json.length){
 									
-										$(".istighrab_mag_list .nano").nanoScroller();
-										/*$(".mag_item_in").bind("tap",function(){
+										/*$(".istighrab_mag_list .nano").nanoScroller();
+										$(".mag_item_in").bind("tap",function(){
 											//--------------------
 										});*/
 										
@@ -663,11 +663,8 @@ myDB.transaction(function(transaction){
 							function(tx, result) {
 								//window.alert("Inserted");
 
-								$("#magtextCon" +tapedMagID).append(json['text']);
-								
-								$(".istighrab_mag_list .nano").nanoScroller();
+								$("#magtextCon" +tapedMagID).html(json['text']);
 
-								
 							},
 							function(error){
 								window.alert("Error occurred in insert");
@@ -688,12 +685,7 @@ myDB.transaction(function(transaction){
 				
 			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
 
-				$("#magInveCon" +tapedMagID).html("");
-				var i = 0;
-				while(result.rows.item(i)){
-					$("#magInveCon" +tapedMagID).append('----------------');
-					i++;
-				}
+				$("#magtextCon" +tapedMagID).html(result.rows.item(0).text);
 				
 			}
 
