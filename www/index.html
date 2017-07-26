@@ -646,7 +646,7 @@ myDB.transaction(function(transaction){
 		[tapedMagID],
 		function(tx, result){
 			
-			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+			if(result.rows.length < 1/* && result.rows.item(0).text != ""*/){//لا توجد في قاعدة بيانات البرنامج اي معلومه
 
 				getMagTextRequestObj = $.ajax({
 					type : 'get',
@@ -658,7 +658,7 @@ myDB.transaction(function(transaction){
 					success : function(json){
 
 						$("#magTextCon" +tapedMagID).html(json['text']);
-						myDB.transaction(function(transaction){
+						/*myDB.transaction(function(transaction){
 
 							transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, $("#magTextCon" +tapedMagID).html()],
 							function(tx, result) {
@@ -671,7 +671,7 @@ myDB.transaction(function(transaction){
 								window.alert("Error occurred in insert");
 							});
 							
-						});
+						});*/
 				
 					},
 					error: function(e, errorReason){
