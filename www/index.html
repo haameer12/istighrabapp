@@ -501,7 +501,7 @@ myDB.transaction(function(transaction){
  \
 												<div class="mag-info-win"> \
 													<div class="mag-info-win-title">معلومات العدد</div> \
-													<div class="mag-info-win-text" id="magtextCon' +val['id'] +'"></div> \
+													<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"></div> \
 												</div> \
  \
 											</div> \
@@ -663,7 +663,7 @@ myDB.transaction(function(transaction){
 							function(tx, result) {
 								//window.alert("Inserted");
 
-								$("#magtextCon" +tapedMagID).html(json['text']);
+								$("#magTextCon" +tapedMagID).html(json['text']);
 
 							},
 							function(error){
@@ -685,7 +685,7 @@ myDB.transaction(function(transaction){
 				
 			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
 
-				$("#magtextCon" +tapedMagID).html(result.rows.item(0).text);
+				$("#magTextCon" +tapedMagID).html(result.rows.item(0).text);
 				
 			}
 
@@ -799,11 +799,7 @@ myDB.transaction(function(transaction){
  \
 								<div class="mag-info-win"> \
 									<div class="mag-info-win-title">معلومات العدد</div> \
-									<div class="mag-info-win-text"> \
- \
-										<p>نمضي إلى هذا المستخلص من فرضيتين: إحداهما ترى إلى الإلحاد كحدثٍ تاريخي ألقى بآثاره على الإنسان فانفعل بها واستجاب لدواعيها، وأخرى نظرت إليه كفكرة استعصى على الناظر تفكيك لغزها فهوى في لجة اللاَّيقين.. ثم لم يكن له جرَّاء هذا إلا أن يدحض إيمان المؤمن طلباً ليقين ما. ربما لهذا السبب سينبري الفيزيائي واللاهوتي المسيحي أليستر ماكغراث (Alister Mcgrath) إلى عقد صلة سببية بين الإلحاد والإيمان؛ ليبيِّن أن الاول (الإلحاد) ما كان لصورته ان تظهر على الملأ لولا إنكاره الوجود الواقعي للإيمان.</p> \
-	 \
-									</div> \
+									<div class="mag-info-win-text" id="magTextCon' +result.rows.item(i).id +'"></div> \
 								</div> \
  \
 							</div> \
@@ -900,8 +896,8 @@ myDB.transaction(function(transaction){
 						
 									if((key+1) == json.length){
 									
-										$(".istighrab_mag_list .nano").nanoScroller();
-										/*$(".mag_item_in").bind("tap",function(){
+										/*$(".istighrab_mag_list .nano").nanoScroller();
+										$(".mag_item_in").bind("tap",function(){
 											//----------------------
 										});*/
 										
@@ -947,6 +943,82 @@ myDB.transaction(function(transaction){
 			window.alert("Error occurred in select");
 		}
 	);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+	transaction.executeSql(
+		"SELECT text FROM istighrab_mag_text WHERE mag_id = ?",
+		[tapedMagID],
+		function(tx, result){
+			
+			if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+				getMagTextRequestObj = $.ajax({
+					type : 'get',
+					url : "http://istighrab.iicss.iq/app/json_istighrab_mag_text.php?mag_id=" +tapedMagID,
+					async : false,
+					jsonpCallback : "istighrabMagTextCallBack",
+					contentType : "application/json",
+					dataType : 'jsonp',
+					success : function(json){
+
+						myDB.transaction(function(transaction){
+
+							transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, json['text']],
+							function(tx, result) {
+								//window.alert("Inserted");
+
+								$("#magTextCon" +tapedMagID).html(json['text']);
+
+							},
+							function(error){
+								window.alert("Error occurred in insert");
+							});
+							
+						});
+				
+					},
+					error: function(e, errorReason){
+						//console.log(e.message);
+						if(errorReason != "abort"){
+							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+						}
+						
+						getMagTextRequestObj = "";
+					}
+				});
+				
+			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+				$("#magTextCon" +tapedMagID).html(result.rows.item(0).text);
+				
+			}
+
+		},
+		function(error){
+			window.alert("Error occurred in select");
+		}
+	);
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
 
 });
 											
