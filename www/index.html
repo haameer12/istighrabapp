@@ -559,6 +559,8 @@ myDB.transaction(function(transaction){
 	
 	
 	
+	
+	
 	transaction.executeSql(
 		"SELECT text FROM istighrab_mag_text WHERE mag_id = ?",
 		[tapedMagID],
@@ -576,7 +578,7 @@ myDB.transaction(function(transaction){
 					success : function(json){
 
 						$("#magTextCon" +tapedMagID).html(json['text']);
-						/*myDB.transaction(function(transaction){
+						myDB.transaction(function(transaction){
 
 							transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, $("#magTextCon" +tapedMagID).html()],
 							function(tx, result) {
@@ -589,7 +591,7 @@ myDB.transaction(function(transaction){
 								window.alert("Error occurred in insert");
 							});
 							
-						});*/
+						});
 				
 					},
 					error: function(e, errorReason){
