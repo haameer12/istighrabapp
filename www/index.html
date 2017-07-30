@@ -84,8 +84,86 @@
 		window.open(url, '_'+name, 'location=yes');
 	}
 	
-	function nlTObr(text){
+	/*function nlTObr(text){
 		return text.split("\n").join("<br />");
+	}*/
+	
+	function nl2br(str, isXhtml){
+	  //  discuss at: http://locutus.io/php/nl2br/
+	  // original by: Kevin van Zonneveld (http://kvz.io)
+	  // improved by: Philip Peterson
+	  // improved by: Onno Marsman (https://twitter.com/onnomarsman)
+	  // improved by: Atli Þór
+	  // improved by: Brett Zamir (http://brett-zamir.me)
+	  // improved by: Maximusya
+	  // bugfixed by: Onno Marsman (https://twitter.com/onnomarsman)
+	  // bugfixed by: Kevin van Zonneveld (http://kvz.io)
+	  // bugfixed by: Reynier de la Rosa (http://scriptinside.blogspot.com.es/)
+	  //    input by: Brett Zamir (http://brett-zamir.me)
+	  //   example 1: nl2br('Kevin\nvan\nZonneveld')
+	  //   returns 1: 'Kevin<br />\nvan<br />\nZonneveld'
+	  //   example 2: nl2br("\nOne\nTwo\n\nThree\n", false)
+	  //   returns 2: '<br>\nOne<br>\nTwo<br>\n<br>\nThree<br>\n'
+	  //   example 3: nl2br("\nOne\nTwo\n\nThree\n", true)
+	  //   returns 3: '<br />\nOne<br />\nTwo<br />\n<br />\nThree<br />\n'
+	  //   example 4: nl2br(null)
+	  //   returns 4: ''
+	  // Some latest browsers when str is null return and unexpected null value
+	  if (typeof str === 'undefined' || str === null) {
+		return ''
+	  }
+	  // Adjust comment to avoid issue on locutus.io display
+	  var breakTag = (isXhtml || typeof isXhtml === 'undefined') ? '<br ' + '/>' : '<br>'
+	  return (str + '')
+		.replace(/(\r\n|\n\r|\r|\n)/g, breakTag + '$1')
+	}
+	
+	function addslashes(str){
+	  //  discuss at: http://locutus.io/php/addslashes/
+	  // original by: Kevin van Zonneveld (http://kvz.io)
+	  // improved by: Ates Goral (http://magnetiq.com)
+	  // improved by: marrtins
+	  // improved by: Nate
+	  // improved by: Onno Marsman (https://twitter.com/onnomarsman)
+	  // improved by: Brett Zamir (http://brett-zamir.me)
+	  // improved by: Oskar Larsson Högfeldt (http://oskar-lh.name/)
+	  //    input by: Denny Wardhana
+	  //   example 1: addslashes("kevin's birthday")
+	  //   returns 1: "kevin\\'s birthday"
+	  return (str + '')
+		.replace(/[\\"']/g, '\\$&')
+		.replace(/\u0000/g, '\\0')
+	}
+
+	function stripslashes(str){
+	  //       discuss at: http://locutus.io/php/stripslashes/
+	  //      original by: Kevin van Zonneveld (http://kvz.io)
+	  //      improved by: Ates Goral (http://magnetiq.com)
+	  //      improved by: marrtins
+	  //      improved by: rezna
+	  //         fixed by: Mick@el
+	  //      bugfixed by: Onno Marsman (https://twitter.com/onnomarsman)
+	  //      bugfixed by: Brett Zamir (http://brett-zamir.me)
+	  //         input by: Rick Waldron
+	  //         input by: Brant Messenger (http://www.brantmessenger.com/)
+	  // reimplemented by: Brett Zamir (http://brett-zamir.me)
+	  //        example 1: stripslashes('Kevin\'s code')
+	  //        returns 1: "Kevin's code"
+	  //        example 2: stripslashes('Kevin\\\'s code')
+	  //        returns 2: "Kevin\'s code"
+	  return (str + '')
+		.replace(/\\(.?)/g, function (s, n1) {
+		  switch (n1) {
+			case '\\':
+			  return '\\'
+			case '0':
+			  return '\u0000'
+			case '':
+			  return ''
+			default:
+			  return n1
+		  }
+		})
 	}
 	
 	//show notification
@@ -546,7 +624,6 @@ myDB.transaction(function(transaction){
 											
 											
 						
-						
 											
 /////////////////////////////////////we are here
 myDB.transaction(function(transaction){
@@ -657,10 +734,9 @@ myDB.transaction(function(transaction){
 					dataType : 'jsonp',
 					success : function(json){
 
-						$("#magTextCon" +tapedMagID).html(json['text']);
 						myDB.transaction(function(transaction){
 
-							transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, $("#magTextCon" +tapedMagID).html()],
+							transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, addslashes(json['text'])],
 							function(tx, result) {
 								//window.alert("Inserted");
 
