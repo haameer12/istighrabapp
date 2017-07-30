@@ -1076,7 +1076,7 @@ myDB.transaction(function(transaction){
 				
 			}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
 
-				$("#magTextCon" +tapedMagID).html(result.rows.item(0).text);
+				$("#magTextCon" +tapedMagID).html(stripslashes(result.rows.item(0).text) );
 				
 			}
 
