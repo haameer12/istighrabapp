@@ -592,17 +592,17 @@ myDB.transaction(function(transaction){
 										
 										$(".magInfoButton").unbind("tap");
 										$(".magInfoButton").bind("tap",function(){
-											window.alert($(this).parents("div.mag_item").attr("magID") );
-											//$("#magInfoCon").show();
-											//$("#magInveCon").hide();
+											//$(this).parents("div.mag_item").attr("magID");
+											$(this).parent().siblings("div.mag-info").show();
+											$(this).parent().siblings("div.mag-taqarir").hide();
 											return false;
 										});
 										
 										$(".magInveButton").unbind("tap");
 										$(".magInveButton").bind("tap",function(){
-											window.alert($(this).parents("div.mag_item").attr("magID") );
-											//$("#magInveCon").show();
-											//$("#magInfoCon").hide();
+											//$(this).parents("div.mag_item").attr("magID");
+											$(this).parent().siblings("div.mag-taqarir").show();
+											$(this).parent().siblings("div.mag-info").hide();
 											return false;
 										});
 										
