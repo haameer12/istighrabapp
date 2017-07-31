@@ -592,7 +592,6 @@ myDB.transaction(function(transaction){
 										
 										$(".magInfoButton").unbind("tap");
 										$(".magInfoButton").bind("tap",function(){
-											//$(this).parents("div.mag_item").attr("magID");
 											$(this).parent().siblings("div.mag-info").slideDown();
 											$(this).parent().siblings("div.mag-taqarir").slideUp();
 											return false;
@@ -600,7 +599,6 @@ myDB.transaction(function(transaction){
 										
 										$(".magInveButton").unbind("tap");
 										$(".magInveButton").bind("tap",function(){
-											//$(this).parents("div.mag_item").attr("magID");
 											$(this).parent().siblings("div.mag-taqarir").slideDown();
 											$(this).parent().siblings("div.mag-info").slideUp();
 											return false;
@@ -829,6 +827,21 @@ myDB.transaction(function(transaction){
 					if(i == result.rows.length){
 					
 						$(".istighrab_mag_list .nano").nanoScroller();
+						
+						$(".magInfoButton").unbind("tap");
+						$(".magInfoButton").bind("tap",function(){
+							$(this).parent().siblings("div.mag-info").slideDown();
+							$(this).parent().siblings("div.mag-taqarir").slideUp();
+							return false;
+						});
+						
+						$(".magInveButton").unbind("tap");
+						$(".magInveButton").bind("tap",function(){
+							$(this).parent().siblings("div.mag-taqarir").slideDown();
+							$(this).parent().siblings("div.mag-info").slideUp();
+							return false;
+						});
+						
 						$(".mag_item_in").unbind("tap");
 						$(".mag_item_in").bind("tap",function(){
 
@@ -1064,21 +1077,25 @@ myDB.transaction(function(transaction){
 												</div> \
 											</div> \
 										</div>');
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
+
 										if((key+1) == json.length){
 									
 											$(".istighrab_mag_list .nano").nanoScroller();
+											
+											$(".magInfoButton").unbind("tap");
+											$(".magInfoButton").bind("tap",function(){
+												$(this).parent().siblings("div.mag-info").slideDown();
+												$(this).parent().siblings("div.mag-taqarir").slideUp();
+												return false;
+											});
+											
+											$(".magInveButton").unbind("tap");
+											$(".magInveButton").bind("tap",function(){
+												$(this).parent().siblings("div.mag-taqarir").slideDown();
+												$(this).parent().siblings("div.mag-info").slideUp();
+												return false;
+											});
+											
 											$(".mag_item_in").unbind("tap");
 											$(".mag_item_in").bind("tap",function(){
 
@@ -1305,23 +1322,25 @@ myDB.transaction(function(transaction){
 														</div> \
 													</div> \
 												</div>');
-												
-												
-												
-												
-												
-												
-												
-												
-												
-												
-												
-														
-														
-														
+
 												if((key+1) == json.length){
 											
 													$(".istighrab_mag_list .nano").nanoScroller();
+													
+													$(".magInfoButton").unbind("tap");
+													$(".magInfoButton").bind("tap",function(){
+														$(this).parent().siblings("div.mag-info").slideDown();
+														$(this).parent().siblings("div.mag-taqarir").slideUp();
+														return false;
+													});
+													
+													$(".magInveButton").unbind("tap");
+													$(".magInveButton").bind("tap",function(){
+														$(this).parent().siblings("div.mag-taqarir").slideDown();
+														$(this).parent().siblings("div.mag-info").slideUp();
+														return false;
+													});
+													
 													$(".mag_item_in").unbind("tap");
 													$(".mag_item_in").bind("tap",function(){
 
@@ -1592,22 +1611,25 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 												</div> \
 											</div> \
 										</div>');
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
+
 										if((key+1) == json.length){
 									
 											$(".istighrab_mag_list .nano").nanoScroller();
+											
+											$(".magInfoButton").unbind("tap");
+											$(".magInfoButton").bind("tap",function(){
+												$(this).parent().siblings("div.mag-info").slideDown();
+												$(this).parent().siblings("div.mag-taqarir").slideUp();
+												return false;
+											});
+											
+											$(".magInveButton").unbind("tap");
+											$(".magInveButton").bind("tap",function(){
+												$(this).parent().siblings("div.mag-taqarir").slideDown();
+												$(this).parent().siblings("div.mag-info").slideUp();
+												return false;
+											});
+											
 											$(".mag_item_in").unbind("tap");
 											$(".mag_item_in").bind("tap",function(){
 												//mag-opened
@@ -1835,6 +1857,21 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 						if(i == result.rows.length){
 					
 							$(".istighrab_mag_list .nano").nanoScroller();
+							
+							$(".magInfoButton").unbind("tap");
+							$(".magInfoButton").bind("tap",function(){
+								$(this).parent().siblings("div.mag-info").slideDown();
+								$(this).parent().siblings("div.mag-taqarir").slideUp();
+								return false;
+							});
+							
+							$(".magInveButton").unbind("tap");
+							$(".magInveButton").bind("tap",function(){
+								$(this).parent().siblings("div.mag-taqarir").slideDown();
+								$(this).parent().siblings("div.mag-info").slideUp();
+								return false;
+							});
+							
 							$(".mag_item_in").unbind("tap");
 							$(".mag_item_in").bind("tap",function(){
 								//mag-opened
@@ -2075,6 +2112,21 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 						if((key+1) == json.length){
 					
 							$(".istighrab_mag_list .nano").nanoScroller();
+							
+							$(".magInfoButton").unbind("tap");
+							$(".magInfoButton").bind("tap",function(){
+								$(this).parent().siblings("div.mag-info").slideDown();
+								$(this).parent().siblings("div.mag-taqarir").slideUp();
+								return false;
+							});
+							
+							$(".magInveButton").unbind("tap");
+							$(".magInveButton").bind("tap",function(){
+								$(this).parent().siblings("div.mag-taqarir").slideDown();
+								$(this).parent().siblings("div.mag-info").slideUp();
+								return false;
+							});
+							
 							$(".mag_item_in").unbind("tap");
 							$(".mag_item_in").bind("tap",function(){
 								//mag-opened
