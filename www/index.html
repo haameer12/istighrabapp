@@ -558,10 +558,10 @@ myDB.transaction(function(transaction){
 										</div> \
 										<div class="mag-details"> \
 											<div class="mag-details-top-button"> \
-												<a href="#" id="magInfoButton' +val['id'] +'"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
-												<a href="#" id="magInveButton' +val['id'] +'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
+												<a href="#" class="magInfoButton"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+												<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
 											</div> \
-											<div class="mag-taqarir" id="magInveCon' +val['id'] +'" style="display:none"> \
+											<div class="mag-taqarir" style="display:none"> \
  \
 												<table class="HHH-table"> \
 													<thead> \
@@ -575,7 +575,7 @@ myDB.transaction(function(transaction){
 												</table> \
  \
 											</div> \
-											<div class="mag-info" id="magInfoCon' +val['id'] +'"> \
+											<div class="mag-info"> \
  \
 												<div class="mag-info-win"> \
 													<div class="mag-info-win-title">معلومات العدد</div> \
@@ -590,17 +590,19 @@ myDB.transaction(function(transaction){
 									
 										$(".istighrab_mag_list .nano").nanoScroller();
 										
-										$("#magInfoButton" +val['id']).unbind("tap");
-										$("#magInfoButton" +val['id']).bind("tap",function(){
-											$("#magInfoCon" +val['id']).show();
-											$("#magInveCon" +val['id']).hide();
+										$(".magInfoButton").unbind("tap");
+										$(".magInfoButton").bind("tap",function(){
+											window.alert($(this).parents("div.mag_item").attr("magID") );
+											//$("#magInfoCon").show();
+											//$("#magInveCon").hide();
 											return false;
 										});
 										
-										$("#magInveButton" +val['id']).unbind("tap");
-										$("#magInveButton" +val['id']).bind("tap",function(){
-											$("#magInveCon" +val['id']).show();
-											$("#magInfoCon" +val['id']).hide();
+										$(".magInveButton").unbind("tap");
+										$(".magInveButton").bind("tap",function(){
+											window.alert($(this).parents("div.mag_item").attr("magID") );
+											//$("#magInveCon").show();
+											//$("#magInfoCon").hide();
 											return false;
 										});
 										
