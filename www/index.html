@@ -593,16 +593,16 @@ myDB.transaction(function(transaction){
 										$(".magInfoButton").unbind("tap");
 										$(".magInfoButton").bind("tap",function(){
 											//$(this).parents("div.mag_item").attr("magID");
-											$(this).parent().siblings("div.mag-info").show();
-											$(this).parent().siblings("div.mag-taqarir").hide();
+											$(this).parent().siblings("div.mag-info").slideDown();
+											$(this).parent().siblings("div.mag-taqarir").slideUp();
 											return false;
 										});
 										
 										$(".magInveButton").unbind("tap");
 										$(".magInveButton").bind("tap",function(){
 											//$(this).parents("div.mag_item").attr("magID");
-											$(this).parent().siblings("div.mag-taqarir").show();
-											$(this).parent().siblings("div.mag-info").hide();
+											$(this).parent().siblings("div.mag-taqarir").slideDown();
+											$(this).parent().siblings("div.mag-info").slideUp();
 											return false;
 										});
 										
