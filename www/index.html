@@ -594,12 +594,14 @@ myDB.transaction(function(transaction){
 										$("#magInfoButton" +val['id']).bind("tap",function(){
 											$("#magInfoCon" +val['id']).show();
 											$("#magInveCon" +val['id']).hide();
+											return false;
 										});
 										
 										$("#magInveButton" +val['id']).unbind("tap");
 										$("#magInveButton" +val['id']).bind("tap",function(){
 											$("#magInveCon" +val['id']).show();
 											$("#magInfoCon" +val['id']).hide();
+											return false;
 										});
 										
 										$(".mag_item_in").unbind("tap");
