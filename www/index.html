@@ -571,7 +571,9 @@ myDB.transaction(function(transaction){
 															<th>تحمیل</th> \
 														</tr> \
 													</thead> \
-													<tbody id="magInveCon' +val['id'] +'"></tbody> \
+													<tbody id="magInveCon' +val['id'] +'"> \
+														<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+													</tbody> \
 												</table> \
  \
 											</div> \
@@ -579,7 +581,9 @@ myDB.transaction(function(transaction){
  \
 												<div class="mag-info-win"> \
 													<div class="mag-info-win-title">معلومات العدد</div> \
-													<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"></div> \
+													<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"> \
+														<div class="mag-in-data-loading"></div> \
+													</div> \
 												</div> \
  \
 											</div> \
@@ -643,7 +647,8 @@ myDB.transaction(function(transaction){
 																contentType : "application/json",
 																dataType : 'jsonp',
 																success : function(json){
-											
+																	
+																	$("#magInveCon" +tapedMagID).html("");
 																	$.each(json, function(key, val){
 															
 																		myDB.transaction(function(transaction){
@@ -813,7 +818,9 @@ myDB.transaction(function(transaction){
 											<th>تحمیل</th> \
 										</tr> \
 									</thead> \
-									<tbody id="magInveCon' +result.rows.item(i).id +'"></tbody> \
+									<tbody id="magInveCon' +result.rows.item(i).id +'"> \
+										<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+									</tbody> \
 								</table> \
  \
 							</div> \
@@ -821,7 +828,9 @@ myDB.transaction(function(transaction){
  \
 								<div class="mag-info-win"> \
 									<div class="mag-info-win-title">معلومات العدد</div> \
-									<div class="mag-info-win-text" id="magTextCon' +result.rows.item(i).id +'"></div> \
+									<div class="mag-info-win-text" id="magTextCon' +result.rows.item(i).id +'"> \
+										<div class="mag-in-data-loading"></div> \
+									</div> \
 								</div> \
  \
 							</div> \
@@ -881,7 +890,8 @@ myDB.transaction(function(transaction){
 												contentType : "application/json",
 												dataType : 'jsonp',
 												success : function(json){
-							
+													
+													$("#magInveCon" +tapedMagID).html("");
 													$.each(json, function(key, val){
 											
 														myDB.transaction(function(transaction){
@@ -1068,7 +1078,9 @@ myDB.transaction(function(transaction){
 																<th>تحمیل</th> \
 															</tr> \
 														</thead> \
-														<tbody id="magInveCon' +val['id'] +'"></tbody> \
+														<tbody id="magInveCon' +val['id'] +'"> \
+															<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+														</tbody> \
 													</table> \
  \
 												</div> \
@@ -1076,7 +1088,9 @@ myDB.transaction(function(transaction){
  \
 													<div class="mag-info-win"> \
 														<div class="mag-info-win-title">معلومات العدد</div> \
-														<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"></div> \
+														<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"> \
+															<div class="mag-in-data-loading"></div> \
+														</div> \
 													</div> \
  \
 												</div> \
@@ -1135,7 +1149,8 @@ myDB.transaction(function(transaction){
 																	contentType : "application/json",
 																	dataType : 'jsonp',
 																	success : function(json){
-												
+																		
+																		$("#magInveCon" +tapedMagID).html("");
 																		$.each(json, function(key, val){
 																
 																			myDB.transaction(function(transaction){
@@ -1313,7 +1328,9 @@ myDB.transaction(function(transaction){
 																		<th>تحمیل</th> \
 																	</tr> \
 																</thead> \
-																<tbody id="magInveCon' +val['id'] +'"></tbody> \
+																<tbody id="magInveCon' +val['id'] +'"> \
+																	<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+																</tbody> \
 															</table> \
  \
 														</div> \
@@ -1321,7 +1338,9 @@ myDB.transaction(function(transaction){
  \
 															<div class="mag-info-win"> \
 																<div class="mag-info-win-title">معلومات العدد</div> \
-																<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"></div> \
+																<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"> \
+																	<div class="mag-in-data-loading"></div> \
+																</div> \
 															</div> \
  \
 														</div> \
@@ -1380,7 +1399,8 @@ myDB.transaction(function(transaction){
 																			contentType : "application/json",
 																			dataType : 'jsonp',
 																			success : function(json){
-														
+																				
+																				$("#magInveCon" +tapedMagID).html("");
 																				$.each(json, function(key, val){
 																		
 																					myDB.transaction(function(transaction){
@@ -1602,7 +1622,9 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 																<th>تحمیل</th> \
 															</tr> \
 														</thead> \
-														<tbody id="magInveCon' +val['id'] +'"></tbody> \
+														<tbody id="magInveCon' +val['id'] +'"> \
+															<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+														</tbody> \
 													</table> \
  \
 												</div> \
@@ -1610,7 +1632,9 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
  \
 													<div class="mag-info-win"> \
 														<div class="mag-info-win-title">معلومات العدد</div> \
-														<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"></div> \
+														<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"> \
+															<div class="mag-in-data-loading"></div> \
+														</div> \
 													</div> \
  \
 												</div> \
@@ -1672,7 +1696,8 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 																	contentType : "application/json",
 																	dataType : 'jsonp',
 																	success : function(json){
-												
+																		
+																		$("#magInveCon" +tapedMagID).html("");
 																		$.each(json, function(key, val){
 																
 																			myDB.transaction(function(transaction){
@@ -1843,7 +1868,9 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 												<th>تحمیل</th> \
 											</tr> \
 										</thead> \
-										<tbody id="magInveCon' +result.rows.item(i).id +'"></tbody> \
+										<tbody id="magInveCon' +result.rows.item(i).id +'"> \
+											<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+										</tbody> \
 									</table> \
  \
 								</div> \
@@ -1851,7 +1878,9 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
  \
 									<div class="mag-info-win"> \
 										<div class="mag-info-win-title">معلومات العدد</div> \
-										<div class="mag-info-win-text" id="magTextCon' +result.rows.item(i).id +'"></div> \
+										<div class="mag-info-win-text" id="magTextCon' +result.rows.item(i).id +'"> \
+											<div class="mag-in-data-loading"></div> \
+										</div> \
 									</div> \
  \
 								</div> \
@@ -1914,7 +1943,8 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 													contentType : "application/json",
 													dataType : 'jsonp',
 													success : function(json){
-								
+														
+														$("#magInveCon" +tapedMagID).html("");
 														$.each(json, function(key, val){
 												
 															myDB.transaction(function(transaction){
@@ -2099,7 +2129,9 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 												<th>تحمیل</th> \
 											</tr> \
 										</thead> \
-										<tbody id="magInveCon' +val['id'] +'"></tbody> \
+										<tbody id="magInveCon' +val['id'] +'"> \
+											<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+										</tbody> \
 									</table> \
  \
 								</div> \
@@ -2107,7 +2139,9 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
  \
 									<div class="mag-info-win"> \
 										<div class="mag-info-win-title">معلومات العدد</div> \
-										<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"></div> \
+										<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"> \
+											<div class="mag-in-data-loading"></div> \
+										</div> \
 									</div> \
  \
 								</div> \
@@ -2170,6 +2204,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 													dataType : 'jsonp',
 													success : function(json){
 								
+														$("#magInveCon" +tapedMagID).html("");
 														$.each(json, function(key, val){
 												
 															myDB.transaction(function(transaction){
@@ -2908,6 +2943,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 				padding:1.8vh 0 1.8vh 0;
 			}
 			.istighrab_mag_list .mag_item .mag-details .mag-info .mag-info-win .mag-info-win-text{
+				position:relative;
 				padding:2vh;
 				height:33vh;
 				overflow:scroll;
@@ -2923,7 +2959,14 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 			
 		
 		
-		
+			.istighrab_mag_list .mag_item .mag-details .mag-in-data-loading{
+				background:url("img/loading.gif") no-repeat center center #fff;
+				position:absolute;
+				top:0;
+				bottom:0.2vh;
+				left:0;
+				right:0;
+			}
 		
 		
 		
@@ -2967,6 +3010,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 			}
 			
 			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table tbody{
+				position:relative;
 				display:block;
 				height:33vh;
 				overflow-y: auto;
@@ -3051,7 +3095,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 												<a href="#"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a>
 												<a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a>
 											</div>
-											<div class="mag-taqarir" style="display:none;">
+											<div class="mag-taqarir">
 
 												<table class="HHH-table">
 													<thead>
@@ -3061,7 +3105,9 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 															<th>تحمیل</th>
 														</tr>
 													</thead>
-													<tbody id="magInveCon"></tbody>
+													<tbody id="magInveCon">
+														<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr>
+													</tbody>
 												</table>
 
 											</div>
@@ -3069,7 +3115,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 
 												<div class="mag-info-win">
 													<div class="mag-info-win-title">معلومات العدد</div>
-													<div class="mag-info-win-text" id="magTextCon"></div>
+													<div class="mag-info-win-text" id="magTextCon"><div class="mag-in-data-loading"></div></div>
 												</div>
 
 											</div>
