@@ -595,7 +595,8 @@ myDB.transaction(function(transaction){
 											$(this).parent().siblings("div.mag-info").slideDown();
 											$(this).parent().siblings("div.mag-taqarir").slideUp();
 											$(this).hide();
-											$(".magInveButton").show();
+											$(this).siblings(".magInveButton").show();
+											
 											return false;
 										});
 										
@@ -604,7 +605,7 @@ myDB.transaction(function(transaction){
 											$(this).parent().siblings("div.mag-taqarir").slideDown();
 											$(this).parent().siblings("div.mag-info").slideUp();
 											$(this).hide();
-											$(".magInfoButton").show();
+											$(this).siblings(".magInfoButton").show();
 											return false;
 										});
 										
