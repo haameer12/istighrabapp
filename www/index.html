@@ -187,7 +187,6 @@
 		
 		
 		
-		
 		var n = noty({
 			text         : text,
 			type         : type,
@@ -386,15 +385,7 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -451,63 +442,9 @@ myDB.transaction(function(transaction) {
 		//window.alert("Error occurred while creating the inve table.");
 	});
 	
-	
-	
-	
-	
-	
-	
-	
-/*	
-	
-	
-	transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", ["1", "", "1", "0", "files/files/5a3f38r.pdf", "كانط رؤية نقدية"],
-	function(tx, result) {
-		window.alert("Inserted");
-	},
-	function(error){
-		window.alert("Error occurred");
-	});
-	
-	
-	
-	transaction.executeSql("select count(id) as cnt from istighrab_mag;", [],
-	function(tx, result) {
-		window.alert("Rows num is : " + result.rows.length +" --- " +result.rows.item(0).cnt);
-	},
-	function(error){
-		window.alert("Error occurred");
-	});
-	
-	
-	
-	
-	transaction.executeSql("select * from istighrab_mag;", [],
-	function(tx, result) {
-		
-		window.alert(result.rows.length);
-		var i = 0;
-		while(result.rows.item(i)){
-			window.alert(result.rows.item(i).mag_num_title);
-			i++;
-		}
-		//$.each(result.rows, function( key, val ) {
-			//window.alert(val.title);
-			//$("#TableData").append("<tr><td>"+val.id+"</td><td>"+val.title+"</td><td>"+val.desc+"</td></tr>");
-		//});
-		//$.each(result.rows.item(2), function( key, value ) {
-		  //alert( key + ": " + value );
-		//});
-
-	},
-	function(error){
-		window.alert("Error occurred in select");
-	});
 
 	
-*/
 	
-
 });
 	
 	
@@ -628,7 +565,6 @@ myDB.transaction(function(transaction){
 												return false;
 											}
 											
-											/////////////////////////////////////we are here
 											myDB.transaction(function(transaction){
 												
 												transaction.executeSql(
@@ -664,7 +600,7 @@ myDB.transaction(function(transaction){
 																				
 																			},
 																			function(error){
-																				window.alert("Error occurred in insert");
+																				notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																			});
 																			
 																		});
@@ -699,7 +635,7 @@ myDB.transaction(function(transaction){
 											
 													},
 													function(error){
-														window.alert("Error occurred in select");
+														notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 													}
 												);
 
@@ -729,7 +665,7 @@ myDB.transaction(function(transaction){
 											
 																		},
 																		function(error){
-																			window.alert("Error occurred in insert");
+																			notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																		});
 																		
 																	});
@@ -753,7 +689,7 @@ myDB.transaction(function(transaction){
 											
 													},
 													function(error){
-														window.alert("Error occurred in select");
+														notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 													}
 												);
 
@@ -765,7 +701,7 @@ myDB.transaction(function(transaction){
 									
 								},
 								function(error){
-									window.alert("Error occurred in insert");
+									notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 								});
 								
 							});
@@ -875,7 +811,6 @@ myDB.transaction(function(transaction){
 								return false;
 							}
 
-							/////////////////////////////////////we are here
 							myDB.transaction(function(transaction){
 								
 								transaction.executeSql(
@@ -911,7 +846,7 @@ myDB.transaction(function(transaction){
 																
 															},
 															function(error){
-																window.alert("Error occurred in insert");
+																notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 															});
 															
 														});
@@ -946,7 +881,7 @@ myDB.transaction(function(transaction){
 							
 									},
 									function(error){
-										window.alert("Error occurred in select");
+										notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 									}
 								);
 
@@ -976,7 +911,7 @@ myDB.transaction(function(transaction){
 							
 														},
 														function(error){
-															window.alert("Error occurred in insert");
+															notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 														});
 														
 													});
@@ -1000,7 +935,7 @@ myDB.transaction(function(transaction){
 							
 									},
 									function(error){
-										window.alert("Error occurred in select");
+										notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 									}
 								);
 
@@ -1010,18 +945,7 @@ myDB.transaction(function(transaction){
 						
 					}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-					
-					
-					
+
 					
 					
 					
@@ -1138,7 +1062,6 @@ myDB.transaction(function(transaction){
 													return false;
 												}
 
-												/////////////////////////////////////we are here
 												myDB.transaction(function(transaction){
 													
 													transaction.executeSql(
@@ -1174,7 +1097,7 @@ myDB.transaction(function(transaction){
 																					
 																				},
 																				function(error){
-																					window.alert("Error occurred in insert");
+																					notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																				});
 																				
 																			});
@@ -1209,7 +1132,7 @@ myDB.transaction(function(transaction){
 												
 														},
 														function(error){
-															window.alert("Error occurred in select");
+															notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 														}
 													);
 	
@@ -1239,7 +1162,7 @@ myDB.transaction(function(transaction){
 												
 																			},
 																			function(error){
-																				window.alert("Error occurred in insert");
+																				notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																			});
 																			
 																		});
@@ -1263,7 +1186,7 @@ myDB.transaction(function(transaction){
 												
 														},
 														function(error){
-															window.alert("Error occurred in select");
+															notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 														}
 													);
 	
@@ -1275,7 +1198,7 @@ myDB.transaction(function(transaction){
 
 									},
 									function(error){
-										window.alert("Error occurred in insert");
+										notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 									});
 									
 								});
@@ -1392,7 +1315,6 @@ myDB.transaction(function(transaction){
 															return false;
 														}
 
-														/////////////////////////////////////we are here
 														myDB.transaction(function(transaction){
 															
 															transaction.executeSql(
@@ -1428,7 +1350,7 @@ myDB.transaction(function(transaction){
 																							
 																						},
 																						function(error){
-																							window.alert("Error occurred in insert");
+																							notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																						});
 																						
 																					});
@@ -1463,7 +1385,7 @@ myDB.transaction(function(transaction){
 														
 																},
 																function(error){
-																	window.alert("Error occurred in select");
+																	notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 																}
 															);
 			
@@ -1493,7 +1415,7 @@ myDB.transaction(function(transaction){
 														
 																					},
 																					function(error){
-																						window.alert("Error occurred in insert");
+																						notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																					});
 																					
 																				});
@@ -1517,7 +1439,7 @@ myDB.transaction(function(transaction){
 														
 																},
 																function(error){
-																	window.alert("Error occurred in select");
+																	notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 																}
 															);
 			
@@ -1530,7 +1452,7 @@ myDB.transaction(function(transaction){
 
 											},
 											function(error){
-												window.alert("Error occurred in insert");
+												notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 											});
 											
 										});
@@ -1542,7 +1464,7 @@ myDB.transaction(function(transaction){
 
 								},
 								function(error){
-									window.alert("Error occurred in insert");
+									notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 								});
 								
 							});
@@ -1553,7 +1475,7 @@ myDB.transaction(function(transaction){
 					error: function(e, errorReason){
 						//console.log(e.message);
 						if(errorReason != "abort"){
-							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+							//notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
 						}
 						
 						getMagRequestObj = "";
@@ -1564,7 +1486,7 @@ myDB.transaction(function(transaction){
 
 		},
 		function(error){
-			window.alert("Error occurred in select");
+			notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 		}
 	);
 
@@ -1693,7 +1615,6 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 													return false;
 												}
 
-												/////////////////////////////////////we are here
 												myDB.transaction(function(transaction){
 													
 													transaction.executeSql(
@@ -1729,7 +1650,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 																					
 																				},
 																				function(error){
-																					window.alert("Error occurred in insert");
+																					notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																				});
 																				
 																			});
@@ -1764,7 +1685,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 												
 														},
 														function(error){
-															window.alert("Error occurred in select");
+															notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 														}
 													);
 	
@@ -1794,7 +1715,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 												
 																			},
 																			function(error){
-																				window.alert("Error occurred in insert");
+																				notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																			});
 																			
 																		});
@@ -1818,7 +1739,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 												
 														},
 														function(error){
-															window.alert("Error occurred in select");
+															notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 														}
 													);
 	
@@ -1830,7 +1751,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 
 									},
 									function(error){
-										window.alert("Error occurred in insert");
+										notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 									});
 									
 								});
@@ -1843,7 +1764,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 						error: function(e, errorReason){
 							//console.log(e.message);
 							if(errorReason != "abort"){
-								notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+								//notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
 							}
 							
 							getMagRequestObj = "";
@@ -1944,7 +1865,6 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 									return false;
 								}
 
-								/////////////////////////////////////we are here
 								myDB.transaction(function(transaction){
 									
 									transaction.executeSql(
@@ -1980,7 +1900,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 																	
 																},
 																function(error){
-																	window.alert("Error occurred in insert");
+																	notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																});
 																
 															});
@@ -2015,7 +1935,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 								
 										},
 										function(error){
-											window.alert("Error occurred in select");
+											notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 										}
 									);
 
@@ -2045,7 +1965,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 								
 															},
 															function(error){
-																window.alert("Error occurred in insert");
+																notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 															});
 															
 														});
@@ -2069,7 +1989,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 								
 										},
 										function(error){
-											window.alert("Error occurred in select");
+											notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 										}
 									);
 
@@ -2087,7 +2007,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 
 			},
 			function(error){
-				window.alert("Error occurred in select");
+				notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 			}
 		);
 
@@ -2208,7 +2128,6 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 									return false;
 								}
 
-								/////////////////////////////////////we are here
 								myDB.transaction(function(transaction){
 									
 									transaction.executeSql(
@@ -2244,7 +2163,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 																	
 																},
 																function(error){
-																	window.alert("Error occurred in insert");
+																	notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																});
 																
 															});
@@ -2279,7 +2198,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 								
 										},
 										function(error){
-											window.alert("Error occurred in select");
+											notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 										}
 									);
 
@@ -2309,7 +2228,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 								
 															},
 															function(error){
-																window.alert("Error occurred in insert");
+																notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 															});
 															
 														});
@@ -2333,7 +2252,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 								
 										},
 										function(error){
-											window.alert("Error occurred in select");
+											notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 										}
 									);
 
@@ -2345,7 +2264,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 
 					},
 					function(error){
-						window.alert("Error occurred in insert");
+						notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 					});
 					
 				});
@@ -2365,7 +2284,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 		error: function(e, errorReason){
 			//console.log(e.message);
 			if(errorReason != "abort"){
-				notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+				//notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
 			}
 			
 			getMagRequestObj = "";
@@ -2391,81 +2310,6 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 	
 	
 	
-	
-/*	
-	
-	
-				getMagRequestObj = $.ajax({
-					type : 'get',
-					url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php",
-					async : false,
-					jsonpCallback : "istighrabMagCallBack",
-					contentType : "application/json",
-					dataType : 'jsonp',
-					success : function(json){
-						//$("#esdarat-item-list_contaner #esdarat-item-list_contaner_in").html("");
-					
-						$.each(json, function(key, val){
-				
-							myDB.transaction(function(transaction){
-								
-								transaction.executeSql("select * from istighrab_mag WHERE id = ?", [val['id']],
-								function(tx, result) {
-									isRowExisted = result.rows.length;
-									window.alert("selected num in is : "+result.rows.length)
-								},
-								function(error){
-									//window.alert("Error occurred in select");
-								});
-								window.alert("selected num is : "+isRowExisted);
-								
-								
-								if(!isRowExisted){
-									transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
-									function(tx, result) {
-										window.alert("Inserted");
-									},
-									function(error){
-										window.alert("Error occurred in insert");
-									});
-								}else{
-									transaction.executeSql("UPDATE istighrab_mag SET sort = ?, name = ?, protected = ?, pdf_path = ?, mag_num_title = ? WHERE id = ?", [val['sort'], val['name'], val['protected'], val['pdf_path'], vals['masg_num_title'], val['id']],
-									function(tx, result) {
-										window.alert("updated");
-									},
-									function(error){
-										window.alert("Error occurred in update");
-									});
-								}
-							});
-				
-							
-						});
-						
-						
-						$(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
-				
-							
-					},
-					error: function(e, errorReason){
-						//console.log(e.message);
-						if(errorReason != "abort"){
-							notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
-						}
-						TapedElement.siblings(".loading2").remove();
-						
-						getMagRequestObj = "";
-					}
-				});
-
-
-
-
-*/
-
-
-
-	
 
 	
 	
@@ -2488,303 +2332,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
     });
 	
 	</script>
-	<style>
-	/*الإصدارات - esdarat*/
-	.white-item{
-		background:#fcfdfe;
-		border:1px solid #eaeef1;
-		margin:8px 0 0 0;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-		text-decoration:none;
-	}
-	.white-item .panel-subject{
-		padding:10px;
-		text-align:center;
-		font-family:hacen_xxl;
-		font-size:17px;
-		color:#838282;
-	}
-	div.colored-win{
-		border:1px solid #eaeef1;
-		border-radius:3px;
-		background:#ffffff;
-		margin:8px 0 0 0;
-		overflow:hidden;
-		direction:rtl;
-	}
-	div.colored-win .c-w-title{
-		border-bottom:1px solid #eaeef1;
-		background:#1ccacc;
-		height:50px;
-		line-height:50px;
-		text-indent:20px;
-		font-size:16px;
-		font-family:"hacen_xxl";
-		color:#fff;
-		
-	}
-	span.grid-item{
-		display:inline-block;
-		width:25%;
-		vertical-align:top;
-	}
-	@media screen and (orientation : portrait){
-		span.grid-item{
-			width:33.3333333333333333%;
-		}
-	}
-	@media screen and (max-width: 14cm) and (orientation : portrait){
-		span.grid-item{
-			width:50%;
-		}
-	}
-	span.grid-item div.in{
-		position:relative;
-		border: 1px solid #eaeef1;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-		margin:3px;
-		padding:3px;
-	}
-	span.grid-item div.in h3.title{
-		border-top:1px solid #eaeef1;
-		font-size:13px;
-		font-family:"hacen_light";
-		font-weight:normal;
-		padding:3px 5px 0 5px;
-		color:#6d7077;
-		max-height:55px;
-		overflow:hidden;
-		line-height:24px;
-	}
-	.loading{
-		position:absolute;
-		top:0;
-		bottom:0;
-		left:0;
-		right:0;
-		background:url("img/loading.gif") no-repeat center center #FFF;
-	}
-	.loading2{
-		position:absolute;
-		top:0;
-		bottom:0;
-		left:0;
-		right:0;
-		background:url("img/loading2.gif") no-repeat center center #FFF;
-		background-size:35px;
-		opacity:0.4;
-	}
-	</style>
-	<style>
-	/*مشاهدة الإصدار - esdarat-inside-content*/
-	
-	#esdarat-inside-content .esdar-title, #alrasad_marakiz-inside-content .markaz-title, #alrasad_taqarir-inside-content .taqrir-title{
-		font-family:"hacen_screen";
-		font-size:20px;
-		text-align:center;
-		line-height:30px;
-		padding:8px 0;
-		color:#5d6066;
-	}
-	#esdarat-inside-content #esdar-text img{
-		width:150px;
-		padding:1px;
-		border: 1px solid #eaeef1;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-	}
-	#esdarat-inside-content #esdar-text a{
-		display:block;
-		background:#d06975;
-		margin:10px 0;
-		padding:10px;
-		text-decoration:none;
-		color:#FFF;
-		border-radius:5px;
-		font-size:18px;
-	}
-	.app-text{
-		direction:rtl;
-		font-family:Droid Arabic Naskh;
-		text-align:justify;
-		color:#797979;
-		line-height:25px;
-		padding:5px 10px 0 10px;
-	}
-	.app-text p{
-		line-height:33px;
-		color:#3a3c3f;
-		font-size:13px;
-	}
-	.load_more{
-		display:block;
-		background:#ededed;
-		margin:10px 0;
-		padding:10px;
-		text-decoration:none;
-		color:#bebdbd;
-		border-radius:5px;
-		font-size:17px;
-		text-align:center;
-		font-family:"hacen_screen";
-	}
-	/*					@media screen and (min-width: 17cm) and (orientation : portrait){
-		.app-text{
-			padding:10px 10px 0 10px;
-		}
-		.app-text p{
-			font-size:18px;
-			line-height:35px;
-		}
-	}
-	@media screen and (min-width: 20cm){
-		.app-text{
-			padding:10px 10px 0 10px;
-		}
-		.app-text p{
-			font-size:18px;
-			line-height:35px;
-		}
-	}*/
-	
-	
-	
-	span.list-pic-item{
-		display:inline-block;
-		vertical-align:top;
-		background:#fbfbfb;
-		position:relative;
-		border: 1px solid #eaeef1;
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-		margin:3px;
-		padding:3px;
-	}
-	span.list-pic-item div.in img{
-		float:right;
-		border-left: 1px solid #eaeef1;
-		padding:1px;
-		max-height:100%;
-		width:auto;
-	}
-	span.list-pic-item div.in h3.title{
-		font-size:13px;
-		font-family:"hacen_light";
-		font-weight:normal;
-		padding:3px 5px 0 5px;
-		color:#6d7077;
-		overflow:hidden;
-		line-height:24px;
-	}
-	
-	.list-pic_item{
-		position:relative;
-		display:block;
-		background:#fcfdfe;
-		border:1px solid #eaeef1;
-		margin:8px 0 0 0;
-		/*height:84px;*/
-		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-		text-decoration:none;
-		direction:rtl;
-		white-space:nowrap;
-		overflow:hidden;
-	}
-	.list-pic_item .pic-text{
-		height:84px;
-		overflow:hidden;
-	}
-	.list-pic_item .pic-text img{
-		padding:1px;
-		vertical-align:middle;
-		position:absolute;
-		top:0;
-		right:0;
-		border-left:1px solid #eaeef1;
-	}
-	.list-pic_item .pic-text table.text{
-		vertical-align:middle;
-		width:100%;
-		
-	}
-	.list-pic_item .pic-text table.text td{
-		height:78px;
-		padding:0 80px 0 8px;
-		margin:0;
-		white-space:normal;
-		font-family:"hacen_xxl";
-		font-size:14px;
-		color:#6d7077;
-		text-align:right;
-	}
-	.list-pic_item .details{
-		border-top:1px solid #eaeef1;
-		font-size:15px;
-		background:#fdfdfd;
-		padding:2px;
-		display:none;
-	}
-	.list-pic_item .details .p-item{
-		padding:5px 10px;
-	}
-	.list-pic_item .details .p-item img{
-		vertical-align:middle;
-	}
-	.list-pic_item .details .p-item span{
-		font-family:"hacen_light";
-		padding:0 10px 0 0;
-		font-size:14px;
-		color:#5a5e64;
-	}
-	.list-pic_item .details .text{
-		border-top:1px solid #F5F5F5;
-		white-space:normal;
-		padding:10px 10px 4px 10px;
-		margin:4px 0 0 0;
-		font-family:"Droid Arabic Naskh";
-		font-size:12px;
-		line-height:27px;
-		text-align:justify;
-		color:#5a5e64;
-	}
-	.list-pic_item .details .text span.read_more{
-		display:block;
-		background:#d06975;
-		margin:6px 0;
-		padding:5px;
-		color:#FFF;
-		border-radius:5px;
-		font-size:16px;
-		font-family:"hacen_screen";
-		text-align:center;
-	}
-	.list-pic_item .details .text span.read_more span{
-		display:none;
-	}
-	
-	#alrasad_taqarir-inside-content .details{
-		background:#fcfdfd;
-		margin:3px -10px 13px -10px;
-		padding:5px 0;
-		border-top:1px solid #f7f8f9;
-		border-bottom:1px solid #f7f8f9;
-	}
-	#alrasad_taqarir-inside-content .details .p-item{
-		padding:9px 10px;
-	}
-	#alrasad_taqarir-inside-content .details .p-item img{
-		vertical-align:middle;
-	}
-	#alrasad_taqarir-inside-content .details .p-item span{
-		font-family:"hacen_light";
-		padding:0 10px 0 0;
-		font-size:15px;
-		color:#5a5e64;
-	}
-	
-	.noty_message{
-		font-family:"hacen_light" !important;
-		padding:13px 15px 13px 15px !important;
-	}
-	</style>
+
 </head>
 
 <body onload="init()">
@@ -3000,11 +2548,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 				right:0;
 			}
 		
-		
-		
-		
-		
-		
+
 		
 			.istighrab_mag_list .mag_item .mag-details .mag-taqarir table.HHH-table{
 				border-collapse:collapse;
@@ -3104,125 +2648,6 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 
 			
 			
-			
-			
-			
-			
-			
-			
-				<style>
-					.pic-item{
-						display:block;
-						background:#fcfdfe;
-						border:1px solid #eaeef1;
-						margin:8px 0 0 0;
-						height:84px;
-						box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-						text-decoration:none;
-					}
-				</style>
-				<script>
-	function notifyaa(text, type, duration, pos, animateIn, animateOut){
-/*		var n = noty({
-			text: text,
-			type: type,
-			dismissQueue: true,
-			layout: pos,
-			theme: 'defaultTheme',
-			animation: {
-			open: {opacity: 'toggle'},
-			close: {opacity: 'toggle'},
-			easing: 'swing',
-			speed: 700
-			},
-			timeout: duration,
-			modal: false
-		});
-		return n;*/
-		
-		
-		
-		
-		var n = noty({
-			text         : text,
-			type         : type,
-			dismissQueue : true,
-			layout       : pos,
-			closeWith    : ['click'],
-			theme        : 'relax',
-			maxVisible   : 10,
-			timeout      : duration,
-			animation    : {
-				open       : 'animated bounceIn'+animateIn,
-				close      : 'animated bounceOut'+animateOut,
-				easing     : 'swing',
-				speed      : 500,
-			}
-		});
-		return n;
-	}
-				
-				
-				
-	var text_a = "<div class='noty-icon icon message message'>&nbsp;</div><div class='noty-close icon close message'>&nbsp;</div><div class='noty-text'>في الثالث من شهر شباط عام 2015، صدم العالم بمشاهدة فيلم من انتاج تنظيم (داعش) نشره على شبكة الانترنت، يحتوي على مشاهد وحشية لم يعتد الناس مشاهدتها من قبل، اذ اقدم التنظيم على تصوير فيلم تسجيلي يتضمن احراق انسان وهو حي، وهو طيار أردني يدعى (معاذ صافي الكساسبة- 26 عاما) وقع أسيراً بأيدي التنظيم اثر سقوط طائرته</div>";
-				</script>
-				<style>
-					.noty_message .noty-text{
-						margin:0 0 0 0;
-						direction:rtl;
-						text-align:justify;
-						line-height:23px;
-						margin:0 50px 0 5px;
-					}
-					.noty_message .noty-icon{
-						float:right;
-						width:42px;
-						text-align:left;
-						font-size:25px;
-						padding:15px 0 0 0;
-					}
-					.noty_message .noty-close{
-						position:absolute;
-						bottom:10px;
-						right:12px;
-						width:42px;
-						text-align:left;
-						font-size:18px;
-						padding:13px 0 13px 0;
-						color:#333;
-					}
-				</style>
-<!--				<a href="#" onClick="notifyaa(text_a, 'information', 8000000000, 'top', 'Left', 'Right')" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>
-				<a href="#" class="pic-item" style=" background-image:url(pic2.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>
-				<a href="#" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>
-				<a href="#" class="pic-item" style=" background-image:url(pic2.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>
-				<a href="#" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>
-				<a href="#" class="pic-item" style=" background-image:url(pic2.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>
-				<a href="#" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>
-				<a href="#" class="pic-item" style=" background-image:url(pic2.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>
-				<a href="#" class="pic-item" style=" background-image:url(pic1.jpg); background-position:right top; background-repeat:no-repeat">
-					&nbsp;
-				</a>-->
-				
-				
-				
-				
 				
 				<!--<ul id="app-status-ul">
 					<li>Start</li>	 
@@ -3238,37 +2663,10 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 			
 			
 			
-			<div class="panel" id="sira" data-include="include/sira.html" data-title="السيرة الذاتية" >
+			<div class="panel" id="sira" data-include="include/sira.html" data-title="السيرة" >
 			
             </div>
-			
-			<div class="panel" id="makatib" data-include="include/makatib.html" data-title="مكاتب المرجعية" >
-			
-            </div>
-			
-			<div class="panel" id="moalafat_taqarir" data-include="include/moalafat_taqarir.html" data-title="مكاتب المرجعية" >
-			
-            </div>
-			
-			<div class="panel" id="contact_us" data-include="include/contact_us.html" data-title="إتصل بنا" >
-			
-            </div>
-			
-			<div class="panel" id="our_sites" data-include="include/our_sites.html" data-title="المواقع التابعة" >
-				
-            </div>
-			
-			<div class="panel" id="marakiz_moasisat" data-include="include/marakiz_moasisat.html" data-title="المواقع التابعة" >
-				
-            </div>
-			
-			<div class="panel" id="kotob_fatwaiya" data-include="include/kotob_fatwaiya.html" data-title="كتب فتوائية" >
-				
-            </div>
-			
-			<div class="panel" id="istiftaat" data-include="include/istiftaat.html" data-title="إستفتاءات" >
-				
-            </div>
+
 			
 			
 			
@@ -3302,17 +2700,6 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 					   <ul class="list">
 							<li><a href="#main" class="icon home" onClick="$.afui.drawer.hide('#right','right')">الرئيسية</a></li>
 							<li><a href="#sira" class="icon stack" onClick="$.afui.drawer.hide('#right','right')">السيرة الذاتية</a></li>
-							<li><a href="#moalafat_taqarir" class="icon camera" onClick="$.afui.drawer.hide('#right','right')">المؤلفات والتقريرات</a></li>
-							<li><a href="#kotob_fatwaiya" class="icon camera" onClick="$.afui.drawer.hide('#right','right')">الكتب الفتوائية</a></li>
-							<li><a href="#istiftaat" class="icon question" onClick="$.afui.drawer.hide('#right','right')">الإستفتاءات</a></li>
-							<li><a href="#" class="icon mail" onClick="$.afui.drawer.hide('#right','right')">إرسال إستفتاء</a></li>
-							<li><a href="#" class="icon message" onClick="$.afui.drawer.hide('#right','right')">البيانات الصادرة</a></li>
-							<li><a href="#marakiz_moasisat" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">المراكز والمؤسسات</a></li>
-							<li><a href="#" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">الخدمات</a></li>
-							<li><a href="#our_sites" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">المواقع التابعة</a></li>
-							<li><a href="#" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">أرشيف الموقع</a></li>
-							<li><a href="#makatib" class="icon pin" onClick="$.afui.drawer.hide('#right','right')">مكاتب المرجعية</a></li>
-							<li><a href="#contact_us" class="icon phone" onClick="$.afui.drawer.hide('#right','right')">إتصل بنا</a></li>
 						</ul>
 					   
                     </div>
