@@ -598,8 +598,8 @@ myDB.transaction(function(transaction){
 										$(".magInfoButton").bind("tap",function(){
 											$(this).parent().siblings("div.mag-info").slideDown();
 											$(this).parent().siblings("div.mag-taqarir").slideUp();
-											$(this).removeClass("active");
-											$(this).siblings(".magInveButton").addClass("active");
+											$(this).addClass("active");
+											$(this).siblings(".magInveButton").removeClass("active");
 											return false;
 										});
 										
@@ -607,8 +607,8 @@ myDB.transaction(function(transaction){
 										$(".magInveButton").bind("tap",function(){
 											$(this).parent().siblings("div.mag-taqarir").slideDown();
 											$(this).parent().siblings("div.mag-info").slideUp();
-											$(this).removeClass("active");
-											$(this).siblings(".magInfoButton").addClass("active");
+											$(this).addClass("active");
+											$(this).siblings(".magInfoButton").removeClass("active");
 											return false;
 										});
 										
@@ -2909,6 +2909,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 				padding:1.2vh 1.5vh 0.7vh 1.7vh;
 				text-align:right;
 				color:#8f9fad;
+				transition:background 250ms, color 250ms;
 			}
 			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a.active{
 				background:#c2dfe2;
@@ -2920,6 +2921,10 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 				margin:0.1vh 0 0 0.3vh;
 				display:inline-block;
 				vertical-align:middle;
+				transition:color 250ms;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a.active i.fa{
+				color:#4aa1a9;
 			}
 			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a:first-child i.fa{
 				font-size:3vh;
