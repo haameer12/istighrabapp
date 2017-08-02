@@ -733,7 +733,7 @@ myDB.transaction(function(transaction){
 							</div> \
 							<div class="mag-title-middle-holder">&nbsp;</div> \
 							<div class="mag-title"> \
-							' +((result.rows.item(i).mag_num_title != null)? "--ملف العدد : " +result.rows.item(i).mag_num_title :  "&nbsp;") +' \
+							' +((result.rows.item(i).mag_num_title != null)? "ملف العدد : " +result.rows.item(i).mag_num_title :  "&nbsp;") +' \
 							</div> \
 							<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +result.rows.item(i).pdf_path +'\', \'system\');return false;"></a> \
 							<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
@@ -2484,8 +2484,8 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 				transition:background 250ms, color 250ms;
 			}
 			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a.active{
-				background:#c2dfe2;
-				color:#4aa1a9;
+				background:#c2d7e2;
+				color:#4a89a9;
 			}
 			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a i.fa{
 				color:#8f9fad;
@@ -2496,7 +2496,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 				transition:color 250ms;
 			}
 			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a.active i.fa{
-				color:#4aa1a9;
+				color:#4a89a9;
 			}
 			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a:first-child i.fa{
 				font-size:3vh;
