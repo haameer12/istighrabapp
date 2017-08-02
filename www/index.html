@@ -804,7 +804,7 @@ myDB.transaction(function(transaction){
 						</div> \
 						<div class="mag-details"> \
 							<div class="mag-details-top-button"> \
-								<a href="#" class="magInfoButton"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+								<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
 								<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
 							</div> \
 							<div class="mag-taqarir" style="display:none"> \
@@ -845,6 +845,8 @@ myDB.transaction(function(transaction){
 						$(".magInfoButton").bind("tap",function(){
 							$(this).parent().siblings("div.mag-info").slideDown();
 							$(this).parent().siblings("div.mag-taqarir").slideUp();
+							$(this).addClass("active");
+							$(this).siblings(".magInveButton").removeClass("active");
 							return false;
 						});
 						
@@ -852,6 +854,8 @@ myDB.transaction(function(transaction){
 						$(".magInveButton").bind("tap",function(){
 							$(this).parent().siblings("div.mag-taqarir").slideDown();
 							$(this).parent().siblings("div.mag-info").slideUp();
+							$(this).addClass("active");
+							$(this).siblings(".magInfoButton").removeClass("active");
 							return false;
 						});
 						
@@ -1064,7 +1068,7 @@ myDB.transaction(function(transaction){
 											</div> \
 											<div class="mag-details"> \
 												<div class="mag-details-top-button"> \
-													<a href="#" class="magInfoButton"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+													<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
 													<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
 												</div> \
 												<div class="mag-taqarir" style="display:none"> \
@@ -1104,6 +1108,8 @@ myDB.transaction(function(transaction){
 											$(".magInfoButton").bind("tap",function(){
 												$(this).parent().siblings("div.mag-info").slideDown();
 												$(this).parent().siblings("div.mag-taqarir").slideUp();
+												$(this).addClass("active");
+												$(this).siblings(".magInveButton").removeClass("active");
 												return false;
 											});
 											
@@ -1111,6 +1117,8 @@ myDB.transaction(function(transaction){
 											$(".magInveButton").bind("tap",function(){
 												$(this).parent().siblings("div.mag-taqarir").slideDown();
 												$(this).parent().siblings("div.mag-info").slideUp();
+												$(this).addClass("active");
+												$(this).siblings(".magInfoButton").removeClass("active");
 												return false;
 											});
 											
@@ -1314,7 +1322,7 @@ myDB.transaction(function(transaction){
 													</div> \
 													<div class="mag-details"> \
 														<div class="mag-details-top-button"> \
-															<a href="#" class="magInfoButton"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+															<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
 															<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
 														</div> \
 														<div class="mag-taqarir" style="display:none"> \
@@ -1354,6 +1362,8 @@ myDB.transaction(function(transaction){
 													$(".magInfoButton").bind("tap",function(){
 														$(this).parent().siblings("div.mag-info").slideDown();
 														$(this).parent().siblings("div.mag-taqarir").slideUp();
+														$(this).addClass("active");
+														$(this).siblings(".magInveButton").removeClass("active");
 														return false;
 													});
 													
@@ -1361,6 +1371,8 @@ myDB.transaction(function(transaction){
 													$(".magInveButton").bind("tap",function(){
 														$(this).parent().siblings("div.mag-taqarir").slideDown();
 														$(this).parent().siblings("div.mag-info").slideUp();
+														$(this).addClass("active");
+														$(this).siblings(".magInfoButton").removeClass("active");
 														return false;
 													});
 													
@@ -1608,7 +1620,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 											</div> \
 											<div class="mag-details"> \
 												<div class="mag-details-top-button"> \
-													<a href="#" class="magInfoButton"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+													<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
 													<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
 												</div> \
 												<div class="mag-taqarir" style="display:none"> \
@@ -1648,6 +1660,8 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 											$(".magInfoButton").bind("tap",function(){
 												$(this).parent().siblings("div.mag-info").slideDown();
 												$(this).parent().siblings("div.mag-taqarir").slideUp();
+												$(this).addClass("active");
+												$(this).siblings(".magInveButton").removeClass("active");
 												return false;
 											});
 											
@@ -1655,6 +1669,8 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 											$(".magInveButton").bind("tap",function(){
 												$(this).parent().siblings("div.mag-taqarir").slideDown();
 												$(this).parent().siblings("div.mag-info").slideUp();
+												$(this).addClass("active");
+												$(this).siblings(".magInfoButton").removeClass("active");
 												return false;
 											});
 											
@@ -1854,7 +1870,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 							</div> \
 							<div class="mag-details"> \
 								<div class="mag-details-top-button"> \
-									<a href="#" class="magInfoButton"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+									<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
 									<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
 								</div> \
 								<div class="mag-taqarir" style="display:none"> \
@@ -1895,6 +1911,8 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 							$(".magInfoButton").bind("tap",function(){
 								$(this).parent().siblings("div.mag-info").slideDown();
 								$(this).parent().siblings("div.mag-taqarir").slideUp();
+								$(this).addClass("active");
+								$(this).siblings(".magInveButton").removeClass("active");
 								return false;
 							});
 							
@@ -1902,6 +1920,8 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 							$(".magInveButton").bind("tap",function(){
 								$(this).parent().siblings("div.mag-taqarir").slideDown();
 								$(this).parent().siblings("div.mag-info").slideUp();
+								$(this).addClass("active");
+								$(this).siblings(".magInfoButton").removeClass("active");
 								return false;
 							});
 							
@@ -2115,7 +2135,7 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 							</div> \
 							<div class="mag-details"> \
 								<div class="mag-details-top-button"> \
-									<a href="#" class="magInfoButton"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+									<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
 									<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
 								</div> \
 								<div class="mag-taqarir" style="display:none"> \
@@ -2155,6 +2175,8 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 							$(".magInfoButton").bind("tap",function(){
 								$(this).parent().siblings("div.mag-info").slideDown();
 								$(this).parent().siblings("div.mag-taqarir").slideUp();
+								$(this).addClass("active");
+								$(this).siblings(".magInveButton").removeClass("active");
 								return false;
 							});
 							
@@ -2162,6 +2184,8 @@ $(".istighrab_mag_list .nano").bind("scrolltop", function(e){
 							$(".magInveButton").bind("tap",function(){
 								$(this).parent().siblings("div.mag-taqarir").slideDown();
 								$(this).parent().siblings("div.mag-info").slideUp();
+								$(this).addClass("active");
+								$(this).siblings(".magInfoButton").removeClass("active");
 								return false;
 							});
 							
