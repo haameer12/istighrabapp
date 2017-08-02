@@ -598,8 +598,8 @@ myDB.transaction(function(transaction){
 										$(".magInfoButton").bind("tap",function(){
 											$(this).parent().siblings("div.mag-info").slideDown();
 											$(this).parent().siblings("div.mag-taqarir").slideUp();
-											$(this).hide();
-											$(this).siblings(".magInveButton").show();
+											$(this).removeClass("active");
+											$(this).siblings(".magInveButton").addClass("active");
 											return false;
 										});
 										
@@ -607,8 +607,8 @@ myDB.transaction(function(transaction){
 										$(".magInveButton").bind("tap",function(){
 											$(this).parent().siblings("div.mag-taqarir").slideDown();
 											$(this).parent().siblings("div.mag-info").slideUp();
-											$(this).hide();
-											$(this).siblings(".magInfoButton").show();
+											$(this).removeClass("active");
+											$(this).siblings(".magInfoButton").addClass("active");
 											return false;
 										});
 										
