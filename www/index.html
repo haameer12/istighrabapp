@@ -558,7 +558,7 @@ myDB.transaction(function(transaction){
 										</div> \
 										<div class="mag-details"> \
 											<div class="mag-details-top-button"> \
-												<a href="#" class="magInfoButton" style="display:none"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+												<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
 												<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
 											</div> \
 											<div class="mag-taqarir" style="display:none"> \
@@ -2909,6 +2909,10 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 				padding:1.2vh 1.5vh 0.7vh 1.7vh;
 				text-align:right;
 				color:#8f9fad;
+			}
+			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a.active{
+				background:#c2dfe2;
+				color:#4aa1a9;
 			}
 			.istighrab_mag_list .mag_item .mag-details .mag-details-top-button a i.fa{
 				color:#8f9fad;
