@@ -1498,523 +1498,526 @@ myDB.transaction(function(transaction){
 $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 
 	//window.alert("scrollend");
-	
-	myDB.transaction(function(transaction){
-		
-		var limit = 6;
-		transaction.executeSql(
-			"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort < ? ORDER BY sort DESC, id DESC LIMIT ?",
-			[$("#magListCon").attr("lastMagInListSortNum"), limit],
-			function(tx, result){
-				
-				if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج المعلومات المراده
-					
-					getMagRequestObj = $.ajax({
-						type : 'get',
-						url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?last_item=" +$("#magListCon").attr("lastMagInListSortNum") +"&item_num=6",
-						async : false,
-						jsonpCallback : "istighrabMagCallBack",
-						contentType : "application/json",
-						dataType : 'jsonp',
-						success : function(json){
-						
-							$.each(json, function(key, val){
-					
-								myDB.transaction(function(transaction){
-	
-									transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
-									function(tx, result) {
-										//window.alert("Inserted");
+	if($("#magListCon").attr("getOldItemsInProcess") == "0"){
 
-										$("#magListCon").attr("lastMagInListSortNum", val['sort']);
-										$("#magListCon").append('<div class="mag_item" magID="' +val['id'] +'"> \
-											<div class="mag_item_in"> \
-												<div class="mag-name"> \
-													<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
-													<div class="mag-name-num">' +magNumArray[val['name']] +'</div> \
-												</div> \
-												<div class="mag-title-middle-holder">&nbsp;</div> \
-												<div class="mag-title"> \
-												' +((val['mag_num_title'] != null)? "ملف العدد : " +val['mag_num_title'] :  "&nbsp;") +' \
-												</div> \
-												<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +val['pdf_path'] +'\', \'system\');return false;"></a> \
-												<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
-											</div> \
-											<div class="mag-details"> \
-												<div class="mag-details-top-button"> \
-													<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
-													<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
-												</div> \
-												<div class="mag-taqarir" style="display:none"> \
- \
-													<table class="HHH-table"> \
-														<thead> \
-															<tr> \
-																<th>عنوان البحث</th> \
-																<th>الباحث</th> \
-																<th>تحمیل</th> \
-															</tr> \
-														</thead> \
-														<tbody id="magInveCon' +val['id'] +'"> \
-															<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
-														</tbody> \
-													</table> \
- \
-												</div> \
-												<div class="mag-info"> \
- \
-													<div class="mag-info-win"> \
-														<div class="mag-info-win-title">معلومات العدد</div> \
-														<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"> \
-															<div class="mag-in-data-loading"></div> \
-														</div> \
+		$("#magListCon").attr("getOldItemsInProcess", "1");
+		myDB.transaction(function(transaction){
+
+			var limit = 6;
+			transaction.executeSql(
+				"SELECT id, sort, name, protected, pdf_path, mag_num_title FROM istighrab_mag WHERE sort < ? ORDER BY sort DESC, id DESC LIMIT ?",
+				[$("#magListCon").attr("lastMagInListSortNum"), limit],
+				function(tx, result){
+
+					if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج المعلومات المراده
+
+						getMagRequestObj = $.ajax({
+							type : 'get',
+							url : "http://istighrab.iicss.iq/app/json_istighrab_mag.php?last_item=" +$("#magListCon").attr("lastMagInListSortNum") +"&item_num=6",
+							async : false,
+							jsonpCallback : "istighrabMagCallBack",
+							contentType : "application/json",
+							dataType : 'jsonp',
+							success : function(json){
+
+								$.each(json, function(key, val){
+
+									myDB.transaction(function(transaction){
+
+										transaction.executeSql("INSERT INTO istighrab_mag (id, sort, name, protected, pdf_path, mag_num_title) VALUES (?, ?, ?, ?, ?, ?)", [val['id'], val['sort'], val['name'], val['protected'], val['pdf_path'], val['mag_num_title'] ],
+										function(tx, result) {
+											//window.alert("Inserted");
+
+											$("#magListCon").attr("lastMagInListSortNum", val['sort']);
+											$("#magListCon").append('<div class="mag_item" magID="' +val['id'] +'"> \
+												<div class="mag_item_in"> \
+													<div class="mag-name"> \
+														<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
+														<div class="mag-name-num">' +magNumArray[val['name']] +'</div> \
 													</div> \
- \
+													<div class="mag-title-middle-holder">&nbsp;</div> \
+													<div class="mag-title"> \
+													' +((val['mag_num_title'] != null)? "ملف العدد : " +val['mag_num_title'] :  "&nbsp;") +' \
+													</div> \
+													<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +val['pdf_path'] +'\', \'system\');return false;"></a> \
+													<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
 												</div> \
-											</div> \
-										</div>');
+												<div class="mag-details"> \
+													<div class="mag-details-top-button"> \
+														<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+														<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
+													</div> \
+													<div class="mag-taqarir" style="display:none"> \
+ \
+														<table class="HHH-table"> \
+															<thead> \
+																<tr> \
+																	<th>عنوان البحث</th> \
+																	<th>الباحث</th> \
+																	<th>تحمیل</th> \
+																</tr> \
+															</thead> \
+															<tbody id="magInveCon' +val['id'] +'"> \
+																<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+															</tbody> \
+														</table> \
+ \
+													</div> \
+													<div class="mag-info"> \
+ \
+														<div class="mag-info-win"> \
+															<div class="mag-info-win-title">معلومات العدد</div> \
+															<div class="mag-info-win-text" id="magTextCon' +val['id'] +'"> \
+																<div class="mag-in-data-loading"></div> \
+															</div> \
+														</div> \
+ \
+													</div> \
+												</div> \
+											</div>');
 
-										if((key+1) == json.length){
-									
-											$(".istighrab_mag_list .nano").nanoScroller();
-											
-											$(".magInfoButton").unbind("tap");
-											$(".magInfoButton").bind("tap",function(){
-												$(this).parent().siblings("div.mag-info").slideDown();
-												$(this).parent().siblings("div.mag-taqarir").slideUp();
-												$(this).addClass("active");
-												$(this).siblings(".magInveButton").removeClass("active");
-												return false;
-											});
-											
-											$(".magInveButton").unbind("tap");
-											$(".magInveButton").bind("tap",function(){
-												$(this).parent().siblings("div.mag-taqarir").slideDown();
-												$(this).parent().siblings("div.mag-info").slideUp();
-												$(this).addClass("active");
-												$(this).siblings(".magInfoButton").removeClass("active");
-												return false;
-											});
-											
-											$(".mag_item_in").unbind("tap");
-											$(".mag_item_in").bind("tap",function(){
-												//mag-opened
-												
-												
-												
-												//window.alert("ok2");
-												
-												var tapedMag = $(this).parent();
-												var tapedMagID = tapedMag.attr("magID");
-					
-												var isMagOpened = tapedMag.hasClass("mag-opened");
-												$(".mag_item_in").parent().removeClass("mag-opened");
-												if(!isMagOpened){
-													tapedMag.addClass("mag-opened");
-												}else{
+											if((key+1) == json.length){
+
+												$(".istighrab_mag_list .nano").nanoScroller();
+
+												$(".magInfoButton").unbind("tap");
+												$(".magInfoButton").bind("tap",function(){
+													$(this).parent().siblings("div.mag-info").slideDown();
+													$(this).parent().siblings("div.mag-taqarir").slideUp();
+													$(this).addClass("active");
+													$(this).siblings(".magInveButton").removeClass("active");
 													return false;
-												}
+												});
 
-												myDB.transaction(function(transaction){
-													
-													transaction.executeSql(
-														"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
-														[tapedMagID],
-														function(tx, result){
-															
-															if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
-												
-																getMagInveRequestObj = $.ajax({
-																	type : 'get',
-																	url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
-																	async : false,
-																	jsonpCallback : "istighrabMagInveCallBack",
-																	contentType : "application/json",
-																	dataType : 'jsonp',
-																	success : function(json){
-																		
-																		$("#magInveCon" +tapedMagID).html("");
-																		$.each(json, function(key, val){
-																
+												$(".magInveButton").unbind("tap");
+												$(".magInveButton").bind("tap",function(){
+													$(this).parent().siblings("div.mag-taqarir").slideDown();
+													$(this).parent().siblings("div.mag-info").slideUp();
+													$(this).addClass("active");
+													$(this).siblings(".magInfoButton").removeClass("active");
+													return false;
+												});
+
+												$(".mag_item_in").unbind("tap");
+												$(".mag_item_in").bind("tap",function(){
+													//mag-opened
+
+
+
+													//window.alert("ok2");
+
+													var tapedMag = $(this).parent();
+													var tapedMagID = tapedMag.attr("magID");
+
+													var isMagOpened = tapedMag.hasClass("mag-opened");
+													$(".mag_item_in").parent().removeClass("mag-opened");
+													if(!isMagOpened){
+														tapedMag.addClass("mag-opened");
+													}else{
+														return false;
+													}
+
+													myDB.transaction(function(transaction){
+
+														transaction.executeSql(
+															"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
+															[tapedMagID],
+															function(tx, result){
+
+																if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+																	getMagInveRequestObj = $.ajax({
+																		type : 'get',
+																		url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
+																		async : false,
+																		jsonpCallback : "istighrabMagInveCallBack",
+																		contentType : "application/json",
+																		dataType : 'jsonp',
+																		success : function(json){
+
+																			$("#magInveCon" +tapedMagID).html("");
+																			$.each(json, function(key, val){
+
+																				myDB.transaction(function(transaction){
+
+																					transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+																					function(tx, result) {
+																						//window.alert("Inserted");
+
+																						$("#magInveCon" +tapedMagID).append('<tr> \
+																							<td><a href="#">' +val['inve_title'] +'</a></td> \
+																							<td><a href="#">' +val['inve_author'] +'</a></td> \
+																							<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+																						</tr>');
+
+																					},
+																					function(error){
+																						notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
+																					});
+
+																				});
+
+																			});
+
+																		},
+																		error: function(e, errorReason){
+																			//console.log(e.message);
+																			if(errorReason != "abort"){
+																				notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+																			}
+
+																			getMagInveRequestObj = "";
+																		}
+																	});
+
+																}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+																	$("#magInveCon" +tapedMagID).html("");
+																	var i = 0;
+																	while(result.rows.item(i)){
+																		$("#magInveCon" +tapedMagID).append('<tr> \
+																			<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
+																			<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
+																			<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+																		</tr>');
+																		i++;
+																	}
+
+																}
+
+															},
+															function(error){
+																notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
+															}
+														);
+
+														transaction.executeSql(
+															"SELECT text FROM istighrab_mag_text WHERE mag_id = ?",
+															[tapedMagID],
+															function(tx, result){
+
+																if(result.rows.length < 1/* && result.rows.item(0).text != ""*/){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+																	getMagTextRequestObj = $.ajax({
+																		type : 'get',
+																		url : "http://istighrab.iicss.iq/app/json_istighrab_mag_text.php?mag_id=" +tapedMagID,
+																		async : false,
+																		jsonpCallback : "istighrabMagTextCallBack",
+																		contentType : "application/json",
+																		dataType : 'jsonp',
+																		success : function(json){
+
 																			myDB.transaction(function(transaction){
-												
-																				transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+
+																				transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, addslashes(json['text'])],
 																				function(tx, result) {
 																					//window.alert("Inserted");
-												
-																					$("#magInveCon" +tapedMagID).append('<tr> \
-																						<td><a href="#">' +val['inve_title'] +'</a></td> \
-																						<td><a href="#">' +val['inve_author'] +'</a></td> \
-																						<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-																					</tr>');
-																					
+
+																					$("#magTextCon" +tapedMagID).html(json['text']);
+
 																				},
 																				function(error){
 																					notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																				});
-																				
+
 																			});
-																
-																		});
-												
-																	},
-																	error: function(e, errorReason){
-																		//console.log(e.message);
-																		if(errorReason != "abort"){
-																			notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+
+																		},
+																		error: function(e, errorReason){
+																			//console.log(e.message);
+																			if(errorReason != "abort"){
+																				notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+																			}
+
+																			getMagTextRequestObj = "";
 																		}
-																		
-																		getMagInveRequestObj = "";
-																	}
-																});
-																
-															}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
-												
-																$("#magInveCon" +tapedMagID).html("");
-																var i = 0;
-																while(result.rows.item(i)){
-																	$("#magInveCon" +tapedMagID).append('<tr> \
-																		<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
-																		<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
-																		<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-																	</tr>');
-																	i++;
+																	});
+
+																}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+																	$("#magTextCon" +tapedMagID).html(stripslashes(result.rows.item(0).text) );
+
 																}
-																
+
+															},
+															function(error){
+																notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 															}
-												
-														},
-														function(error){
-															notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
-														}
-													);
-	
-													transaction.executeSql(
-														"SELECT text FROM istighrab_mag_text WHERE mag_id = ?",
-														[tapedMagID],
-														function(tx, result){
-															
-															if(result.rows.length < 1/* && result.rows.item(0).text != ""*/){//لا توجد في قاعدة بيانات البرنامج اي معلومه
-												
-																getMagTextRequestObj = $.ajax({
-																	type : 'get',
-																	url : "http://istighrab.iicss.iq/app/json_istighrab_mag_text.php?mag_id=" +tapedMagID,
-																	async : false,
-																	jsonpCallback : "istighrabMagTextCallBack",
-																	contentType : "application/json",
-																	dataType : 'jsonp',
-																	success : function(json){
-												
-																		myDB.transaction(function(transaction){
-												
-																			transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, addslashes(json['text'])],
-																			function(tx, result) {
-																				//window.alert("Inserted");
-												
-																				$("#magTextCon" +tapedMagID).html(json['text']);
-												
-																			},
-																			function(error){
-																				notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
-																			});
-																			
-																		});
-																
-																	},
-																	error: function(e, errorReason){
-																		//console.log(e.message);
-																		if(errorReason != "abort"){
-																			notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
-																		}
-																		
-																		getMagTextRequestObj = "";
-																	}
-																});
-																
-															}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
-												
-																$("#magTextCon" +tapedMagID).html(stripslashes(result.rows.item(0).text) );
-																
-															}
-												
-														},
-														function(error){
-															notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
-														}
-													);
-	
+														);
+
+													});
+
 												});
 
-											});
-											
-										}
+											}
 
-									},
-									function(error){
-										notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
+										},
+										function(error){
+											notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
+										});
+
 									});
-									
-								});
-					
-							});
-							
-					
-								
-						},
-						error: function(e, errorReason){
-							//console.log(e.message);
-							if(errorReason != "abort"){
-								//notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
-							}
-							
-							getMagRequestObj = "";
-						}
-					});
-					
-				}else{//توجد في قاعدة بيانات البرنامج المعلومات
-				
-					var i = 0;
-					while(result.rows.item(i)){
-						$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
-						$("#magListCon").append('<div class="mag_item" magID="' +result.rows.item(i).id +'"> \
-							<div class="mag_item_in"> \
-								<div class="mag-name"> \
-									<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
-									<div class="mag-name-num">' +magNumArray[result.rows.item(i).name] +'</div> \
-								</div> \
-								<div class="mag-title-middle-holder">&nbsp;</div> \
-								<div class="mag-title"> \
-								' +((result.rows.item(i).mag_num_title != null)? "ملف العدد : " +result.rows.item(i).mag_num_title :  "&nbsp;") +' \
-								</div> \
-								<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +result.rows.item(i).pdf_path +'\', \'system\');return false;"></a> \
-								<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
-							</div> \
-							<div class="mag-details"> \
-								<div class="mag-details-top-button"> \
-									<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
-									<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
-								</div> \
-								<div class="mag-taqarir" style="display:none"> \
- \
-									<table class="HHH-table"> \
-										<thead> \
-											<tr> \
-												<th>عنوان البحث</th> \
-												<th>الباحث</th> \
-												<th>تحمیل</th> \
-											</tr> \
-										</thead> \
-										<tbody id="magInveCon' +result.rows.item(i).id +'"> \
-											<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
-										</tbody> \
-									</table> \
- \
-								</div> \
-								<div class="mag-info"> \
- \
-									<div class="mag-info-win"> \
-										<div class="mag-info-win-title">معلومات العدد</div> \
-										<div class="mag-info-win-text" id="magTextCon' +result.rows.item(i).id +'"> \
-											<div class="mag-in-data-loading"></div> \
-										</div> \
-									</div> \
- \
-								</div> \
-							</div> \
-						</div>');
-						i++;
 
-						if(i == result.rows.length){
-					
-							$(".istighrab_mag_list .nano").nanoScroller();
-							
-							$(".magInfoButton").unbind("tap");
-							$(".magInfoButton").bind("tap",function(){
-								$(this).parent().siblings("div.mag-info").slideDown();
-								$(this).parent().siblings("div.mag-taqarir").slideUp();
-								$(this).addClass("active");
-								$(this).siblings(".magInveButton").removeClass("active");
-								return false;
-							});
-							
-							$(".magInveButton").unbind("tap");
-							$(".magInveButton").bind("tap",function(){
-								$(this).parent().siblings("div.mag-taqarir").slideDown();
-								$(this).parent().siblings("div.mag-info").slideUp();
-								$(this).addClass("active");
-								$(this).siblings(".magInfoButton").removeClass("active");
-								return false;
-							});
-							
-							$(".mag_item_in").unbind("tap");
-							$(".mag_item_in").bind("tap",function(){
-								//mag-opened
-								
-								
-								
-								//window.alert("ok2");
-								
-								var tapedMag = $(this).parent();
-								var tapedMagID = tapedMag.attr("magID");
-	
-								var isMagOpened = tapedMag.hasClass("mag-opened");
-								$(".mag_item_in").parent().removeClass("mag-opened");
-								if(!isMagOpened){
-									tapedMag.addClass("mag-opened");
-								}else{
-									return false;
+								});
+
+
+
+							},
+							error: function(e, errorReason){
+								//console.log(e.message);
+								if(errorReason != "abort"){
+									//notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
 								}
 
-								myDB.transaction(function(transaction){
-									
-									transaction.executeSql(
-										"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
-										[tapedMagID],
-										function(tx, result){
-											
-											if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
-								
-												getMagInveRequestObj = $.ajax({
-													type : 'get',
-													url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
-													async : false,
-													jsonpCallback : "istighrabMagInveCallBack",
-													contentType : "application/json",
-													dataType : 'jsonp',
-													success : function(json){
-														
-														$("#magInveCon" +tapedMagID).html("");
-														$.each(json, function(key, val){
-												
+								getMagRequestObj = "";
+							}
+						});
+
+					}else{//توجد في قاعدة بيانات البرنامج المعلومات
+
+						var i = 0;
+						while(result.rows.item(i)){
+							$("#magListCon").attr("lastMagInListSortNum", result.rows.item(i).sort);
+							$("#magListCon").append('<div class="mag_item" magID="' +result.rows.item(i).id +'"> \
+								<div class="mag_item_in"> \
+									<div class="mag-name"> \
+										<img class="mag-name-logo" src="img/mag-list-logo.png" /> \
+										<div class="mag-name-num">' +magNumArray[result.rows.item(i).name] +'</div> \
+									</div> \
+									<div class="mag-title-middle-holder">&nbsp;</div> \
+									<div class="mag-title"> \
+									' +((result.rows.item(i).mag_num_title != null)? "ملف العدد : " +result.rows.item(i).mag_num_title :  "&nbsp;") +' \
+									</div> \
+									<a class="mag-download fa fa-cloud-download" aria-hidden="true" href="#" onclick="openUrl(\'http://istighrab.iicss.iq/' +result.rows.item(i).pdf_path +'\', \'system\');return false;"></a> \
+									<div class="mag-details-up-arrow under"></div><div class="mag-details-up-arrow"></div> \
+								</div> \
+								<div class="mag-details"> \
+									<div class="mag-details-top-button"> \
+										<a href="#" class="magInfoButton active"><i class="fa fa-align-right" aria-hidden="true"></i> <span>تفاصيل العدد</span></a> \
+										<a href="#" class="magInveButton"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span>ابحاث العدد</span></a> \
+									</div> \
+									<div class="mag-taqarir" style="display:none"> \
+ \
+										<table class="HHH-table"> \
+											<thead> \
+												<tr> \
+													<th>عنوان البحث</th> \
+													<th>الباحث</th> \
+													<th>تحمیل</th> \
+												</tr> \
+											</thead> \
+											<tbody id="magInveCon' +result.rows.item(i).id +'"> \
+												<tr><td colspan="3"><div class="mag-in-data-loading"></div>.....................................</td></tr> \
+											</tbody> \
+										</table> \
+ \
+									</div> \
+									<div class="mag-info"> \
+ \
+										<div class="mag-info-win"> \
+											<div class="mag-info-win-title">معلومات العدد</div> \
+											<div class="mag-info-win-text" id="magTextCon' +result.rows.item(i).id +'"> \
+												<div class="mag-in-data-loading"></div> \
+											</div> \
+										</div> \
+ \
+									</div> \
+								</div> \
+							</div>');
+							i++;
+
+							if(i == result.rows.length){
+
+								$(".istighrab_mag_list .nano").nanoScroller();
+
+								$(".magInfoButton").unbind("tap");
+								$(".magInfoButton").bind("tap",function(){
+									$(this).parent().siblings("div.mag-info").slideDown();
+									$(this).parent().siblings("div.mag-taqarir").slideUp();
+									$(this).addClass("active");
+									$(this).siblings(".magInveButton").removeClass("active");
+									return false;
+								});
+
+								$(".magInveButton").unbind("tap");
+								$(".magInveButton").bind("tap",function(){
+									$(this).parent().siblings("div.mag-taqarir").slideDown();
+									$(this).parent().siblings("div.mag-info").slideUp();
+									$(this).addClass("active");
+									$(this).siblings(".magInfoButton").removeClass("active");
+									return false;
+								});
+
+								$(".mag_item_in").unbind("tap");
+								$(".mag_item_in").bind("tap",function(){
+									//mag-opened
+
+
+
+									//window.alert("ok2");
+
+									var tapedMag = $(this).parent();
+									var tapedMagID = tapedMag.attr("magID");
+
+									var isMagOpened = tapedMag.hasClass("mag-opened");
+									$(".mag_item_in").parent().removeClass("mag-opened");
+									if(!isMagOpened){
+										tapedMag.addClass("mag-opened");
+									}else{
+										return false;
+									}
+
+									myDB.transaction(function(transaction){
+
+										transaction.executeSql(
+											"SELECT id, inve_title, inve_author, inve_file_path FROM istighrab_mag_investigations WHERE mag_id = ? ORDER BY id ASC",
+											[tapedMagID],
+											function(tx, result){
+
+												if(result.rows.length < 1){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+													getMagInveRequestObj = $.ajax({
+														type : 'get',
+														url : "http://istighrab.iicss.iq/app/json_istighrab_mag_inve_items.php?mag_id=" +tapedMagID,
+														async : false,
+														jsonpCallback : "istighrabMagInveCallBack",
+														contentType : "application/json",
+														dataType : 'jsonp',
+														success : function(json){
+
+															$("#magInveCon" +tapedMagID).html("");
+															$.each(json, function(key, val){
+
+																myDB.transaction(function(transaction){
+
+																	transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+																	function(tx, result) {
+																		//window.alert("Inserted");
+
+																		$("#magInveCon" +tapedMagID).append('<tr> \
+																			<td><a href="#">' +val['inve_title'] +'</a></td> \
+																			<td><a href="#">' +val['inve_author'] +'</a></td> \
+																			<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+																		</tr>');
+
+																	},
+																	function(error){
+																		notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
+																	});
+
+																});
+
+															});
+
+														},
+														error: function(e, errorReason){
+															//console.log(e.message);
+															if(errorReason != "abort"){
+																notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+															}
+
+															getMagInveRequestObj = "";
+														}
+													});
+
+												}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+													$("#magInveCon" +tapedMagID).html("");
+													var i = 0;
+													while(result.rows.item(i)){
+														$("#magInveCon" +tapedMagID).append('<tr> \
+															<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
+															<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
+															<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
+														</tr>');
+														i++;
+													}
+
+												}
+
+											},
+											function(error){
+												notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
+											}
+										);
+
+										transaction.executeSql(
+											"SELECT text FROM istighrab_mag_text WHERE mag_id = ?",
+											[tapedMagID],
+											function(tx, result){
+
+												if(result.rows.length < 1/* && result.rows.item(0).text != ""*/){//لا توجد في قاعدة بيانات البرنامج اي معلومه
+
+													getMagTextRequestObj = $.ajax({
+														type : 'get',
+														url : "http://istighrab.iicss.iq/app/json_istighrab_mag_text.php?mag_id=" +tapedMagID,
+														async : false,
+														jsonpCallback : "istighrabMagTextCallBack",
+														contentType : "application/json",
+														dataType : 'jsonp',
+														success : function(json){
+
 															myDB.transaction(function(transaction){
-								
-																transaction.executeSql("INSERT INTO istighrab_mag_investigations (id, mag_id, inve_title, inve_author, inve_file_path) VALUES (?, ?, ?, ?, ?)", [val['id'], tapedMagID, val['inve_title'], val['inve_author'], val['inve_file_path']],
+
+																transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, addslashes(json['text'])],
 																function(tx, result) {
 																	//window.alert("Inserted");
-								
-																	$("#magInveCon" +tapedMagID).append('<tr> \
-																		<td><a href="#">' +val['inve_title'] +'</a></td> \
-																		<td><a href="#">' +val['inve_author'] +'</a></td> \
-																		<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +val['inve_file_path'] +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-																	</tr>');
-																	
+
+																	$("#magTextCon" +tapedMagID).html(json['text']);
+
 																},
 																function(error){
 																	notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 																});
-																
-															});
-												
-														});
-								
-													},
-													error: function(e, errorReason){
-														//console.log(e.message);
-														if(errorReason != "abort"){
-															notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
-														}
-														
-														getMagInveRequestObj = "";
-													}
-												});
-												
-											}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
-								
-												$("#magInveCon" +tapedMagID).html("");
-												var i = 0;
-												while(result.rows.item(i)){
-													$("#magInveCon" +tapedMagID).append('<tr> \
-														<td><a href="#">' +result.rows.item(i).inve_title +'</a></td> \
-														<td><a href="#">' +result.rows.item(i).inve_author +'</a></td> \
-														<td><a href="#" onclick="openUrl(\'http://istighrab.iicss.iq/files/investigations/' +result.rows.item(i).inve_file_path +'\', \'system\');return false;"><i class="fa fa-download" aria-hidden="true"></i></a></td> \
-													</tr>');
-													i++;
-												}
-												
-											}
-								
-										},
-										function(error){
-											notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
-										}
-									);
 
-									transaction.executeSql(
-										"SELECT text FROM istighrab_mag_text WHERE mag_id = ?",
-										[tapedMagID],
-										function(tx, result){
-											
-											if(result.rows.length < 1/* && result.rows.item(0).text != ""*/){//لا توجد في قاعدة بيانات البرنامج اي معلومه
-								
-												getMagTextRequestObj = $.ajax({
-													type : 'get',
-													url : "http://istighrab.iicss.iq/app/json_istighrab_mag_text.php?mag_id=" +tapedMagID,
-													async : false,
-													jsonpCallback : "istighrabMagTextCallBack",
-													contentType : "application/json",
-													dataType : 'jsonp',
-													success : function(json){
-								
-														myDB.transaction(function(transaction){
-								
-															transaction.executeSql("INSERT INTO istighrab_mag_text (mag_id, text) VALUES (?, ?)", [tapedMagID, addslashes(json['text'])],
-															function(tx, result) {
-																//window.alert("Inserted");
-								
-																$("#magTextCon" +tapedMagID).html(json['text']);
-								
-															},
-															function(error){
-																notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in insert");
 															});
-															
-														});
-												
-													},
-													error: function(e, errorReason){
-														//console.log(e.message);
-														if(errorReason != "abort"){
-															notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+
+														},
+														error: function(e, errorReason){
+															//console.log(e.message);
+															if(errorReason != "abort"){
+																notify('لم يتم التحميل بنجاح! تفحص وسائل الإتصال', 'error', 4000, 'bottom', 'Up', 'Down');
+															}
+
+															getMagTextRequestObj = "";
 														}
-														
-														getMagTextRequestObj = "";
-													}
-												});
-												
-											}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
-								
-												$("#magTextCon" +tapedMagID).html(stripslashes(result.rows.item(0).text) );
-												
+													});
+
+												}else{//توجد في قاعدة بيانات البرنامج المعلومات لكن يجب تجيك هل توجد ضمنها اخر المعلومات المدرجه في السيرفر
+
+													$("#magTextCon" +tapedMagID).html(stripslashes(result.rows.item(0).text) );
+
+												}
+
+											},
+											function(error){
+												notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 											}
-								
-										},
-										function(error){
-											notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
-										}
-									);
+										);
+
+									});
 
 								});
-								
-							});
-							
+
+							}
+
+
 						}
 
 
 					}
-					
-					
+
+				},
+				function(error){
+					notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
 				}
+			);
 
-			},
-			function(error){
-				notify('للاسف هناك مشكلة تمنع البرنامج من العمل', 'error', 4000, 'bottom', 'Up', 'Down');//window.alert("Error occurred in select");
-			}
-		);
+		});
 
-	});
-
-	//window.alert("lastMagInListSortNum : " +$("#magListCon").attr("lastMagInListSortNum") );
-
+		//window.alert("lastMagInListSortNum : " +$("#magListCon").attr("lastMagInListSortNum") );
+	}
+	
 });
 
 
@@ -2642,7 +2645,7 @@ $(".istighrab_mag_list .nano").nanoScroller({ alwaysVisible: true });
 					.istighrab_mag_list .nano .nano-slider { background: #d4d2d2 !important; border-radius:0 !important; }
 					</style>
 					<div class="nano">
-						<div class="nano-content" id="magListCon" firstMagInListSortNum="0" lastMagInListSortNum="0"></div>
+						<div class="nano-content" id="magListCon" firstMagInListSortNum="0" lastMagInListSortNum="0" getNewItemsInProcess="0" getOldItemsInProcess="0"></div>
 					</div>
 				</div>
 
