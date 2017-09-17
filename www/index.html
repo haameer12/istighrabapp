@@ -1498,9 +1498,11 @@ myDB.transaction(function(transaction){
 $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 
 	//window.alert("scrollend");
-	if($("#magListCon").attr("getOldItemsInProcess") == "1"){
-
+	if($("#magListCon").attr("getOldItemsInProcess") == "0"){
+		
 		$("#magListCon").attr("getOldItemsInProcess", "1");
+		window.alert($("#magListCon").attr("getOldItemsInProcess"));
+		
 		myDB.transaction(function(transaction){
 
 			var limit = 6;
