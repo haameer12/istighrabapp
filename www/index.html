@@ -1498,6 +1498,7 @@ myDB.transaction(function(transaction){
 $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 
 	//window.alert("scrollend");
+	setTimeout(function(){
 	if($("#magListCon").attr("getOldItemsInProcess") == "0"){
 		
 		$("#magListCon").attr("getOldItemsInProcess", "1");
@@ -2018,6 +2019,7 @@ $(".istighrab_mag_list .nano").bind("scrollend", function(e){
 
 		//window.alert("lastMagInListSortNum : " +$("#magListCon").attr("lastMagInListSortNum") );
 	}
+	}, 20);
 	
 });
 
