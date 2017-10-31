@@ -24,6 +24,8 @@
 	<script src="engine/third-party/nanoScrollerJS/bin/javascripts/jquery.nanoscroller.js"></script>
 	<script src="engine/third-party/nanoScrollerJS/bin/javascripts/overthrow.min.js"></script>
 	
+	<script type="text/javascript" charset="utf-8" src="engine/js/notification.js"></script>
+	
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	
     <script type="text/javascript" charset="utf-8" src="engine/src/af.shim.js"></script>
@@ -216,96 +218,7 @@
 	
 
 	<script type="text/javascript" charset="utf-8">
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// START push Notification :////////////////////////////////////////////////////////////////
-	function onNotificationGCM(e){
-		$("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
-
-		switch(e.event){
-		case 'registered':
-			if( e.regid.length > 0){
-			///Android
-				$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
-				// Your GCM push server needs to know the regID before it can push to this device
-				// here is where you might want to send it the regID for later use.
-				$.ajax({
-					type: "POST",
-					url: "http://192.168.1.100/set_phone_key.php",
-					data: {regID : e.regid,user:device.uuid,OS:device.platform},
-					async: false,
-					success : function(text){
-						//last_articles_version = text;
-						$("#app-status-ul").append('<li>EVENT -> RECEIVED: Rgister to server is finished : ' + text + '</li>');
-						console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    Notification registration text : ' + text);
-					}
-				});
-			}
-		break;
-
-		case 'message':
-			// if this flag is set, this notification happened while we were in the foreground.
-			// you might want to play a sound to get the user's attention, throw up a dialog, etc.
-			if(e.foreground){
-				
-				$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
-				//must have vibration
-				
-				//notify(e.payload.message, 'information', 8000, 'topCenter');
-				notify('<div class="activity-item"> <i class="fa fa-shopping-cart text-success"></i> <div class="activity"> <a href="#">Eugene</a> ' +e.payload.message +' <a href="#">OEM license</a> <span>14 minutes ago</span> </div> </div>', 'information', 8000, 'top', 'Left', 'Right');
-
-				// if the notification contains a soundname, play it.
-				//var my_media = new Media("/android_asset/www/"+e.soundname);
-				//my_media.play();
-				
-			}else{  // otherwise we were launched because the user touched a notification in the notification tray.
-				
-				if(e.coldstart){
-					$("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
-					window.alert('coldstart');
-				}else{
-					$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
-					window.alert('background');
-				}
-				
-			}
-			
-			//alert(e.payload.message);
-			/*navigator.notification.alert(
-				e.payload.message +' - ' +e.payload.msgcnt,  // message
-				"",                 // callback
-				'اشعار',            // title
-				'موافق'             // buttonName
-			);*/
-			//alert(e.payload.msgcnt);
-			
-			$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
-			$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
-			
-		break;
-
-		case 'error':
-			$("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
-		break;
-
-		default:
-			$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
-		break;
-	  }
-	}
-	function successHandler(result){
-		//alert('result = ' + result);
-		$("#app-status-ul").append('<li>REGISTERED -> result = ' + result + "</li>");
-
-	}
-	// result contains any error description text returned from the plugin call
-	function errorHandler(error){
-		//alert('error = ' + error);
-		$("#app-status-ul").append('<li>REGISTERED -> error = ' + error + "</li>");
-	}
-	// END push Notification ///////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
+	
 	
 	
 	
@@ -313,10 +226,24 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	function init(){           
-		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start init()');
 		document.addEventListener("deviceready", onDeviceReady, false);
 	}
+	
 	
 	var magNumArray = ["۰", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩", "١۰", "١١", "١٢", "١٣", "١٤", "١٥", "١٦", "١٧", "١٨", "١٩", "٢۰", "٢١", "٢٢", "٢٣", "٢٤", "٢٥", "٢٦", "٢٧", "٢٨", "٢٩", "٣۰", "٣١", "٣٢", "٣٣", "٣٤", "٣٥", "٣٦", "٣٧", "٣٨", "٣٩", "٣", "٤۰", "٤١", "٤٢", "٤٣", "٤٤", "٤٥", "٤٦", "٤٧", "٤٨", "٤٩", "٥۰", "٥١", "٥٢", "٥٣", "٥٤", "٥٥", "٥٦", "٥٧", "٥٨", "٥٩", "٦۰", "٦١", "٦٢", "٦٣", "٦٤", "٦٥", "٦٦", "٦٧", "٦٨", "٦٩", "٧۰", "٧١", "٧٢", "٧٣", "٧٤", "٧٥", "٧٦", "٧٧", "٧٨", "٧٩", "٨۰", "٨١", "٨٢", "٨٣", "٨٤", "٨٥", "٨٦", "٨٧", "٨٨", "٨٩", "٩۰", "٩١", "٩٢", "٩٣", "٩٤", "٩٥", "٩٦", "٩٧", "٩٨", "٩٩", "١۰۰"];
 	var myDB = null;
@@ -337,51 +264,34 @@
 		
 		
 		
+		
+				
+		
 		setInterval(function(){
 			statusbarTransparent.enable();
 			StatusBar.show();
 		}, 5000);
 		
 		
-/*		
-		//FastClick.attach(document.body);
-		  
-		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    start onDeviceReady');
-			
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// START push Notification :////////////////////////////////////////////////////////////////
-		pushNotification = window.plugins.pushNotification;
+		
+		
+		
+		FastClick.attach(document.body);
+		
+		if(window.localStorage.getItem('uuid') == null){
+			window.plugins.uniqueDeviceID.get(function(uuid){ window.localStorage.setItem('uuid', uuid) }, function(uuid){ /*alert("uniqueDeviceIDfail" + uuid)*/ });
+		}else{}
+		
+		register_notification_home();
+		
+		
+		
+		
+		
+		
+		
 
-		console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    register_for_notifs : no // ' + device.platform);
-		if(device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos"){
-			pushNotification.register(successHandler,errorHandler,{"senderID":"1069136326484","ecb":"onNotificationGCM"});
-		}else{
-			pushNotification.register(tokenHandler,errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationGCM"});//"onNotificationAPN"});
-		}
-		
-		
-		//iPhone
-		function tokenHandler(result){
-			console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    Notification Callback Success! Result (ios) = '+result);
-			$.ajax({
-				type: "POST",
-				url: "http://192.168.1.100/set_phone_key.php", 
-				data: {regID : result,user:device.uuid,OS:device.platform},
-				async: false,
-				success : function(text){
-					console.log('SMGROUP ::::::::::::::::::::::::::::::::::::    Notification registration text : ' + text);
-				}
-			});
-		}
-	// END push Notification ///////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
-	
-	
-*/	
+
 	
 	
 	
