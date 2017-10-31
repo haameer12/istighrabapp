@@ -73,7 +73,7 @@ function register_notification_home() {
 			
 			
 			
-			var text_a = "<div class='noty-icon fa fa-bell-o'> </div><div class='noty-close icon close message'> </div><div class='noty-text'><h4 class='noty-title'>" +data.title +"</h4>" +data.message +((noty_button_function != '')? " <a class='open_content_link' href='#' onclick=\"" +noty_button_function +"return false;\">" +((data.additionalData.button_text != "")? data.additionalData.button_text : "متابعة...") +"</a>" : "") +"</div>";
+			var text_a = "<div class='noty-icon icon message message'>&nbsp;</div><div class='noty-close icon close message'>&nbsp;</div><div class='noty-text'><h4 class='noty-title'>" +data.title +"</h4>" +data.message +((noty_button_function != '')? " <a class='open_content_link' href='#' onclick=\"" +noty_button_function +"return false;\">" +((data.additionalData.button_text != "")? data.additionalData.button_text : "متابعة...") +"</a>" : "") +"</div>";
 			notify(text_a, 'information', 30000, 'top', 'Left', 'Right');
 			
 			
